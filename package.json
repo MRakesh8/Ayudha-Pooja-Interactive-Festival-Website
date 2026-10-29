@@ -1,0 +1,17 @@
+{
+  "name": "technitix",
+  "version": "1.0.0",
+  "description": "TECHNITIX Royal Palace Smart Door & Vision Lightgun Simulator",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "keywords": [
+    "technitix",
+    "lightgun",
+    "ayudha-pooja",
+    "simulator"
+  ],
+  "author": "TECHNITIX",
+  "license": "ISC"
+}

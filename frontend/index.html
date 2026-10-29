@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <title>TECHNITIX - Loading Royal Simulator</title>
+    <script>
+      // If localhost:8000 is running, redirect to localhost for full WebCam & WebSerial support!
+      if (window.location.protocol === 'file:') {
+        fetch('http://localhost:8000/finialpro1.html', { method: 'HEAD', mode: 'no-cors' })
+          .then(function() {
+            window.location.replace("http://localhost:8000/finialpro1.html");
+          })
+          .catch(function() {
+            window.location.replace("finialpro1.html");
+          });
+      } else {
+        window.location.replace("finialpro1.html");
+      }
+    </script>
+</head>
+<body style="background:#040106; color:#ffd700; font-family:sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; margin:0;">
+    <div style="text-align:center;">
+        <h2>👑 TECHNITIX Royal Simulator</h2>
+        <p>Loading... <a href="finialpro1.html" style="color:#00f5d4;">Click here for Simulator</a> &bull; <a href="media.html" style="color:#ffd700;">Click here for Media Player</a></p>
+    </div>
+</body>
+</html>

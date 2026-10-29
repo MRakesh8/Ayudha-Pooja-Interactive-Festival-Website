@@ -1,0 +1,4789 @@
+<!DOCTYPE html>
+<html lang="ta">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>TECHNITIX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Mukta+Malar:wght@600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --gold-glow: #ffc300;
+      --gold-leaf: linear-gradient(135deg, #fff2b2 0%, #ffd700 35%, #d49a00 70%, #996500 100%);
+      --gold-metallic: linear-gradient(90deg, #996500 0%, #ffdf73 30%, #ffd700 50%, #b8860b 80%, #664200 100%);
+      --wood-grain:
+        repeating-linear-gradient(90deg,
+          rgba(0, 0, 0, 0.22) 0px,
+          rgba(0, 0, 0, 0.22) 2px,
+          transparent 2px,
+          transparent 18px),
+        linear-gradient(180deg, #381305 0%, #220902 45%, #150501 100%);
+      --royal-cyan: #00f5d4;
+      --palace-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #040106;
+      color: #fff4dc;
+      font-family: 'Outfit', 'Mukta Malar', sans-serif;
+      user-select: none;
+    }
+
+    /* -------------------------------------------------------------
+   PALACE ENVIRONMENT & AMBIENT CANVAS (FULLSCREEN LANDSCAPE)
+------------------------------------------------------------- */
+    #palaceFx {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .palace-stage {
+      position: relative;
+      z-index: 2;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at 50% 25%, rgba(138, 51, 10, 0.4) 0%, transparent 65%),
+        radial-gradient(circle at 50% 80%, rgba(255, 140, 0, 0.12) 0%, transparent 50%),
+        linear-gradient(180deg, #09030c 0%, #050107 100%);
+      perspective: 1600px;
+      overflow: hidden;
+    }
+
+    /* Royal Palace Arch (மன்னர் அரண்மனை முகப்பு வளைவு) */
+    .palace-gate-wrapper {
+      position: relative;
+      width: min(88vw, 1280px);
+      height: min(84vh, 820px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+    }
+
+    /* =============================================================
+       AUTHENTIC DRAVIDIAN CHETTINAD TEAKWOOD PILLARS (அரண்மனைத் தூண்கள்)
+       Hand-carved antique teakwood, Bodhigai lotus brackets, temple bells & Ayudha Pooja tilaks
+    ============================================================= */
+    .palace-pillar {
+      position: absolute;
+      top: -2%;
+      height: 104%;
+      width: clamp(230px, 28vw, 410px);
+      z-index: 22;
+      pointer-events: none;
+      filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.98)) drop-shadow(0 0 25px rgba(255, 170, 0, 0.2));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .palace-pillar.left-pillar {
+      left: clamp(-190px, -19vw, -300px);
+    }
+
+    .palace-pillar.right-pillar {
+      right: clamp(-190px, -19vw, -300px);
+      transform: scaleX(-1);
+    }
+
+    .pillar-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.95)) contrast(1.1) brightness(1.04);
+      pointer-events: none;
+    }
+
+    /* =============================================================
+       AYUDHA POOJA MAVILAI THORANAM & MARIGOLD GARLANDS (மாவிலை தோரணம்)
+    ============================================================= */
+    .palace-mavilai-thoranam {
+      position: absolute;
+      top: clamp(-10px, -1.4vh, -5px);
+      left: -2%;
+      right: -2%;
+      height: clamp(75px, 9.5vw, 125px);
+      z-index: 22;
+      pointer-events: none;
+      overflow: visible;
+      filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.88));
+    }
+
+    .thoranam-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* =============================================================
+       UNIFIED HARMONIC GARLAND SWAY (ஒரே சீரான தோரண அசைவு)
+       Yellow Rope, Mango Leaves, and Bells move together as ONE
+       cohesive physical unit with 100% rock-solid synchronization!
+    ============================================================= */
+    .thoranam-unified-sway {
+      transform-origin: 500px 0px;
+      animation: thoranamGentleBreeze 8s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    @keyframes thoranamGentleBreeze {
+      0% {
+        transform: rotate(-1.2deg) translateY(-0.5px);
+      }
+      50% {
+        transform: rotate(0deg) translateY(0.3px);
+      }
+      100% {
+        transform: rotate(1.2deg) translateY(-0.5px);
+      }
+    }
+
+    /* Leaves and bells move in absolute sync with the garland rope */
+    .leaf-sway-item {
+      /* Permanently anchored to the garland rope knot */
+      pointer-events: none;
+    }
+
+    /* Authentic temple bells swinging gently in sync */
+    .swaying-bell {
+      pointer-events: none;
+    }
+
+    /* Ayudha Pooja Sacred Tilak on Doors (சந்தனம் & குங்குமம் பொட்டு) */
+    .door-ayudha-tilak {
+      position: absolute;
+      top: 22%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 7;
+      pointer-events: none;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.85));
+    }
+
+    .door-leaf-left .door-ayudha-tilak {
+      right: clamp(26px, 3.5vw, 60px);
+    }
+
+    .door-leaf-right .door-ayudha-tilak {
+      left: clamp(26px, 3.5vw, 60px);
+    }
+
+    .ayudha-sandal-smear {
+      width: clamp(28px, 3.4vw, 48px);
+      height: clamp(55px, 6.8vw, 95px);
+      background: radial-gradient(ellipse at 50% 50%, #ffd000 0%, #d49b00 55%, rgba(184, 134, 11, 0.4) 80%, transparent 100%);
+      border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+      opacity: 0.92;
+      transform: rotate(-1deg);
+    }
+
+    .ayudha-vibhuti-stripes {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      width: clamp(26px, 3.2vw, 44px);
+    }
+
+    .ayudha-vibhuti-stripes span {
+      display: block;
+      height: 3px;
+      background: #fff8e7;
+      border-radius: 3px;
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.9);
+    }
+
+    .ayudha-kumkum-pottu {
+      position: absolute;
+      width: clamp(10px, 1.3vw, 18px);
+      height: clamp(10px, 1.3vw, 18px);
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #ff1a40 0%, #b8001f 70%, #66000e 100%);
+      box-shadow: 0 0 8px #ff1a40, inset 0 1px 2px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Royal Palace Torana Arch / Frame */
+    .palace-arch {
+      position: absolute;
+      inset: 0;
+      border-radius: clamp(30px, 6vw, 80px) clamp(30px, 6vw, 80px) 0 0;
+      border: clamp(10px, 1.4vw, 22px) solid #91501c;
+      background: #110502;
+      box-shadow:
+        0 0 60px rgba(255, 140, 0, 0.35),
+        inset 0 0 50px rgba(0, 0, 0, 0.95),
+        0 30px 80px rgba(0, 0, 0, 0.95);
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .palace-arch::before {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: clamp(24px, 5.2vw, 72px) clamp(24px, 5.2vw, 72px) 0 0;
+      border: 3px dashed #ffd700;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 8;
+    }
+
+    /* =============================================================
+       TOP ROYAL PALACE HEADER (COLLEGE BRANDING | TECHNITIX | DEPARTMENT BRANDING)
+    ============================================================= */
+    .palace-header-bar {
+      position: absolute;
+      top: clamp(-32px, -4.2vh, -46px);
+      left: clamp(-90px, -10vw, -150px);
+      right: clamp(-90px, -10vw, -150px);
+      width: calc(100% + clamp(180px, 20vw, 300px));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(10px, 1.6vw, 28px);
+      padding: 0 clamp(6px, 1.2vw, 20px);
+      z-index: 28;
+      pointer-events: none;
+    }
+
+    .header-brand-plaque {
+      flex: 1 1 0;
+      max-width: clamp(300px, 33vw, 540px);
+      height: clamp(64px, 8.8vh, 96px);
+      display: flex;
+      align-items: center;
+      filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.98)) drop-shadow(0 0 24px rgba(255, 200, 0, 0.5));
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s ease;
+      pointer-events: auto;
+    }
+
+    .header-brand-plaque:hover {
+      transform: translateY(-2px) scale(1.02);
+      filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 1)) drop-shadow(0 0 32px rgba(255, 215, 0, 0.85));
+    }
+
+    .header-plaque-img {
+      width: 100%;
+      height: 100%;
+      max-height: clamp(68px, 9.5vh, 105px);
+      object-fit: contain;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .plaque-left-wrapper {
+      justify-content: flex-start;
+    }
+
+    .plaque-center-wrapper {
+      justify-content: center;
+      flex: 1 1 0;
+      max-width: clamp(280px, 30vw, 480px);
+    }
+
+    .plaque-right-wrapper {
+      justify-content: flex-end;
+    }
+
+    /* =============================================================
+       AYUDHA POOJA SACRED BOTTOM BANNER & ENGINEERING DECORATIONS
+       (ஆயுத பூஜை நல்வாழ்த்துக்கள் - மடிக்கணினி, புத்தகங்கள், ரோபோடிக் கரம், தாய்ப்பலகை)
+    ============================================================= */
+    .ayudha-pooja-banner {
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(84%, 1020px);
+      z-index: 17;
+      pointer-events: none;
+      filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 25px rgba(255, 160, 0, 0.35));
+      transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.45s;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .ayudha-banner-img {
+      width: 100%;
+      height: auto;
+      max-height: clamp(140px, 24vh, 250px);
+      object-fit: contain;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
+    }
+
+    /* Open Gate State: IMMEDIATELY and COMPLETELY HIDE the banner and foreground decorations */
+    .palace-gate-wrapper.open .ayudha-pooja-banner,
+    .ayudha-pooja-banner.hide-on-shatter {
+      opacity: 0 !important;
+      transform: translateX(-50%) translateY(45px) scale(0.96) !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    /* -------------------------------------------------------------
+   THE INNER SANCTUM & VIDEO ARENA (REVEALED WHEN DOORS OPEN)
+------------------------------------------------------------- */
+    .palace-inner-arena {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Video Player: Dominates the entire opened gate */
+    #palaceVideo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #000;
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: block;
+      cursor: pointer;
+    }
+
+    .palace-gate-wrapper.open #palaceVideo {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* YouTube Embed Player inside the opened gate */
+    #palaceYouTube {
+      width: 100%;
+      height: 100%;
+      border: none;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1;
+    }
+
+    .palace-gate-wrapper.open #palaceYouTube {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Minimalist prompt shown inside arena only when no video has been chosen yet */
+    .no-video-prompt {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      padding: 24px;
+      background: radial-gradient(circle at 50% 50%, rgba(35, 14, 5, 0.95) 0%, rgba(5, 1, 8, 0.98) 100%);
+      border: 2px dashed rgba(255, 215, 0, 0.4);
+      border-radius: 20px;
+      margin: 30px;
+      transition: all 0.3s ease;
+      opacity: 0;
+      z-index: 2;
+    }
+
+    .palace-gate-wrapper.open .no-video-prompt {
+      opacity: 1;
+    }
+
+    .no-video-prompt:hover {
+      background: radial-gradient(circle at 50% 50%, rgba(65, 25, 10, 0.98) 0%, rgba(12, 3, 18, 0.98) 100%);
+      border-color: rgba(255, 215, 0, 0.8);
+      transform: scale(1.02);
+    }
+
+    .no-video-prompt.hidden {
+      display: none !important;
+    }
+
+    /* -------------------------------------------------------------
+   ROYAL PALACE DOUBLE DOORS (அரண்மனை இரட்டை கதவுகள்)
+------------------------------------------------------------- */
+    .palace-door-leaf {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50.15%;
+      height: 100%;
+      background: #190702;
+      overflow: hidden;
+      box-shadow:
+        inset 0 0 45px rgba(0, 0, 0, 0.95),
+        0 25px 60px rgba(0, 0, 0, 0.95);
+      transition: transform 2.0s cubic-bezier(0.65, 0, 0.15, 1);
+      transform-style: preserve-3d;
+      z-index: 5;
+    }
+
+    /* Left Door Leaf */
+    .door-leaf-left {
+      left: 0;
+      border-radius: clamp(20px, 4.5vw, 65px) 0 0 0;
+      transform-origin: left center;
+      border-right: 3px solid #b8860b;
+      border-top: clamp(6px, 1vw, 14px) solid #8a4819;
+      border-left: clamp(6px, 1vw, 14px) solid #8a4819;
+      border-bottom: clamp(6px, 1vw, 14px) solid #8a4819;
+    }
+
+    .palace-gate-wrapper.open .door-leaf-left {
+      transform: rotateY(-112deg);
+    }
+
+    /* Right Door Leaf */
+    .door-leaf-right {
+      right: 0;
+      border-radius: 0 clamp(20px, 4.5vw, 65px) 0 0;
+      transform-origin: right center;
+      border-left: 3px solid #ffd700;
+      border-top: clamp(6px, 1vw, 14px) solid #8a4819;
+      border-right: clamp(6px, 1vw, 14px) solid #8a4819;
+      border-bottom: clamp(6px, 1vw, 14px) solid #8a4819;
+    }
+
+    .palace-gate-wrapper.open .door-leaf-right {
+      transform: rotateY(112deg);
+    }
+
+    .door-leaf-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      pointer-events: none;
+      filter: contrast(1.08) brightness(1.02);
+    }
+
+    .door-leaf-sheen {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, transparent 60%);
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.85);
+      pointer-events: none;
+    }
+
+    /* Sacred Vibhuti & Kumkum Tilak at top */
+    .palace-tilak {
+      position: absolute;
+      top: clamp(18px, 3vh, 38px);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .tilak-stripe {
+      width: clamp(65px, 8.5vw, 130px);
+      height: clamp(4px, 0.5vh, 7px);
+      background: #ffffff;
+      border-radius: 99px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.95);
+    }
+
+    .tilak-kumkum {
+      width: clamp(18px, 2.4vw, 36px);
+      height: clamp(18px, 2.4vw, 36px);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ff4d4f 20%, #cf1322 70%, #520000 100%);
+      box-shadow: 0 0 20px #ff2a2a, inset 0 2px 4px #fff;
+      margin-top: 2px;
+    }
+
+    /* -------------------------------------------------------------
+       AUTHENTIC TEMPLE BRASS PADLOCK (புராதன கோவில் பித்தளை பூட்டு)
+    ------------------------------------------------------------- */
+    .royal-center-lock {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(140px, 15.5vw, 220px);
+      height: clamp(170px, 19vw, 270px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 18;
+      cursor: pointer;
+      perspective: 1000px;
+      user-select: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .palace-gate-wrapper.open .royal-center-lock {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    /* Antique Brass Latch Hasp Plate spanning the two doors behind the lock */
+    .lock-hasp-plate {
+      position: absolute;
+      top: 14%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(38px, 4.2vw, 62px);
+      height: clamp(70px, 8.5vw, 110px);
+      background: linear-gradient(180deg, #613e15 0%, #2a1606 50%, #472b0c 100%);
+      border: 2px solid #b8860b;
+      border-radius: 6px;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.95), inset 0 0 10px rgba(255, 215, 0, 0.4);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .lock-hasp-plate::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffd700 30%, #52310b 90%);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .lock-hasp-plate::after {
+      content: '';
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(20px, 2.4vw, 32px);
+      height: clamp(20px, 2.4vw, 32px);
+      border-radius: 50%;
+      border: 4px solid #141414;
+      background: transparent;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.95);
+    }
+
+    /* Padlock Main Body Container */
+    .lock-body-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transform-origin: center 22%;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease, opacity 0.2s ease;
+    }
+
+    .lock-brass-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 32px rgba(0, 0, 0, 0.95))
+              drop-shadow(0 4px 10px rgba(0, 0, 0, 0.85))
+              drop-shadow(0 0 16px rgba(218, 165, 32, 0.28));
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Pendulum subtle sway when hovered */
+    .royal-center-lock:hover .lock-body-wrapper {
+      animation: lockGentleSway 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes lockGentleSway {
+      0% { transform: rotate(-2deg); }
+      100% { transform: rotate(2deg); }
+    }
+
+    /* Snap-in animation when doors re-lock */
+    .lock-body-wrapper.snap-in {
+      animation: lockSnapIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes lockSnapIn {
+      0% {
+        transform: translateY(-90px) scale(0.65) rotate(-18deg);
+        opacity: 0;
+      }
+      70% {
+        transform: translateY(6px) scale(1.04) rotate(2deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    /* Target Locked Aura when reticle is aiming directly on lock */
+    .royal-center-lock.targeted .lock-brass-img {
+      filter: drop-shadow(0 20px 32px rgba(0, 0, 0, 0.95))
+              drop-shadow(0 0 35px #ffd700)
+              drop-shadow(0 0 65px rgba(255, 60, 0, 0.75));
+      animation: targetPulse 0.35s infinite alternate;
+    }
+
+    @keyframes targetPulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.05); }
+    }
+
+    /* Kinetic Impact Flash right when bullet strikes the lock */
+    .lock-hit-flash {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 0%, #fff066 30%, rgba(255, 100, 0, 0.85) 65%, transparent 100%);
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0;
+    }
+
+    .lock-hit-flash.active {
+      animation: lockFlashBurst 0.35s ease-out forwards;
+    }
+
+    @keyframes lockFlashBurst {
+      0% {
+        transform: translate(-50%, -50%) scale(0.3);
+        opacity: 1;
+      }
+      35% {
+        transform: translate(-50%, -50%) scale(2.4);
+        opacity: 0.95;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(3.8);
+        opacity: 0;
+      }
+    }
+
+    /* 3D Shards Container for Realistic Shatter & Scatter */
+    .lock-shards-stage {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 30;
+      overflow: visible;
+      perspective: 1200px;
+    }
+
+    .lock-shard {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.9));
+    }
+
+    /* Door Shake during authorization */
+    .palace-gate-wrapper.shake {
+      animation: gateRumble 0.1s infinite;
+    }
+
+    @keyframes gateRumble {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      25% {
+        transform: translate(-3px, 2px);
+      }
+
+      50% {
+        transform: translate(3px, -2px);
+      }
+
+      75% {
+        transform: translate(-2px, -2px);
+      }
+
+      100% {
+        transform: translate(2px, 1px);
+      }
+    }
+
+    /* =============================================================
+       AUTHENTIC TAMIL NADU KUTHUVILAKKU BRASS OIL LAMPS (குத்துவிளக்கு)
+       Traditional Annapakshi crest, 5 glowing wicks, marigold base & Ayudha Pooja tilak
+    ============================================================= */
+    .palace-diya {
+      position: absolute;
+      bottom: clamp(-10px, -1.2vh, 0px);
+      width: clamp(75px, 9vw, 135px);
+      height: clamp(140px, 16vw, 245px);
+      z-index: 25;
+      pointer-events: none;
+      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.95));
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .palace-diya.diya-left {
+      left: clamp(-100px, -8.5vw, -65px);
+    }
+
+    .palace-diya.diya-right {
+      right: clamp(-100px, -8.5vw, -65px);
+      transform: scaleX(-1);
+    }
+
+    .kuthuvilakku-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+      filter: drop-shadow(0 0 22px rgba(255, 170, 0, 0.85)) contrast(1.15) brightness(1.1);
+      pointer-events: none;
+    }
+
+    /* Ambient Pulsing Warm Lantern Glow onto Floor & Pillars */
+    .diya-ambient-glow {
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 190%;
+      height: 130%;
+      background: radial-gradient(ellipse at 50% 60%, rgba(255, 170, 0, 0.45) 0%, rgba(255, 100, 0, 0.2) 45%, transparent 75%);
+      pointer-events: none;
+      animation: ambientLampBreathe 2.8s infinite alternate ease-in-out;
+      z-index: -1;
+    }
+
+    @keyframes ambientLampBreathe {
+      0% {
+        opacity: 0.75;
+        transform: translateX(-50%) scale(0.94);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.08);
+      }
+    }
+
+    /* Organic Micro-Flicker Animations for 5 Kuthuvilakku Flames */
+    @keyframes kuthuFlameCenter {
+
+      0%,
+      100% {
+        transform: translate(80px, 92px) scale(1, 1) rotate(0deg);
+        filter: drop-shadow(0 0 8px #ff9900) drop-shadow(0 0 18px rgba(255, 200, 0, 0.9));
+      }
+
+      25% {
+        transform: translate(80.5px, 91px) scale(0.95, 1.08) rotate(1.8deg);
+      }
+
+      50% {
+        transform: translate(79.5px, 92.5px) scale(1.06, 0.94) rotate(-1.5deg);
+        filter: drop-shadow(0 0 12px #ff8800) drop-shadow(0 0 24px rgba(255, 220, 50, 0.95));
+      }
+
+      75% {
+        transform: translate(80.2px, 91.5px) scale(0.92, 1.04) rotate(0.8deg);
+      }
+    }
+
+    @keyframes kuthuFlameLeftInner {
+
+      0%,
+      100% {
+        transform: translate(57px, 102px) scale(0.98, 1.02) rotate(-2deg);
+        filter: drop-shadow(0 0 7px #ff8800) drop-shadow(0 0 16px rgba(255, 190, 0, 0.85));
+      }
+
+      35% {
+        transform: translate(56.5px, 101px) scale(1.05, 0.95) rotate(-0.5deg);
+      }
+
+      70% {
+        transform: translate(57.5px, 102.5px) scale(0.92, 1.06) rotate(-3.5deg);
+        filter: drop-shadow(0 0 10px #ff7700) drop-shadow(0 0 20px rgba(255, 210, 0, 0.9));
+      }
+    }
+
+    @keyframes kuthuFlameLeftOuter {
+
+      0%,
+      100% {
+        transform: translate(32px, 114px) scale(1.02, 0.96) rotate(-4deg);
+        filter: drop-shadow(0 0 7px #ff8800) drop-shadow(0 0 15px rgba(255, 190, 0, 0.85));
+      }
+
+      45% {
+        transform: translate(31.5px, 113px) scale(0.94, 1.08) rotate(-2deg);
+      }
+
+      80% {
+        transform: translate(32.5px, 114.5px) scale(1.04, 0.92) rotate(-5.5deg);
+        filter: drop-shadow(0 0 9px #ff6600) drop-shadow(0 0 22px rgba(255, 200, 0, 0.95));
+      }
+    }
+
+    @keyframes kuthuFlameRightInner {
+
+      0%,
+      100% {
+        transform: translate(103px, 102px) scale(0.96, 1.04) rotate(2deg);
+        filter: drop-shadow(0 0 7px #ff8800) drop-shadow(0 0 16px rgba(255, 190, 0, 0.85));
+      }
+
+      40% {
+        transform: translate(103.5px, 101px) scale(1.04, 0.96) rotate(3.5deg);
+      }
+
+      75% {
+        transform: translate(102.5px, 102.5px) scale(0.93, 1.07) rotate(0.8deg);
+        filter: drop-shadow(0 0 10px #ff7700) drop-shadow(0 0 20px rgba(255, 210, 0, 0.9));
+      }
+    }
+
+    @keyframes kuthuFlameRightOuter {
+
+      0%,
+      100% {
+        transform: translate(128px, 114px) scale(1.04, 0.95) rotate(4deg);
+        filter: drop-shadow(0 0 7px #ff8800) drop-shadow(0 0 15px rgba(255, 190, 0, 0.85));
+      }
+
+      30% {
+        transform: translate(128.5px, 113px) scale(0.93, 1.07) rotate(5.5deg);
+      }
+
+      65% {
+        transform: translate(127.5px, 114.5px) scale(1.05, 0.93) rotate(2deg);
+        filter: drop-shadow(0 0 9px #ff6600) drop-shadow(0 0 22px rgba(255, 200, 0, 0.95));
+      }
+    }
+
+    /* -------------------------------------------------------------
+   DISCREET FLOATING CONTROL BAR (TEST CONTROLS & ESP32)
+   Can be minimized/hidden completely for live presentation!
+------------------------------------------------------------- */
+    .event-controls-bar {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(14, 6, 20, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(255, 215, 0, 0.35);
+      border-radius: 999px;
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+      z-index: 99;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    }
+
+    .event-controls-bar.minimized {
+      transform: translateX(-50%) translateY(calc(100% + 40px));
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Floating button to restore control bar when minimized */
+    .show-controls-toggle {
+      position: fixed;
+      bottom: 16px;
+      right: 18px;
+      background: rgba(14, 6, 20, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(255, 215, 0, 0.4);
+      color: #ffd700;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      font-size: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .show-controls-toggle:hover {
+      transform: scale(1.1);
+      background: rgba(255, 215, 0, 0.2);
+    }
+
+    .ctrl-btn {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .ctrl-btn:hover:not(:disabled) {
+      background: rgba(255, 215, 0, 0.25);
+      border-color: #ffd700;
+      transform: translateY(-2px);
+    }
+
+    #toggleTrackingBtn.active {
+      background: rgba(0, 245, 212, 0.22);
+      border-color: #00f5d4;
+      color: #00f5d4;
+      box-shadow: 0 0 15px rgba(0, 245, 212, 0.5);
+    }
+
+    .ctrl-btn.primary-unlock {
+      background: linear-gradient(135deg, #ffd700, #ff8500);
+      color: #2b0b00;
+      border: none;
+      font-weight: 800;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
+
+    .ctrl-btn.primary-unlock:hover:not(:disabled) {
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.85);
+    }
+
+    .ctrl-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .hw-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #eeddbb;
+      padding: 0 6px;
+    }
+
+    .hw-led {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #ff4d4f;
+      box-shadow: 0 0 8px #ff4d4f;
+      transition: all 0.3s;
+    }
+
+    .hw-led.connected {
+      background: #00f5d4;
+      box-shadow: 0 0 12px #00f5d4;
+      animation: pulseLed 1.4s infinite;
+    }
+
+    @keyframes pulseLed {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.6;
+        transform: scale(0.9);
+      }
+    }
+
+    /* File input hidden */
+    #customVideoUpload {
+      display: none;
+    }
+
+    /* =============================================================
+       7. CARDBOARD LIGHTGUN TRACKER & RICOCHET BULLET SYSTEM
+    ============================================================= */
+    #bulletCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 30;
+    }
+
+    /* Royal Cyber-Ancient Lightgun Aim Crosshair */
+    .royal-crosshair {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 60px;
+      height: 60px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 35;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      will-change: left, top, transform;
+      transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .crosshair-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px dashed #00f5d4;
+      box-shadow: 0 0 14px rgba(0, 245, 212, 0.8), inset 0 0 8px rgba(0, 245, 212, 0.4);
+      animation: spinCrosshair 6s linear infinite;
+    }
+
+    @keyframes spinCrosshair {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .crosshair-lines {
+      position: absolute;
+      inset: -6px;
+      pointer-events: none;
+    }
+
+    .crosshair-lines::before,
+    .crosshair-lines::after {
+      content: '';
+      position: absolute;
+      background: rgba(0, 245, 212, 0.9);
+      box-shadow: 0 0 8px #00f5d4;
+    }
+
+    .crosshair-lines::before {
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      transform: translateX(-50%);
+    }
+
+    .crosshair-lines::after {
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 2px;
+      transform: translateY(-50%);
+    }
+
+    .crosshair-inner-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00f5d4;
+      box-shadow: 0 0 10px #00f5d4, 0 0 20px #00f5d4;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .crosshair-lock-label {
+      position: absolute;
+      top: -26px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      color: #00f5d4;
+      background: rgba(4, 1, 6, 0.9);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 245, 212, 0.5);
+      white-space: nowrap;
+      pointer-events: none;
+      transition: all 0.2s;
+    }
+
+    /* Target Locked state when aiming directly at #royalLock */
+    .royal-crosshair.locked {
+      width: 78px;
+      height: 78px;
+    }
+
+    .royal-crosshair.locked .crosshair-ring {
+      border: 3px solid #ff1a40;
+      border-top-color: #ffd700;
+      border-bottom-color: #ffd700;
+      box-shadow: 0 0 25px #ff1a40, inset 0 0 15px #ffd700;
+      animation: spinCrosshair 1.2s linear infinite;
+    }
+
+    .royal-crosshair.locked .crosshair-lines::before,
+    .royal-crosshair.locked .crosshair-lines::after {
+      background: #ffd700;
+      box-shadow: 0 0 10px #ff1a40;
+    }
+
+    .royal-crosshair.locked .crosshair-inner-dot {
+      background: #ff1a40;
+      box-shadow: 0 0 15px #ff1a40, 0 0 25px #ffd700;
+      transform: scale(1.6);
+    }
+
+    .royal-crosshair.locked .crosshair-lock-label {
+      color: #ffd700;
+      border-color: #ff1a40;
+      background: rgba(184, 0, 31, 0.92);
+      box-shadow: 0 0 15px rgba(255, 26, 64, 0.8);
+      animation: pulseLockLabel 0.3s infinite alternate;
+    }
+
+    @keyframes pulseLockLabel {
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.08);
+      }
+    }
+
+    /* Green Sticker Vision Tracker Calibration HUD */
+    .tracker-hud-panel {
+      position: fixed;
+      top: clamp(80px, 12vh, 125px);
+      right: clamp(12px, 1.5vw, 24px);
+      width: 270px;
+      background: rgba(10, 4, 16, 0.94);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1.5px solid rgba(0, 245, 212, 0.6);
+      border-radius: 16px;
+      padding: 12px 14px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.95), 0 0 25px rgba(0, 245, 212, 0.25);
+      z-index: 100;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      font-size: 11px;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .tracker-hud-panel.collapsed {
+      width: auto;
+      padding: 8px 12px;
+    }
+
+    .tracker-hud-panel.collapsed .tracker-body {
+      display: none;
+    }
+
+    .tracker-hud-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tracker-status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ff4d4f;
+      box-shadow: 0 0 8px #ff4d4f;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .tracker-status-dot.active {
+      background: #00f5d4;
+      box-shadow: 0 0 12px #00f5d4;
+    }
+
+    .tracker-status-dot.searching {
+      background: #ffc300;
+      box-shadow: 0 0 10px #ffc300;
+    }
+
+    .tracker-min-btn,
+    .tracker-close-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      color: #fff;
+      cursor: pointer;
+      font-size: 12px;
+      border-radius: 6px;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .tracker-min-btn:hover,
+    .tracker-close-btn:hover {
+      background: rgba(255, 215, 0, 0.2);
+      border-color: #ffd700;
+    }
+
+    .tracker-preview-box {
+      position: relative;
+      width: 100%;
+      height: 155px;
+      background: #020104;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1.5px solid rgba(255, 215, 0, 0.35);
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+    }
+
+    #trackerCanvas {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: crosshair;
+    }
+
+    .cam-start-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 1, 8, 0.88);
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      z-index: 5;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .big-start-cam-btn {
+      background: linear-gradient(135deg, #00f5d4, #00bbf9);
+      color: #040108;
+      border: none;
+      padding: 9px 15px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 11px;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(0, 245, 212, 0.6);
+      transition: all 0.2s;
+    }
+
+    .big-start-cam-btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 22px rgba(0, 245, 212, 0.85);
+    }
+
+    .tracker-cross {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #ff1a40;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      box-shadow: 0 0 8px #ff1a40;
+      display: none;
+    }
+
+    .tracker-info-text {
+      font-size: 11px;
+      color: #00f5d4;
+      font-family: 'JetBrains Mono', monospace;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 5px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 245, 212, 0.2);
+    }
+
+    .tracker-color-presets {
+      display: flex;
+      gap: 5px;
+    }
+
+    .tracker-preset-chip {
+      flex: 1;
+      padding: 5px 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      color: #eeddbb;
+      font-size: 10px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .tracker-preset-chip.active,
+    .tracker-preset-chip:hover {
+      background: rgba(0, 245, 212, 0.2);
+      border-color: #00f5d4;
+      color: #00f5d4;
+      box-shadow: 0 0 10px rgba(0, 245, 212, 0.3);
+    }
+
+    .tracker-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tracker-slider-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: #eeddbb;
+    }
+
+    .tracker-slider-label input[type="range"] {
+      width: 105px;
+      accent-color: #00f5d4;
+      height: 4px;
+    }
+
+    .tracker-row-btns {
+      display: flex;
+      gap: 6px;
+    }
+
+    .tracker-tool-btn {
+      flex: 1;
+      padding: 6px;
+      font-size: 10px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tracker-tool-btn:hover {
+      background: rgba(0, 245, 212, 0.2);
+      border-color: #00f5d4;
+    }
+
+    .tracker-device-row {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .tracker-select {
+      width: 100%;
+      background: rgba(15, 8, 28, 0.95);
+      border: 1px solid rgba(0, 245, 212, 0.4);
+      color: #fff;
+      border-radius: 6px;
+      padding: 4px 6px;
+      font-size: 10px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .tracker-select:focus {
+      border-color: #00f5d4;
+      box-shadow: 0 0 8px rgba(0, 245, 212, 0.3);
+    }
+
+    .cam-error-box {
+      background: rgba(35, 10, 18, 0.95);
+      border: 1px solid #ff4d4f;
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-top: 4px;
+      font-size: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 4px 12px rgba(255, 77, 79, 0.2);
+    }
+
+    .tracker-mini-action-btn {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      color: #ffd700;
+      padding: 4px 6px;
+      font-size: 9.5px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .tracker-mini-action-btn:hover {
+      background: rgba(255, 215, 0, 0.25);
+      border-color: #ffd700;
+    }
+
+    /* Top Localhost Helper Notice */
+    .file-notice-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(90deg, #ff1a40, #ff8500);
+      color: #fff;
+      padding: 6px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      z-index: 999;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+    }
+
+    .banner-link {
+      background: #fff;
+      color: #111;
+      padding: 3px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 11px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .banner-link:hover {
+      background: #ffd700;
+    }
+
+    /* ESP32 Arduino Modal */
+    .esp32-code-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 105;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .esp32-modal-card {
+      width: min(650px, 94vw);
+      max-height: 85vh;
+      background: #0f0714;
+      border: 2px solid #ffd700;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 215, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .esp32-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+      padding-bottom: 12px;
+    }
+
+    .esp32-close-btn {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .esp32-code-snippet {
+      background: #040106;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 12px;
+      padding: 14px;
+      color: #00f5d4;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Ambient Particles Canvas (Royal Embers & Petals) -->
+  <canvas id="palaceFx"></canvas>
+
+  <!-- ==================== REALISTIC TAMIL NADU TEMPLE / PALACE ASSET DEFINITIONS ==================== -->
+  <svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Turned Polished Brass Linear Gradient -->
+      <linearGradient id="brassGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#3d2105" />
+        <stop offset="12%" stop-color="#805300" />
+        <stop offset="28%" stop-color="#d49a00" />
+        <stop offset="42%" stop-color="#ffd700" />
+        <stop offset="55%" stop-color="#fff9d6" />
+        <stop offset="68%" stop-color="#ffd700" />
+        <stop offset="84%" stop-color="#a67608" />
+        <stop offset="100%" stop-color="#2a1402" />
+      </linearGradient>
+
+      <!-- Deep Golden Sesame Oil Gradient -->
+      <radialGradient id="kuthuOilGrad" cx="50%" cy="40%" r="60%">
+        <stop offset="0%" stop-color="#ffe680" stop-opacity="0.95" />
+        <stop offset="35%" stop-color="#ffaa00" stop-opacity="0.9" />
+        <stop offset="75%" stop-color="#995500" stop-opacity="0.95" />
+        <stop offset="100%" stop-color="#3d1b00" />
+      </radialGradient>
+
+      <!-- Flame Gradient: Core to Saffron Edge -->
+      <radialGradient id="kuthuFlameGrad" cx="50%" cy="75%" r="65%">
+        <stop offset="0%" stop-color="#ffffff" />
+        <stop offset="18%" stop-color="#fff275" />
+        <stop offset="45%" stop-color="#ff9100" />
+        <stop offset="80%" stop-color="#e62e00" />
+        <stop offset="98%" stop-color="#240046" stop-opacity="0.8" />
+      </radialGradient>
+
+      <!-- Blue Flame Root -->
+      <linearGradient id="flameRootGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="transparent" />
+        <stop offset="70%" stop-color="#00b4d8" stop-opacity="0.7" />
+        <stop offset="100%" stop-color="#0077b6" />
+      </linearGradient>
+
+      <!-- Flame Halo Glow Filter -->
+      <filter id="kuthuFlameGlow" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="3.5" result="glow" />
+        <feMerge>
+          <feMergeNode in="glow" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+
+      <!-- Cast Shadow Filter -->
+      <filter id="kuthuCastShadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000000" flood-opacity="0.85" />
+      </filter>
+
+      <!-- Teakwood Rich Vertical Gradient -->
+      <linearGradient id="teakGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#180702" />
+        <stop offset="12%" stop-color="#3d1808" />
+        <stop offset="35%" stop-color="#692d11" />
+        <stop offset="55%" stop-color="#803815" />
+        <stop offset="75%" stop-color="#54230b" />
+        <stop offset="90%" stop-color="#2a0d03" />
+        <stop offset="100%" stop-color="#120401" />
+      </linearGradient>
+
+      <!-- Brass Trim for Pillar Bands -->
+      <linearGradient id="pillarBrass" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#472e00" />
+        <stop offset="25%" stop-color="#b8860b" />
+        <stop offset="50%" stop-color="#ffdf73" />
+        <stop offset="75%" stop-color="#ffd700" />
+        <stop offset="100%" stop-color="#3b2400" />
+      </linearGradient>
+
+      <filter id="pillarShadow" x="-20%" y="-10%" width="140%" height="120%">
+        <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.85" />
+      </filter>
+
+      <!-- ==================== PILLAR MASTER SYMBOL ==================== -->
+      <g id="pillarMaster">
+        <!-- 1. DRAVIDIAN CORBEL CAPITAL / BODHIGAI (புஷ்ப போதிகை) -->
+        <g id="bodhigaiCapital" filter="url(#pillarShadow)">
+          <path d="M5,12 L125,12 L120,26 L10,26 Z" fill="url(#pillarBrass)" stroke="#ffea75" stroke-width="0.8" />
+          <path
+            d="M10,26 C6,45 2,65 14,75 C24,80 32,70 30,55 C29,40 38,36 45,36 L85,36 C92,36 101,40 100,55 C98,70 106,80 116,75 C128,65 124,45 120,26 Z"
+            fill="url(#teakGrad)" stroke="#b8860b" stroke-width="1.5" />
+          <!-- Downward Lotus Bud Drops -->
+          <g transform="translate(20, 68)">
+            <path d="M0,0 C-6,8 -5,18 0,24 C5,18 6,8 0,0 Z" fill="url(#pillarBrass)" stroke="#3a1e00"
+              stroke-width="0.8" />
+            <circle cx="0" cy="24" r="2" fill="#ffd700" />
+          </g>
+          <g transform="translate(110, 68)">
+            <path d="M0,0 C-6,8 -5,18 0,24 C5,18 6,8 0,0 Z" fill="url(#pillarBrass)" stroke="#3a1e00"
+              stroke-width="0.8" />
+            <circle cx="0" cy="24" r="2" fill="#ffd700" />
+          </g>
+          <path d="M30,36 C35,48 45,55 65,55 C85,55 95,48 100,36 Z" fill="url(#teakGrad)" />
+          <ellipse cx="65" cy="55" rx="35" ry="6" fill="url(#pillarBrass)" stroke="#ffe680" stroke-width="0.8" />
+        </g>
+
+        <!-- 2. EMBOSSED BRASS BANDS & TEMPLE BELLS (கோவில் மணிகள்) -->
+        <g id="templeBellsCollar" filter="url(#pillarShadow)">
+          <rect x="24" y="65" width="82" height="20" rx="3" fill="url(#pillarBrass)" stroke="#ffe680"
+            stroke-width="0.8" />
+          <!-- 5 Hanging Temple Bells -->
+          <g transform="translate(33, 85)">
+            <line x1="0" y1="0" x2="0" y2="6" stroke="#ffd700" stroke-width="1.5" />
+            <path d="M-6,16 C-5,9 0,7 0,6 C0,7 5,9 6,16 Z" fill="url(#pillarBrass)" stroke="#2d1600"
+              stroke-width="0.7" />
+            <ellipse cx="0" cy="16" rx="6" ry="1.8" fill="#ffd700" />
+            <circle cx="0" cy="19" r="1.5" fill="#ffe066" />
+          </g>
+          <g transform="translate(49, 85)">
+            <line x1="0" y1="0" x2="0" y2="6" stroke="#ffd700" stroke-width="1.5" />
+            <path d="M-6,16 C-5,9 0,7 0,6 C0,7 5,9 6,16 Z" fill="url(#pillarBrass)" stroke="#2d1600"
+              stroke-width="0.7" />
+            <ellipse cx="0" cy="16" rx="6" ry="1.8" fill="#ffd700" />
+            <circle cx="0" cy="19" r="1.5" fill="#ffe066" />
+          </g>
+          <g transform="translate(65, 85)">
+            <line x1="0" y1="0" x2="0" y2="7" stroke="#ffd700" stroke-width="1.8" />
+            <path d="M-7,18 C-6,10 0,8 0,7 C0,8 6,10 7,18 Z" fill="url(#pillarBrass)" stroke="#2d1600"
+              stroke-width="0.8" />
+            <ellipse cx="0" cy="18" rx="7" ry="2" fill="#ffd700" />
+            <circle cx="0" cy="21" r="1.8" fill="#ffe066" />
+          </g>
+          <g transform="translate(81, 85)">
+            <line x1="0" y1="0" x2="0" y2="6" stroke="#ffd700" stroke-width="1.5" />
+            <path d="M-6,16 C-5,9 0,7 0,6 C0,7 5,9 6,16 Z" fill="url(#pillarBrass)" stroke="#2d1600"
+              stroke-width="0.7" />
+            <ellipse cx="0" cy="16" rx="6" ry="1.8" fill="#ffd700" />
+            <circle cx="0" cy="19" r="1.5" fill="#ffe066" />
+          </g>
+          <g transform="translate(97, 85)">
+            <line x1="0" y1="0" x2="0" y2="6" stroke="#ffd700" stroke-width="1.5" />
+            <path d="M-6,16 C-5,9 0,7 0,6 C0,7 5,9 6,16 Z" fill="url(#pillarBrass)" stroke="#2d1600"
+              stroke-width="0.7" />
+            <ellipse cx="0" cy="16" rx="6" ry="1.8" fill="#ffd700" />
+            <circle cx="0" cy="19" r="1.5" fill="#ffe066" />
+          </g>
+          <ellipse cx="65" cy="115" rx="40" ry="7" fill="url(#pillarBrass)" stroke="#ffea75" stroke-width="0.8" />
+        </g>
+
+        <!-- 3. MAIN CARVED TEAKWOOD SHAFT (தூண் உடல்) -->
+        <g id="teakShaft">
+          <rect x="25" y="115" width="80" height="505" fill="url(#teakGrad)" />
+          <rect x="25" y="115" width="80" height="505" fill="none" stroke="#663300" stroke-width="1.5" />
+          <path d="M35,115 L35,620 M45,115 L45,620 M85,115 L85,620 M95,115 L95,620" stroke="rgba(0,0,0,0.4)"
+            stroke-width="1.2" />
+          <path d="M36,115 L36,620 M46,115 L46,620 M86,115 L86,620 M96,115 L96,620" stroke="rgba(255,255,255,0.08)"
+            stroke-width="0.8" />
+          <rect x="52" y="130" width="26" height="475" rx="13" fill="#1f0902" stroke="#8a4819" stroke-width="1.2" />
+          <rect x="24" y="265" width="82" height="12" rx="2" fill="url(#pillarBrass)" stroke="#ffe680"
+            stroke-width="0.6" />
+          <rect x="24" y="435" width="82" height="12" rx="2" fill="url(#pillarBrass)" stroke="#ffe680"
+            stroke-width="0.6" />
+
+          <!-- Sacred Kalasam Emblem Carved at Center -->
+          <g transform="translate(65, 365)" filter="url(#pillarShadow)">
+            <ellipse cx="0" cy="16" rx="9" ry="3.5" fill="#b8860b" />
+            <path d="M-8,14 C-10,2 -6,-8 0,-12 C6,-8 10,2 8,14 Z" fill="url(#pillarBrass)" />
+            <circle cx="0" cy="-14" r="3.5" fill="#ffd700" />
+            <path d="M0,-14 L-5,-22 L0,-18 L5,-22 Z" fill="#2d6a4f" />
+          </g>
+        </g>
+
+        <!-- 4. AYUDHA POOJA SACRED TILAKS (சந்தனம், குங்குமம், விபூதி) -->
+        <!-- Tier 1 -->
+        <g transform="translate(65, 195)" filter="url(#pillarShadow)">
+          <ellipse cx="0" cy="0" rx="9" ry="18" fill="#ffd000" opacity="0.95" />
+          <rect x="-14" y="-7" width="28" height="3" rx="1.5" fill="#fffdf5" />
+          <rect x="-14" y="-1" width="28" height="3" rx="1.5" fill="#fffdf5" />
+          <rect x="-14" y="5" width="28" height="3" rx="1.5" fill="#fffdf5" />
+          <circle cx="0" cy="0" r="3.8" fill="#d90429" />
+          <circle cx="0.8" cy="-0.8" r="1.2" fill="#ffffff" opacity="0.5" />
+        </g>
+        <!-- Tier 2 -->
+        <g transform="translate(65, 400)" filter="url(#pillarShadow)">
+          <ellipse cx="0" cy="0" rx="9" ry="18" fill="#ffd000" opacity="0.95" />
+          <rect x="-14" y="-7" width="28" height="3" rx="1.5" fill="#fffdf5" />
+          <rect x="-14" y="-1" width="28" height="3" rx="1.5" fill="#fffdf5" />
+          <rect x="-14" y="5" width="28" height="3" rx="1.5" fill="#fffdf5" />
+          <circle cx="0" cy="0" r="3.8" fill="#d90429" />
+        </g>
+        <!-- Tier 3 -->
+        <g transform="translate(65, 545)" filter="url(#pillarShadow)">
+          <ellipse cx="0" cy="0" rx="9" ry="18" fill="#ffd000" opacity="0.95" />
+          <rect x="-14" y="-7" width="28" height="3" rx="1.5" fill="#fffdf5" />
+          <rect x="-14" y="-1" width="28" height="3" rx="1.5" fill="#fffdf5" />
+          <rect x="-14" y="5" width="28" height="3" rx="1.5" fill="#fffdf5" />
+          <circle cx="0" cy="0" r="3.8" fill="#d90429" />
+        </g>
+
+        <!-- 5. STEPPED PLINTH BASE / PADMA PEEDAM (பத்ம பீடம்) -->
+        <g id="pillarBasePedestal" filter="url(#pillarShadow)">
+          <ellipse cx="65" cy="622" rx="44" ry="7" fill="url(#pillarBrass)" stroke="#ffea75" stroke-width="0.8" />
+          <rect x="20" y="622" width="90" height="18" rx="2" fill="url(#teakGrad)" stroke="#592b0e"
+            stroke-width="1.2" />
+          <path d="M15,640 L115,640 L122,668 L8,668 Z" fill="url(#teakGrad)" stroke="#803d15" stroke-width="1.2" />
+          <path
+            d="M25,668 C30,650 35,645 40,640 M50,668 C55,650 60,645 65,640 M75,668 C80,650 85,645 90,640 M100,668 C105,650 110,645 115,640"
+            stroke="#b8860b" stroke-width="1.5" fill="none" />
+          <rect x="6" y="668" width="118" height="28" rx="4" fill="linear-gradient(180deg, #421c08 0%, #170701 100%)"
+            stroke="#b8860b" stroke-width="1.5" />
+          <rect x="4" y="696" width="122" height="18" rx="3" fill="#0f0401" stroke="#4a2500" stroke-width="1" />
+        </g>
+      </g>
+
+      <!-- ==================== KUTHUVILAKKU MASTER SYMBOL ==================== -->
+      <g id="kuthuvilakkuMaster">
+        <!-- Ground Shadow -->
+        <ellipse cx="80" cy="358" rx="65" ry="12" fill="rgba(0,0,0,0.85)" filter="blur(6px)" />
+
+        <!-- 1. ANNAPAKSHI CREST (அன்னப்பட்சி முகப்பு) -->
+        <g id="annapakshiCrest" filter="url(#kuthuCastShadow)">
+          <path
+            d="M78,65 C62,60 54,45 60,32 C65,22 76,20 78,28 C74,18 84,12 92,18 C100,24 96,35 91,42 C98,34 108,36 106,46 C104,54 94,62 82,65 Z"
+            fill="url(#brassGrad)" stroke="#ffea75" stroke-width="0.8" />
+          <path
+            d="M68,34 C74,38 78,48 76,58 M76,24 C82,30 85,42 83,54 M88,20 C92,28 92,38 88,48 M98,36 C96,44 92,52 86,58"
+            stroke="#4a2c00" stroke-width="1.2" fill="none" opacity="0.75" />
+          <path d="M76,64 C70,68 68,76 74,82 C78,85 84,85 88,81 C94,76 92,68 86,64 Z" fill="url(#brassGrad)"
+            stroke="#ffea75" stroke-width="0.8" />
+          <path d="M84,68 C86,60 92,54 94,46 C96,40 92,36 88,38 C86,39 85,42 86,45" fill="none" stroke="url(#brassGrad)"
+            stroke-width="5" stroke-linecap="round" />
+          <path d="M91,37 C94,35 97,36 99,39 C100,41 98,44 95,45 Z" fill="#ffd700" />
+          <path d="M99,39 L106,42 L99,44 Z" fill="#ffb703" stroke="#593000" stroke-width="0.5" />
+          <circle cx="95" cy="39" r="1.5" fill="#2b1400" />
+          <circle cx="95.5" cy="38.5" r="0.5" fill="#ffffff" />
+          <path d="M92,34 L94,29 L96,34 Z" fill="#ffd700" />
+          <path d="M104,43 C106,48 104,55 98,58" fill="none" stroke="#fff4b8" stroke-width="1" stroke-dasharray="2 2" />
+          <circle cx="98" cy="58" r="2" fill="#ffd700" />
+          <!-- Kumkum Pottu on Annapakshi -->
+          <ellipse cx="80" cy="74" rx="3.5" ry="4.5" fill="#ffd000" />
+          <circle cx="80" cy="74" r="2.2" fill="#d90429" />
+          <ellipse cx="80" cy="85" rx="9" ry="3" fill="url(#brassGrad)" stroke="#ffe680" stroke-width="0.6" />
+          <ellipse cx="80" cy="89" rx="12" ry="4" fill="url(#brassGrad)" stroke="#4a2c00" stroke-width="0.8" />
+        </g>
+
+        <!-- 2. OIL BASIN / TAKAHLI (தகழி) -->
+        <g id="oilBasin" filter="url(#kuthuCastShadow)">
+          <path d="M64,136 C64,142 70,146 80,146 C90,146 96,142 96,136 Z" fill="url(#brassGrad)" stroke="#2b1400"
+            stroke-width="0.8" />
+          <ellipse cx="80" cy="136" rx="28" ry="8" fill="url(#brassGrad)" />
+          <path
+            d="M26,128 C28,124 38,126 48,124 C54,122 56,116 62,118 C68,119 72,112 80,112 C88,112 92,119 98,118 C104,116 106,122 112,124 C122,126 132,124 134,128 C135,134 118,142 80,142 C42,142 25,134 26,128 Z"
+            fill="url(#brassGrad)" stroke="#ffe680" stroke-width="1" />
+          <ellipse cx="80" cy="127" rx="46" ry="10" fill="url(#kuthuOilGrad)" />
+          <ellipse cx="80" cy="125" rx="44" ry="7" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.2" />
+          <path d="M74,125 L76,92 L84,92 L86,125 Z" fill="url(#brassGrad)" />
+          <ellipse cx="80" cy="100" rx="7" ry="2.5" fill="url(#brassGrad)" />
+          <ellipse cx="80" cy="112" rx="9" ry="3" fill="url(#brassGrad)" />
+        </g>
+
+        <!-- 3. 5 COTTON WICKS (பருத்தி திரிகள்) -->
+        <g id="wicks">
+          <line x1="80" y1="116" x2="80" y2="104" stroke="#e0d6c3" stroke-width="3.2" />
+          <circle cx="80" cy="104" r="2.2" fill="#1a0800" />
+          <line x1="65" y1="118" x2="57" y2="112" stroke="#e0d6c3" stroke-width="3" />
+          <circle cx="57" cy="112" r="2" fill="#1a0800" />
+          <line x1="42" y1="125" x2="32" y2="124" stroke="#e0d6c3" stroke-width="2.8" />
+          <circle cx="32" cy="124" r="1.8" fill="#1a0800" />
+          <line x1="95" y1="118" x2="103" y2="112" stroke="#e0d6c3" stroke-width="3" />
+          <circle cx="103" cy="112" r="2" fill="#1a0800" />
+          <line x1="118" y1="125" x2="128" y2="124" stroke="#e0d6c3" stroke-width="2.8" />
+          <circle cx="128" cy="124" r="1.8" fill="#1a0800" />
+        </g>
+
+        <!-- 4. 5 FLICKERING REALISTIC FLAMES (பஞ்சமுக தீபம்) -->
+        <!-- Center Flame -->
+        <g style="animation: kuthuFlameCenter 0.24s infinite alternate ease-in-out;">
+          <circle cx="0" cy="0" r="18" fill="rgba(255, 170, 0, 0.35)" filter="blur(8px)" />
+          <path d="M0,8 C-7,4 -9,-8 0,-26 C9,-8 7,4 0,8 Z" fill="url(#kuthuFlameGrad)" filter="url(#kuthuFlameGlow)" />
+          <path d="M0,6 C-3.5,3 -4,-4 0,-16 C4,-4 3.5,3 0,6 Z" fill="#ffffff" opacity="0.95" />
+          <ellipse cx="0" cy="6" rx="3.5" ry="2" fill="url(#flameRootGrad)" />
+        </g>
+        <!-- Left Inner Flame -->
+        <g style="animation: kuthuFlameLeftInner 0.28s infinite alternate ease-in-out;">
+          <circle cx="0" cy="0" r="14" fill="rgba(255, 160, 0, 0.3)" filter="blur(6px)" />
+          <path d="M0,7 C-6,3 -7,-7 0,-22 C7,-7 6,3 0,7 Z" fill="url(#kuthuFlameGrad)" filter="url(#kuthuFlameGlow)" />
+          <path d="M0,5 C-3,2 -3,-3 0,-13 C3,-3 3,2 0,5 Z" fill="#ffffff" opacity="0.92" />
+          <ellipse cx="0" cy="5" rx="3" ry="1.8" fill="url(#flameRootGrad)" />
+        </g>
+        <!-- Left Outer Flame -->
+        <g style="animation: kuthuFlameLeftOuter 0.22s infinite alternate ease-in-out;">
+          <circle cx="0" cy="0" r="12" fill="rgba(255, 150, 0, 0.28)" filter="blur(5px)" />
+          <path d="M0,6 C-5,3 -6,-6 0,-18 C6,-6 5,3 0,6 Z" fill="url(#kuthuFlameGrad)" filter="url(#kuthuFlameGlow)" />
+          <path d="M0,4 C-2.5,2 -2.5,-2 0,-10 C2.5,-2 2.5,2 0,4 Z" fill="#ffffff" opacity="0.9" />
+          <ellipse cx="0" cy="4" rx="2.5" ry="1.5" fill="url(#flameRootGrad)" />
+        </g>
+        <!-- Right Inner Flame -->
+        <g style="animation: kuthuFlameRightInner 0.26s infinite alternate ease-in-out;">
+          <circle cx="0" cy="0" r="14" fill="rgba(255, 160, 0, 0.3)" filter="blur(6px)" />
+          <path d="M0,7 C-6,3 -7,-7 0,-22 C7,-7 6,3 0,7 Z" fill="url(#kuthuFlameGrad)" filter="url(#kuthuFlameGlow)" />
+          <path d="M0,5 C-3,2 -3,-3 0,-13 C3,-3 3,2 0,5 Z" fill="#ffffff" opacity="0.92" />
+          <ellipse cx="0" cy="5" rx="3" ry="1.8" fill="url(#flameRootGrad)" />
+        </g>
+        <!-- Right Outer Flame -->
+        <g style="animation: kuthuFlameRightOuter 0.25s infinite alternate ease-in-out;">
+          <circle cx="0" cy="0" r="12" fill="rgba(255, 150, 0, 0.28)" filter="blur(5px)" />
+          <path d="M0,6 C-5,3 -6,-6 0,-18 C6,-6 5,3 0,6 Z" fill="url(#kuthuFlameGrad)" filter="url(#kuthuFlameGlow)" />
+          <path d="M0,4 C-2.5,2 -2.5,-2 0,-10 C2.5,-2 2.5,2 0,4 Z" fill="#ffffff" opacity="0.9" />
+          <ellipse cx="0" cy="4" rx="2.5" ry="1.5" fill="url(#flameRootGrad)" />
+        </g>
+
+        <!-- 5. STEM / BALUSTER (தண்டு) -->
+        <g id="kuthuStem" filter="url(#kuthuCastShadow)">
+          <ellipse cx="80" cy="150" rx="14" ry="4" fill="url(#brassGrad)" />
+          <path d="M73,150 L75,175 L85,175 L87,150 Z" fill="url(#brassGrad)" />
+          <ellipse cx="80" cy="175" rx="11" ry="3.5" fill="url(#brassGrad)" />
+          <path d="M75,175 C68,190 64,215 72,238 C75,245 85,245 88,238 C96,215 92,190 85,175 Z" fill="url(#brassGrad)"
+            stroke="#4a2c00" stroke-width="0.8" />
+          <path d="M74,185 C70,200 70,220 75,232 M80,178 L80,242 M86,185 C90,200 90,220 85,232" stroke="rgba(0,0,0,0.5)"
+            stroke-width="1.2" fill="none" />
+          <path d="M75,185 C71,200 71,220 76,232 M81,178 L81,242 M87,185 C91,200 91,220 86,232"
+            stroke="rgba(255,255,255,0.4)" stroke-width="0.8" fill="none" />
+          <ellipse cx="80" cy="246" rx="15" ry="4.5" fill="url(#brassGrad)" stroke="#ffea75" stroke-width="0.8" />
+          <circle cx="70" cy="246" r="2" fill="#ffd700" />
+          <circle cx="75" cy="247" r="2.2" fill="#fff4b8" />
+          <circle cx="80" cy="247.5" r="2.5" fill="#ffd700" />
+          <circle cx="85" cy="247" r="2.2" fill="#fff4b8" />
+          <circle cx="90" cy="246" r="2" fill="#ffd700" />
+          <path d="M73,250 L71,288 L89,288 L87,250 Z" fill="url(#brassGrad)" />
+          <ellipse cx="80" cy="275" rx="12" ry="3.5" fill="url(#brassGrad)" />
+          <g id="stemTilak">
+            <ellipse cx="80" cy="210" rx="4" ry="7" fill="#ffd000" opacity="0.95" />
+            <circle cx="80" cy="210" r="2.2" fill="#d90429" />
+          </g>
+        </g>
+
+        <!-- 6. BASE PEDESTAL (பத்ம பீடம்) -->
+        <g id="kuthuBase" filter="url(#kuthuCastShadow)">
+          <ellipse cx="80" cy="290" rx="16" ry="5" fill="url(#brassGrad)" stroke="#ffe680" stroke-width="0.8" />
+          <ellipse cx="80" cy="298" rx="24" ry="7" fill="url(#brassGrad)" />
+          <path d="M56,298 C50,312 40,328 35,338 C55,346 105,346 125,338 C120,328 110,312 104,298 Z"
+            fill="url(#brassGrad)" stroke="#2b1400" stroke-width="1" />
+          <path
+            d="M55,332 C62,315 70,305 74,302 C72,315 68,328 65,335 M75,302 C79,315 80,325 80,336 C80,325 81,315 85,302 M86,302 C90,305 98,315 105,332 C102,328 98,315 96,302"
+            stroke="#422500" stroke-width="1.4" fill="none" opacity="0.85" />
+          <ellipse cx="80" cy="338" rx="48" ry="11" fill="url(#brassGrad)" stroke="#ffe680" stroke-width="1.2" />
+          <path d="M32,338 C32,345 52,352 80,352 C108,352 128,345 128,338 Z" fill="#3d2105" stroke="#1a0a00"
+            stroke-width="1" />
+          <ellipse cx="80" cy="344" rx="46" ry="9" fill="url(#brassGrad)" />
+        </g>
+
+        <!-- 7. FRESH MARIGOLD FLOWERS AROUND BASE (சாமந்தி மலர் மாலை) -->
+        <g id="marigoldBaseRing" filter="url(#kuthuCastShadow)">
+          <path
+            d="M22,348 C16,344 14,352 24,354 Z M138,348 C144,344 146,352 136,354 Z M42,356 C36,358 40,363 48,360 Z M118,356 C124,358 120,363 112,360 Z"
+            fill="#1b4332" stroke="#2d6a4f" stroke-width="0.8" />
+          <!-- 8 Hand-detailed Marigolds -->
+          <g transform="translate(26, 342)">
+            <circle cx="0" cy="0" r="8" fill="#d9480f" />
+            <circle cx="-2" cy="-2" r="5" fill="#f76707" />
+            <circle cx="2" cy="1" r="4" fill="#ff922b" />
+            <circle cx="0" cy="0" r="2.5" fill="#ffe066" />
+          </g>
+          <g transform="translate(39, 346)">
+            <circle cx="0" cy="0" r="9" fill="#f59f00" />
+            <circle cx="-2" cy="-2" r="6" fill="#fcc419" />
+            <circle cx="1" cy="2" r="5" fill="#ffe066" />
+            <circle cx="0" cy="0" r="3" fill="#fff9db" />
+          </g>
+          <g transform="translate(54, 350)">
+            <circle cx="0" cy="0" r="9.5" fill="#d9480f" />
+            <circle cx="-1" cy="-2" r="6" fill="#f76707" />
+            <circle cx="2" cy="1" r="5" fill="#ffa94d" />
+            <circle cx="0" cy="0" r="2.8" fill="#ffe8cc" />
+          </g>
+          <g transform="translate(70, 352)">
+            <circle cx="0" cy="0" r="10" fill="#f59f00" />
+            <circle cx="-2" cy="-1" r="7" fill="#fcc419" />
+            <circle cx="1" cy="2" r="5.5" fill="#ffe066" />
+            <circle cx="0" cy="0" r="3" fill="#ffffff" />
+          </g>
+          <g transform="translate(86, 352)">
+            <circle cx="0" cy="0" r="10" fill="#e8590c" />
+            <circle cx="2" cy="-2" r="7" fill="#fd7e14" />
+            <circle cx="-1" cy="2" r="5.5" fill="#ff922b" />
+            <circle cx="0" cy="0" r="3" fill="#ffe8cc" />
+          </g>
+          <g transform="translate(102, 350)">
+            <circle cx="0" cy="0" r="9.5" fill="#f59f00" />
+            <circle cx="2" cy="-2" r="6" fill="#fcc419" />
+            <circle cx="-1" cy="1" r="5" fill="#ffe066" />
+            <circle cx="0" cy="0" r="2.8" fill="#fff9db" />
+          </g>
+          <g transform="translate(118, 346)">
+            <circle cx="0" cy="0" r="9" fill="#d9480f" />
+            <circle cx="2" cy="-2" r="6" fill="#f76707" />
+            <circle cx="-1" cy="1" r="5" fill="#ffa94d" />
+            <circle cx="0" cy="0" r="3" fill="#ffe8cc" />
+          </g>
+          <g transform="translate(132, 342)">
+            <circle cx="0" cy="0" r="8" fill="#f59f00" />
+            <circle cx="1" cy="-1" r="5" fill="#fcc419" />
+            <circle cx="-1" cy="1" r="4" fill="#ffe066" />
+            <circle cx="0" cy="0" r="2.5" fill="#fff9db" />
+          </g>
+        </g>
+      </g>
+    </defs>
+  </svg>
+
+  <!-- ==================== MAIN FULLSCREEN LANDSCAPE PALACE STAGE ==================== -->
+  <main class="palace-stage">
+
+    <div class="palace-gate-wrapper" id="palaceGate">
+
+      <!-- Grand Royal Palace Header Bar (College Branding | TECHNITIX | Department Branding) -->
+      <header class="palace-header-bar" id="palaceHeaderBar">
+        <!-- Left: Sree Sakthi Engineering College Branding Plaque -->
+        <div class="header-brand-plaque plaque-left-wrapper" title="Sree Sakthi Engineering College">
+          <img src="assets/plaque_college_perfect.png?v=4" alt="Sree Sakthi Engineering College (Autonomous: Technical Campus - Karamadai)" class="header-plaque-img plaque-college-img">
+        </div>
+
+        <!-- Center: TECHNITIX Royal Festive Title Plaque -->
+        <div class="header-brand-plaque plaque-center-wrapper" id="palaceTopCrest" title="TECHNITIX">
+          <img src="assets/plaque_technitix_perfect.png?v=4" alt="TECHNITIX Royal Plaque" class="header-plaque-img plaque-technitix-img">
+        </div>
+
+        <!-- Right: Department of IT & AIDS Branding Plaque -->
+        <div class="header-brand-plaque plaque-right-wrapper" title="Department of IT & AIDS">
+          <img src="assets/plaque_dept_it_aids_perfect.png?v=4" alt="Department of IT & AIDS" class="header-plaque-img plaque-dept-img">
+        </div>
+      </header>
+
+      <!-- Ayudha Pooja Sacred Mavilai Thoranam & Marigold Garlands (மாவிலை தோரணம்) -->
+      <div class="palace-mavilai-thoranam">
+        <svg class="thoranam-svg" viewBox="0 0 1000 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="mavilaiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#143622" />
+              <stop offset="30%" stop-color="#2d6a4f" />
+              <stop offset="65%" stop-color="#40916c" />
+              <stop offset="90%" stop-color="#52b788" />
+              <stop offset="100%" stop-color="#1b4332" />
+            </linearGradient>
+            <linearGradient id="mavilaiFold" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="rgba(0,0,0,0.35)" />
+              <stop offset="50%" stop-color="rgba(255,255,255,0.22)" />
+              <stop offset="100%" stop-color="rgba(0,0,0,0.4)" />
+            </linearGradient>
+            <radialGradient id="bellGoldGrad" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#fff9db" />
+              <stop offset="30%" stop-color="#fcc419" />
+              <stop offset="70%" stop-color="#d97706" />
+              <stop offset="100%" stop-color="#78350f" />
+            </radialGradient>
+
+            <!-- Folded Traditional Mango Leaf (மாவிலை) -->
+            <g id="foldedMavilai">
+              <path d="M0,0 L-11,28 L0,45 L11,28 Z" fill="url(#mavilaiGrad)" stroke="#0d2818" stroke-width="0.8" />
+              <path d="M0,0 L-11,28 L0,45 L11,28 Z" fill="url(#mavilaiFold)" />
+              <line x1="0" y1="0" x2="0" y2="45" stroke="#74c69d" stroke-width="0.9" />
+              <!-- Golden Knot/Bead fixing leaf directly to garland rope -->
+              <circle cx="0" cy="0" r="3.2" fill="#d97706" />
+              <circle cx="0" cy="0" r="2.2" fill="#fbbf24" />
+              <circle cx="0" cy="0" r="1.0" fill="#fff9db" />
+            </g>
+
+            <!-- Deep Saffron Orange Marigold Flower Rosette -->
+            <g id="marigoldFlowerOrange">
+              <circle cx="0" cy="0" r="8.5" fill="#c2410c" />
+              <circle cx="-1" cy="-2" r="6" fill="#ea580c" />
+              <circle cx="2" cy="1.5" r="4.5" fill="#f97316" />
+              <circle cx="0" cy="0" r="2.5" fill="#fed7aa" />
+            </g>
+
+            <!-- Brilliant Golden Yellow Marigold Flower Rosette -->
+            <g id="marigoldFlowerYellow">
+              <circle cx="0" cy="0" r="8.5" fill="#d97706" />
+              <circle cx="-2" cy="-1" r="6" fill="#f59e0b" />
+              <circle cx="1" cy="2" r="4.5" fill="#fbbf24" />
+              <circle cx="0" cy="0" r="2.5" fill="#fef08a" />
+            </g>
+
+            <!-- Authentic Sacred Golden Temple Bell (திருக்கோயில் மணி) -->
+            <g id="thoranamBell" class="swaying-bell">
+              <line x1="0" y1="0" x2="0" y2="10" stroke="#d97706" stroke-width="1.6" />
+              <path d="M-6,21 C-5,14 -1,11 0,11 C1,11 5,14 6,21 Z" fill="url(#bellGoldGrad)" stroke="#78350f" stroke-width="0.8" />
+              <ellipse cx="0" cy="21" rx="6" ry="1.8" fill="#b45309" stroke="#78350f" stroke-width="0.8" />
+              <circle cx="0" cy="23.5" r="1.8" fill="#fef08a" />
+            </g>
+          </defs>
+
+          <!-- Top Guide Twine / Beam Border -->
+          <path d="M10,16 Q500,20 990,16" stroke="#8b5a2b" stroke-width="2" fill="none" stroke-dasharray="8 4" opacity="0.4" />
+
+          <!-- UNIFIED SWAY CONTAINER: Rope, Mango Leaves, Marigold Flowers & Bells Move In Perfect Sync -->
+          <g class="thoranam-unified-sway">
+
+            <!-- ================= 1. MANGO LEAVES (ATTACHED DIRECTLY TO THE SWAG ROPE PATH) ================= -->
+            <g class="thoranam-leaves-group">
+              <!-- Left Swag Leaves (Attached to Q(183, 68) curve) -->
+              <use href="#foldedMavilai" x="53" y="27" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="95" y="36" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="130" y="40" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="165" y="43" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="202" y="43" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="244" y="40" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="286" y="34" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="322" y="26" class="leaf-sway-item" />
+
+              <!-- Center Swag Leaves (Attached to Q(500, 74) curve) -->
+              <use href="#foldedMavilai" x="370" y="28" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="407" y="37" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="444" y="44" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="478" y="47" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="522" y="47" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="556" y="44" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="593" y="37" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="630" y="28" class="leaf-sway-item" />
+
+              <!-- Right Swag Leaves (Attached to Q(817, 68) curve) -->
+              <use href="#foldedMavilai" x="678" y="26" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="714" y="34" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="756" y="40" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="798" y="43" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="835" y="43" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="870" y="40" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="905" y="36" class="leaf-sway-item" />
+              <use href="#foldedMavilai" x="947" y="27" class="leaf-sway-item" />
+            </g>
+
+            <!-- ================= 2. THE YELLOW-ORANGE MARIGOLD GARLAND ROPE (RUNS DIRECTLY OVER LEAF ROOTS) ================= -->
+            <g class="thoranam-garland-ropes">
+              <!-- Natural Holding Twine Cord -->
+              <path d="M20,18 Q183,68 345,20" fill="none" stroke="#b45309" stroke-width="2.5" />
+              <path d="M345,20 Q500,74 655,20" fill="none" stroke="#b45309" stroke-width="2.5" />
+              <path d="M655,20 Q817,68 980,18" fill="none" stroke="#b45309" stroke-width="2.5" />
+
+              <!-- Saffron Orange Marigold Flower Strands -->
+              <path d="M20,18 Q183,68 345,20" fill="none" stroke="#ea580c" stroke-width="8" stroke-linecap="round" stroke-dasharray="0.1 11" />
+              <path d="M345,20 Q500,74 655,20" fill="none" stroke="#ea580c" stroke-width="8.5" stroke-linecap="round" stroke-dasharray="0.1 11.5" />
+              <path d="M655,20 Q817,68 980,18" fill="none" stroke="#ea580c" stroke-width="8" stroke-linecap="round" stroke-dasharray="0.1 11" />
+
+              <!-- Vibrant Golden Yellow Marigold Flower Strands (Offset for alternating pattern) -->
+              <path d="M20,18 Q183,68 345,20" fill="none" stroke="#fbbf24" stroke-width="8" stroke-linecap="round" stroke-dashoffset="5.5" stroke-dasharray="0.1 11" />
+              <path d="M345,20 Q500,74 655,20" fill="none" stroke="#fbbf24" stroke-width="8.5" stroke-linecap="round" stroke-dashoffset="5.7" stroke-dasharray="0.1 11.5" />
+              <path d="M655,20 Q817,68 980,18" fill="none" stroke="#fbbf24" stroke-width="8" stroke-linecap="round" stroke-dashoffset="5.5" stroke-dasharray="0.1 11" />
+
+              <!-- Luminous Marigold Highlights -->
+              <path d="M20,18 Q183,68 345,20" fill="none" stroke="#fef08a" stroke-width="3" stroke-linecap="round" stroke-dashoffset="5.5" stroke-dasharray="0.1 11" />
+              <path d="M345,20 Q500,74 655,20" fill="none" stroke="#fef08a" stroke-width="3" stroke-linecap="round" stroke-dashoffset="5.7" stroke-dasharray="0.1 11.5" />
+              <path d="M655,20 Q817,68 980,18" fill="none" stroke="#fef08a" stroke-width="3" stroke-linecap="round" stroke-dashoffset="5.5" stroke-dasharray="0.1 11" />
+            </g>
+
+            <!-- ================= 3. FESTIVE ROSETTES & TEMPLE BELLS (ATTACHED FIRMLY TO ROPE) ================= -->
+            <!-- Left Pillar Anchor -->
+            <g transform="translate(25, 18)">
+              <use href="#marigoldFlowerOrange" />
+              <use href="#marigoldFlowerYellow" y="10" />
+              <use href="#thoranamBell" y="18" />
+            </g>
+
+            <!-- Left Swag Center Apex Bell -->
+            <g transform="translate(183, 44)">
+              <use href="#marigoldFlowerOrange" />
+              <use href="#thoranamBell" y="8" />
+            </g>
+
+            <!-- First Joint Rosette & Bell -->
+            <g transform="translate(345, 20)">
+              <use href="#marigoldFlowerOrange" />
+              <use href="#marigoldFlowerYellow" y="11" />
+              <use href="#thoranamBell" y="20" />
+            </g>
+
+            <!-- Center Royal Apex Rosette & Sacred Bell (Under TECHNITIX) -->
+            <g transform="translate(500, 47)">
+              <use href="#marigoldFlowerYellow" />
+              <use href="#marigoldFlowerOrange" y="11" />
+              <use href="#thoranamBell" y="20" />
+            </g>
+
+            <!-- Second Joint Rosette & Bell -->
+            <g transform="translate(655, 20)">
+              <use href="#marigoldFlowerOrange" />
+              <use href="#marigoldFlowerYellow" y="11" />
+              <use href="#thoranamBell" y="20" />
+            </g>
+
+            <!-- Right Swag Center Apex Bell -->
+            <g transform="translate(817, 44)">
+              <use href="#marigoldFlowerOrange" />
+              <use href="#thoranamBell" y="8" />
+            </g>
+
+            <!-- Right Pillar Anchor -->
+            <g transform="translate(975, 18)">
+              <use href="#marigoldFlowerOrange" />
+              <use href="#marigoldFlowerYellow" y="10" />
+              <use href="#thoranamBell" y="18" />
+            </g>
+
+          </g>
+        </svg>
+      </div>
+
+      <!-- Left & Right Authentic Tamil Nadu Royal Palace Pillars (Madurai Thirumalai Nayakkar & Chettinad Architecture) -->
+      <div class="palace-pillar left-pillar">
+        <img class="pillar-photo" src="assets/tamil_palace_pillar.png" alt="Tamil Nadu Royal Palace Pillar Left">
+      </div>
+      <div class="palace-pillar right-pillar">
+        <img class="pillar-photo" src="assets/tamil_palace_pillar.png" alt="Tamil Nadu Royal Palace Pillar Right">
+      </div>
+
+      <!-- The Grand Palace Arch Frame -->
+      <div class="palace-arch">
+
+        <!-- Inside: Arena & Fullscreen Video Player -->
+        <div class="palace-inner-arena" id="palaceInnerArena">
+          <!-- User Loaded Video -->
+          <video id="palaceVideo" playsinline loop></video>
+          <!-- YouTube Video Player Embed -->
+          <iframe id="palaceYouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+          <!-- Prompt shown ONLY if no video is selected yet -->
+          <div class="no-video-prompt" id="noVideoPrompt"
+            onclick="document.getElementById('customVideoUpload').click()">
+            <div
+              style="font-size: clamp(36px, 4.5vw, 64px); margin-bottom: 12px; filter: drop-shadow(0 0 15px rgba(255,215,0,0.5));">
+              🎬</div>
+            <div
+              style="font-size: clamp(16px, 1.8vw, 26px); font-weight: 800; color: #ffd700; letter-spacing: 1px; font-family: 'Mukta Malar', serif;">
+              வீடியோவை தேர்வு செய்ய கிளிக் செய்யவும்
+            </div>
+            <div style="font-size: clamp(12px, 1.1vw, 16px); color: #fff3c4; opacity: 0.8; margin-top: 6px;">
+              Click here or use "📁 Video தேர்வு" below to select your video
+            </div>
+          </div>
+        </div>
+
+        <!-- Left Palace Door Leaf (Tamil Nadu Royal Palace Burma Teakwood) -->
+        <div class="palace-door-leaf door-leaf-left">
+          <img class="door-leaf-photo" src="assets/tamil_palace_door_left.jpg" alt="Tamil Nadu Royal Palace Left Door">
+          <div class="door-leaf-sheen"></div>
+        </div>
+
+        <!-- Right Palace Door Leaf (Tamil Nadu Royal Palace Burma Teakwood) -->
+        <div class="palace-door-leaf door-leaf-right">
+          <img class="door-leaf-photo" src="assets/tamil_palace_door_right.jpg"
+            alt="Tamil Nadu Royal Palace Right Door">
+          <div class="door-leaf-sheen"></div>
+        </div>
+
+        <!-- Sacred Tilak at the top of the doors -->
+        <div class="palace-tilak">
+          <div class="tilak-stripe"></div>
+          <div class="tilak-stripe"></div>
+          <div class="tilak-stripe"></div>
+          <div class="tilak-kumkum"></div>
+        </div>
+
+        <!-- The Grand Antique Temple Brass Padlock (புராதன கோவில் பித்தளை பூட்டு) -->
+        <div class="royal-center-lock" id="royalLock" title="Click or Shoot to Shatter Lock">
+          <div class="lock-hasp-plate"></div>
+          <div class="lock-body-wrapper" id="lockBodyWrapper">
+            <img class="lock-brass-img" id="lockBrassImg" src="assets/antique_temple_padlock_real.png" alt="Antique Temple Brass Padlock" draggable="false">
+            <div class="lock-hit-flash" id="lockHitFlash"></div>
+          </div>
+          <div class="lock-shards-stage" id="lockShardsStage"></div>
+          <div class="lock-glyph" id="lockGlyph" style="display:none;">🔒</div>
+          <div class="lock-status-badge" id="lockBadge" style="display:none;">LOCKED</div>
+        </div>
+
+      </div>
+
+      <!-- Sacred Royal Kuthuvilakku Brass Oil Lamps -->
+      <div class="palace-diya diya-left">
+        <div class="diya-ambient-glow"></div>
+        <img class="kuthuvilakku-photo" src="assets/tamil_kuthuvilakku_lamp.png" alt="Tamil Nadu Kuthuvilakku Left">
+      </div>
+      <div class="palace-diya diya-right">
+        <div class="diya-ambient-glow"></div>
+        <img class="kuthuvilakku-photo" src="assets/tamil_kuthuvilakku_lamp.png" alt="Tamil Nadu Kuthuvilakku Right">
+      </div>
+
+      <!-- Ayudha Pooja Sacred Greeting Banner & Festive Engineering Objects (ஆயுத பூஜை நல்வாழ்த்துக்கள்) -->
+      <div class="ayudha-pooja-banner" id="ayudhaPoojaBanner" title="ஆயுத பூஜை நல்வாழ்த்துக்கள்">
+        <img class="ayudha-banner-img" src="assets/ayudha_pooja_banner_clean.png" alt="ஆயுத பூஜை நல்வாழ்த்துக்கள் - Sree Sakthi Engineering College" draggable="false">
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ==================== BULLET ANIMATION & LIGHTGUN RETICLE ==================== -->
+  <canvas id="bulletCanvas"></canvas>
+
+  <!-- Glowing Royal Lightgun Aim Reticle -->
+  <div id="royalCrosshair" class="royal-crosshair">
+    <div class="crosshair-ring"></div>
+    <div class="crosshair-lines"></div>
+    <div class="crosshair-inner-dot"></div>
+    <div class="crosshair-lock-label" id="crosshairLabel">🎯 AIM RETICLE</div>
+  </div>
+
+  <!-- Top Localhost Notice Banner (Appears only on file:/// to guide user) -->
+  <div id="fileNoticeBanner" class="file-notice-banner" style="display: none;">
+    <span>⚡ WebCam & Lightgun சிறப்பாக இயங்க: Localhost-ஐ பயன்படுத்தவும்</span>
+    <a href="http://localhost:8000/finialpro1.html" class="banner-link">👉 Switch to http://localhost:8000</a>
+  </div>
+
+  <!-- Green Sticker Vision Tracker Calibration HUD (Starts compact/collapsed to keep plaques & gates unobstructed) -->
+  <div id="trackerHud" class="tracker-hud-panel collapsed">
+    <div class="tracker-hud-header">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="tracker-status-dot" id="trackerStatusDot"></span>
+        <span style="font-weight: 800; font-size: 11px; color: #ffd700; letter-spacing: 0.5px;">GUN SIGHT (துப்பாக்கி பார்வை)</span>
+      </div>
+      <div style="display: flex; gap: 5px;">
+        <button class="tracker-min-btn" id="minTrackerHudBtn" title="சுருக்கு / விரி (Minimize/Expand)">▢</button>
+        <button class="tracker-close-btn" id="closeTrackerHudBtn" title="Close">✕</button>
+      </div>
+    </div>
+
+    <div class="tracker-body" id="trackerBody">
+      <div class="tracker-preview-box">
+        <video id="trackerVideo" playsinline muted autoplay style="display: none;"></video>
+        <canvas id="trackerCanvas" width="320" height="240"></canvas>
+        <div class="tracker-cross" id="trackerCamCross"></div>
+        <div id="camStartOverlay" class="cam-start-overlay">
+          <div style="font-size: 26px;">📷</div>
+          <button id="bigStartCamBtn" class="big-start-cam-btn">🎥 கேமரா தொடங்கு<br><span
+              style="font-size: 10px; font-weight: 600;">(START CAMERA)</span></button>
+          <div style="font-size: 9.5px; color: #eeddbb; opacity: 0.85;">பச்சை ஸ்டிக்கரை காட்டி குறிபார்க்கவும்</div>
+        </div>
+      </div>
+
+      <div class="tracker-info-text" id="trackerInfoText">🔴 கேமரா ஆஃப் (Camera Offline)</div>
+
+      <!-- Camera Device Selector Dropdown -->
+      <div class="tracker-device-row">
+        <label for="cameraSelect"
+          style="font-size: 10px; color: #ffd700; font-weight: 700; display: flex; justify-content: space-between;">
+          <span>📷 கேமரா சாதனம்:</span>
+          <span id="camCountBadge" style="color: #00f5d4; font-size: 9px;"></span>
+        </label>
+        <select id="cameraSelect" class="tracker-select">
+          <option value="">🔍 கேமரா தேடுகிறது...</option>
+        </select>
+      </div>
+
+      <!-- In-HUD Friendly Diagnostic / Error Box (No alert popups) -->
+      <div id="camErrorBox" class="cam-error-box" style="display: none;">
+        <div style="font-weight: 700; color: #ff4d4f; display: flex; align-items: center; gap: 4px;">
+          <span>⚠️</span><span id="camErrorTitle">கேமரா தொடங்க முடியவில்லை</span>
+        </div>
+        <div id="camErrorTips" style="font-size: 9.5px; color: #eeddbb; margin: 4px 0; line-height: 1.35;">
+          • WhatsApp / Zoom / பிற ஆப்ஸ்களில் கேமரா பயன்பாட்டில் இருந்தால் மூடவும்.<br>
+          • USB கேமரா இணைப்பை சரிபார்க்கவும்.
+        </div>
+        <div style="display: flex; gap: 6px; margin-top: 5px;">
+          <button id="retryCamBtn" class="tracker-mini-action-btn">🔄 Retry (மீண்டும்)</button>
+          <button id="useMouseAimBtn" class="tracker-mini-action-btn">🖱️ Use Mouse (மவுஸ்)</button>
+        </div>
+      </div>
+
+      <!-- Quick Preset Chips -->
+      <div class="tracker-color-presets">
+        <button class="tracker-preset-chip active" id="chipNeon" data-hue="115" data-tol="45">🟢 Neon</button>
+        <button class="tracker-preset-chip" id="chipLime" data-hue="90" data-tol="40">🌿 Lime</button>
+        <button class="tracker-preset-chip" id="chipCommon" data-hue="120" data-tol="52">🟩 Common</button>
+        <button class="tracker-preset-chip" id="chipDark" data-hue="145" data-tol="40">🌲 Dark</button>
+        <button class="tracker-preset-chip" id="pickColorBtn"
+          title="கேமராவில் கிளிக் செய்து நிறத்தை தேர்ந்தெடுக்கவும்">🎨 Pick</button>
+      </div>
+
+      <div class="tracker-controls">
+        <label class="tracker-slider-label">
+          <span>சென்சிட்டிவிட்டி (Sens):</span>
+          <input type="range" id="trackerSens" min="15" max="75" value="48">
+        </label>
+        <label class="tracker-slider-label">
+          <span>பச்சை நிறம் (Hue):</span>
+          <input type="range" id="trackerHue" min="70" max="165" value="115">
+        </label>
+        <label class="tracker-slider-label">
+          <span>மென்மை (Smooth):</span>
+          <input type="range" id="trackerSmooth" min="15" max="80" value="45">
+        </label>
+        <div class="tracker-row-btns" style="margin-top: 4px;">
+          <button class="tracker-tool-btn" id="mirrorXBtn">⇄ Mirror: ON</button>
+          <button class="tracker-tool-btn" id="hudStopCamBtn" style="color: #ff6b6b; border-color: rgba(255, 107, 107, 0.4);">⏹ Camera OFF</button>
+          <button class="tracker-tool-btn" id="testFireHudBtn"
+            style="background: linear-gradient(135deg, #ff1a40, #ff8500); font-weight: 700;">🎯 Shoot</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESP32 Arduino Code Modal -->
+  <div id="esp32Modal" class="esp32-code-modal" style="display: none;">
+    <div class="esp32-modal-card">
+      <div class="esp32-modal-header">
+        <h3 style="color: #ffd700; font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+          ⚡ ESP32 Cardboard Gun Arduino Code
+        </h3>
+        <button class="esp32-close-btn" id="closeEsp32ModalBtn">✕</button>
+      </div>
+      <p style="font-size: 12px; color: #eeddbb; margin: 12px 0 8px 0; line-height: 1.5;">
+        Connect your cardboard gun's trigger push-button between <b>GPIO 4</b> and <b>GND</b> on your ESP32. Flash this
+        sketch using Arduino IDE at <b>115200 baud</b>:
+      </p>
+      <pre class="esp32-code-snippet" id="esp32CodeSnippet"><code>// ============================================================
+// TECHNITIX ESP32 CARDBOARD GUN TRIGGER (BAUD RATE: 115200)
+// Connect Push-Button Trigger between GPIO 4 and GND
+// ============================================================
+const int TRIGGER_PIN = 4;
+int lastState = HIGH;
+unsigned long lastDebounce = 0;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(TRIGGER_PIN, INPUT_PULLUP);
+}
+
+void loop() {
+  int reading = digitalRead(TRIGGER_PIN);
+  if (reading != lastState) {
+    lastDebounce = millis();
+  }
+  
+  if ((millis() - lastDebounce) > 40) {
+    if (reading == LOW && lastState == HIGH) {
+      // Trigger pulled! Sends SHOOT command to Chrome/Edge WebSerial
+      Serial.println("SHOOT");
+    }
+  }
+  lastState = reading;
+}</code></pre>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px;">
+        <button class="ctrl-btn primary-unlock" id="copyEsp32CodeBtn">📋 Copy Arduino Code</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DISCREET FLOATING CONTROL BAR ==================== -->
+  <div class="event-controls-bar" id="controlsBar">
+    <!-- Hardware Status -->
+    <div class="hw-badge">
+      <div class="hw-led" id="hwLed"></div>
+      <span id="hwStatusText">ESP32: Disconnected</span>
+    </div>
+
+    <!-- Connect USB Button -->
+    <button class="ctrl-btn" id="connectSerialBtn">🔌 Connect ESP32 (USB)</button>
+
+    <!-- Shoot Trigger Test Button (Spacebar) -->
+    <button class="ctrl-btn" id="shootBtn"
+      style="background: linear-gradient(135deg, #ff1a40, #ff8500); color: #fff; font-weight: 800; border: none; box-shadow: 0 0 14px rgba(255, 26, 64, 0.7);"
+      title="Fire Gun (Press Spacebar or Click)">🎯 Shoot (Space)</button>
+
+    <!-- Gun Tracking Toggle -->
+    <button class="ctrl-btn" id="toggleTrackingBtn" title="Toggle WebCam Green Sticker Tracking">📷 Tracking: OFF</button>
+    <button class="ctrl-btn" id="trackerSetupBtn" style="padding: 8px 10px;"
+      title="Tracker Calibration Settings">⚙️</button>
+
+    <!-- ESP32 Code Modal Button -->
+    <button class="ctrl-btn" id="esp32CodeBtn" title="View & Copy ESP32 Arduino Code">📋 ESP32 Code</button>
+
+    <!-- Test Unlock / Lock Buttons -->
+    <button class="ctrl-btn primary-unlock" id="testUnlockBtn">🔓 Unlock</button>
+    <button class="ctrl-btn" id="testLockBtn" disabled>🔒 Lock</button>
+
+    <!-- Video Selector -->
+    <label class="ctrl-btn" for="customVideoUpload">📁 Video தேர்வு</label>
+    <input type="file" id="customVideoUpload" accept="video/*">
+
+    <!-- Audio Toggle -->
+    <button class="ctrl-btn" id="soundBtn">🔊 Audio</button>
+
+    <!-- Fullscreen Toggle -->
+    <button class="ctrl-btn" id="fullscreenBtn" title="Press 'F' to Toggle Fullscreen">⛶ Fullscreen (F)</button>
+
+    <!-- Minimize Controls Button -->
+    <button class="ctrl-btn" id="hideControlsBtn" title="Hide Controls for Event Presentation"
+      style="padding: 8px 10px;">✕</button>
+  </div>
+
+  <!-- Button to bring controls back if minimized -->
+  <div class="show-controls-toggle" id="showControlsToggle" title="Open Controls" style="display: none;">
+    ⚙️
+  </div>
+
+  <script src="../database/media-config.js"></script>
+  <script src="media-config.js"></script>
+  <script>
+    var $ = function (id) { return document.getElementById(id); };
+
+    // =======================================================================
+    // 🎬 1. DEFAULT MEDIA CONFIGURATION (Default Video Path)
+    // =======================================================================
+    // media.html line 868-ல் உள்ள CONSTANT MEDIA-விலிருந்து Video தானாகவே Load ஆகும்!
+    // நீங்கள் இங்கேயும் மாற்றலாம் அல்லது media.html-லும் மாற்றலாம்:
+    // =======================================================================
+    const media = {
+      // 🎥 1. VIDEO FILE PATH (வீடியோ கோப்பு):
+      video: (typeof TECHNITIX_MEDIA !== 'undefined' && TECHNITIX_MEDIA.video) ? TECHNITIX_MEDIA.video : "D:/Videos/vidssave.com Sulochana - Lyrical _ Sigma _ Cathrine Teresa Alexander _ Sundeep _ Faria _ Thaman S _ Jason Sanjay 720P.mp4",
+
+      // 🔊 2. AUDIO FILE PATH (ஆடியோ கோப்பு):
+      audio: (typeof TECHNITIX_MEDIA !== 'undefined' && TECHNITIX_MEDIA.audio) ? TECHNITIX_MEDIA.audio : "media/sample_audio.wav"
+    };
+
+    // =======================================================================
+    // ⚙️ SMART PATH NORMALIZER (Windows Copy Path -> URL)
+    // =======================================================================
+    function cleanAndResolvePath(rawPath) {
+      if (!rawPath || typeof rawPath !== 'string') return '';
+      var clean = rawPath.trim();
+      // Remove surrounding quotes if pasted as "..." or '...'
+      clean = clean.replace(/^["']+|["']+$/g, '');
+      // Auto-heal JS unescaped \v (vertical tab \x0B) to 'v' (e.g. \vidssave -> vidssave)
+      clean = clean.replace(/[\x0B\u000B]/g, 'v');
+      // Auto-heal missing slash after drive letter when \V was unescaped: "D:Videos" -> "D:/Videos"
+      clean = clean.replace(/^([a-zA-Z]:)\s*(?![\/\\])/i, '$1/');
+      // Fix accidental space after drive letter: "D: \..." -> "D:/..."
+      clean = clean.replace(/^([a-zA-Z]:)\s*[\/\\]+/i, '$1/');
+      // Normalize backslashes to forward slashes
+      clean = clean.replace(/\\/g, '/');
+      if (clean.includes('tv-videos-bucket')) {
+        clean = clean.replace('tv-videos-bucket', 'gtv-videos-bucket');
+      }
+      if (/^(https?:|data:|blob:|\/\/)/i.test(clean)) {
+        return clean;
+      }
+      var projectMatch = clean.match(/(?:.*\/project01\/)(.+)$/i);
+      if (projectMatch && projectMatch[1]) {
+        return projectMatch[1];
+      }
+      if (/^[a-zA-Z]:\//.test(clean)) {
+        if (window.location.protocol.startsWith('http')) {
+          return '/api/media?path=' + encodeURIComponent(clean);
+        }
+        return 'http://127.0.0.1:5500/api/media?path=' + encodeURIComponent(clean);
+      }
+      return clean;
+    }
+
+    // Helper: Detect and extract YouTube Video ID
+    function extractYouTubeId(rawUrl) {
+      if (!rawUrl || typeof rawUrl !== 'string') return null;
+      var clean = rawUrl.trim().replace(/^["']+|["']+$/g, '');
+      var match = clean.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|watch\?.+&v=))([\w-]{11})/i);
+      return match ? match[1] : null;
+    }
+
+    var palaceGate = $('palaceGate');
+    var royalLock = $('royalLock');
+    var lockGlyph = $('lockGlyph');
+    var lockBadge = $('lockBadge');
+    var testUnlockBtn = $('testUnlockBtn');
+    var testLockBtn = $('testLockBtn');
+    var palaceVideo = $('palaceVideo');
+    var palaceYouTube = $('palaceYouTube');
+    var noVideoPrompt = $('noVideoPrompt');
+    var customVideoUpload = $('customVideoUpload');
+    var connectSerialBtn = $('connectSerialBtn');
+    var hwLed = $('hwLed');
+    var hwStatusText = $('hwStatusText');
+    var soundBtn = $('soundBtn');
+    var fullscreenBtn = $('fullscreenBtn');
+    var controlsBar = $('controlsBar');
+    var hideControlsBtn = $('hideControlsBtn');
+    var showControlsToggle = $('showControlsToggle');
+
+    var isBusy = false;
+    var isGateOpen = false;
+    var soundActive = true;
+    var serialPort = null;
+    var serialReader = null;
+    var serialWriter = null;
+
+    var isUserCustomVideo = false;
+    var currentActiveVideoPath = '';
+    var currentYouTubeId = null;
+
+    // Dynamically retrieve the default video path configured in media-config.js or media.html
+    async function fetchDefaultVideoPath() {
+      if (window.location.protocol.startsWith('http')) {
+        // 1. Try server.js media config API (reads media-config.js first, then media.html)
+        try {
+          var res = await fetch('/api/media-config?_t=' + Date.now());
+          if (res.ok) {
+            var data = await res.json();
+            if (data && data.video && data.video.trim()) {
+              return data.video.trim();
+            }
+          }
+        } catch (e) { }
+
+        // 2. Try parsing media-config.js directly
+        try {
+          var resCfg = await fetch('media-config.js?_t=' + Date.now());
+          if (resCfg.ok) {
+            var cfgText = await resCfg.text();
+            var cleanCfg = cfgText.replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
+            var mCfg = cleanCfg.match(/video\s*:\s*["'`](.*?)["'`]/);
+            if (mCfg && mCfg[1] && mCfg[1].trim()) {
+              return mCfg[1].trim();
+            }
+          }
+        } catch (e) { }
+
+        // 3. Try parsing media.html line 868 directly
+        try {
+          var res2 = await fetch('media.html?_t=' + Date.now());
+          if (res2.ok) {
+            var html = await res2.text();
+            var block = html.match(/const\s+media\s*=\s*\{([\s\S]*?)\};/);
+            if (block && block[1]) {
+              var stripped = block[1].replace(/\/\/.*$/gm, '');
+              var m = stripped.match(/video\s*:\s*["'`](.*?)["'`]/);
+              if (m && m[1] && m[1].trim()) {
+                return m[1].trim();
+              }
+            }
+          }
+        } catch (e) { }
+      }
+
+      // 4. Fallback to shared TECHNITIX_MEDIA from media-config.js
+      if (typeof TECHNITIX_MEDIA !== 'undefined' && TECHNITIX_MEDIA.video) {
+        return TECHNITIX_MEDIA.video;
+      }
+
+      // 5. Fallback to local media.video
+      return media.video;
+    }
+
+    // Apply video source (supports Local Files, URLs, and YouTube Embeds)
+    function applyVideoSource(rawPath, autoPlayIfGateOpen) {
+      if (!rawPath) return;
+      currentActiveVideoPath = rawPath;
+      if (!palaceYouTube) palaceYouTube = $('palaceYouTube');
+      var ytId = extractYouTubeId(rawPath);
+
+      if (ytId) {
+        currentYouTubeId = ytId;
+        palaceVideo.style.display = 'none';
+        if (!palaceVideo.paused) palaceVideo.pause();
+        if (palaceYouTube) {
+          palaceYouTube.style.display = 'block';
+          if (isGateOpen) {
+            palaceYouTube.src = 'https://www.youtube.com/embed/' + ytId + '?autoplay=1&enablejsapi=1';
+          } else {
+            palaceYouTube.src = '';
+          }
+        }
+        if (noVideoPrompt) noVideoPrompt.classList.add('hidden');
+        console.log('🔴 YouTube Video Loaded (Instant Update):', ytId);
+        return;
+      }
+
+      // Local / Direct Video Path:
+      currentYouTubeId = null;
+      if (palaceYouTube) {
+        palaceYouTube.style.display = 'none';
+        palaceYouTube.src = '';
+      }
+      palaceVideo.style.display = 'block';
+      var resolved = cleanAndResolvePath(rawPath);
+      if (!resolved) return;
+
+      if (palaceVideo.src !== resolved) {
+        palaceVideo.src = resolved;
+        palaceVideo.load();
+      }
+      if (noVideoPrompt) noVideoPrompt.classList.add('hidden');
+
+      if (autoPlayIfGateOpen && isGateOpen) {
+        palaceVideo.currentTime = 0;
+        var p = palaceVideo.play();
+        if (p !== undefined) p.catch(function () { });
+      }
+      console.log('🎬 Local/Web Video Loaded (Instant Update):', rawPath, '->', resolved);
+    }
+
+    async function initDefaultVideo() {
+      if (isUserCustomVideo) return; // Do not overwrite if user picked another video in this session
+      try {
+        var rawPath = await fetchDefaultVideoPath();
+        if (!rawPath) return;
+        applyVideoSource(rawPath, false);
+      } catch (e) {
+        console.error('Error loading default video:', e);
+      }
+    }
+
+    // ⚡ INSTANT LIVE WATCHER: Polls every 1.0s to detect changes when user hits Ctrl+S in media-config.js!
+    var mediaWatcherTimer = null;
+    function startMediaConfigWatcher() {
+      if (!window.location.protocol.startsWith('http')) return;
+      if (mediaWatcherTimer) clearInterval(mediaWatcherTimer);
+
+      mediaWatcherTimer = setInterval(async function () {
+        if (isUserCustomVideo) return; // Do not overwrite if user chose a custom file this session
+        try {
+          var res = await fetch('/api/media-config?_t=' + Date.now());
+          if (res.ok) {
+            var data = await res.json();
+            var newVideo = data && data.video ? data.video.trim() : '';
+            if (newVideo && newVideo !== currentActiveVideoPath) {
+              console.log('⚡ INSTANT UPDATE DETECTED (Ctrl+S)! Switching video to:', newVideo);
+              applyVideoSource(newVideo, true);
+            }
+          }
+        } catch (e) { }
+      }, 1000);
+    }
+
+    /* -------------------------------------------------------------
+       1. PROCEDURAL WEB AUDIO (BELLS, CLANKS & CELEBRATION CHIMES)
+    ------------------------------------------------------------- */
+    var audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    // Auspicious Temple Bell (கோவில் மணி)
+    function playBell() {
+      if (!soundActive) return;
+      try {
+        var ctx = getAudioCtx();
+        var now = ctx.currentTime;
+        var partials = [
+          { f: 587.33, g: 0.8, d: 4.5 },
+          { f: 1174.66, g: 0.6, d: 3.8 },
+          { f: 1600.0, g: 0.45, d: 2.8 },
+          { f: 2349.32, g: 0.35, d: 2.2 },
+          { f: 3135.96, g: 0.2, d: 1.6 }
+        ];
+        partials.forEach(function (p) {
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(p.f, now);
+          gain.gain.setValueAtTime(0.001, now);
+          gain.gain.linearRampToValueAtTime(p.g * 0.35, now + 0.008);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + p.d);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + p.d);
+        });
+      } catch (e) { }
+    }
+
+    // Heavy Palace Door Mechanical Latch & Clank
+    function playDoorClank() {
+      if (!soundActive) return;
+      try {
+        var ctx = getAudioCtx();
+        var now = ctx.currentTime;
+
+        // Sub-bass heavy thump
+        var sub = ctx.createOscillator();
+        var subGain = ctx.createGain();
+        sub.type = 'sine';
+        sub.frequency.setValueAtTime(130, now);
+        sub.frequency.exponentialRampToValueAtTime(25, now + 0.35);
+        subGain.gain.setValueAtTime(0.6, now);
+        subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+        sub.connect(subGain);
+        subGain.connect(ctx.destination);
+        sub.start(now);
+        sub.stop(now + 0.4);
+
+        // High metal friction slide
+        var metal = ctx.createOscillator();
+        var metalGain = ctx.createGain();
+        metal.type = 'triangle';
+        metal.frequency.setValueAtTime(1800, now + 0.04);
+        metal.frequency.exponentialRampToValueAtTime(320, now + 0.2);
+        metalGain.gain.setValueAtTime(0.35, now + 0.04);
+        metalGain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+        metal.connect(metalGain);
+        metalGain.connect(ctx.destination);
+        metal.start(now + 0.04);
+        metal.stop(now + 0.25);
+      } catch (e) { }
+    }
+
+    // Arcade Lightgun Gunshot Blast (வெடிச் சத்தம்)
+    function playGunshot() {
+      if (!soundActive) return;
+      try {
+        var ctx = getAudioCtx();
+        var now = ctx.currentTime;
+
+        // Muzzle crack (procedural white noise burst)
+        var bufferSize = Math.floor(ctx.sampleRate * 0.25);
+        var buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        var data = buffer.getChannelData(0);
+        for (var i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.035));
+        }
+        var noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        var filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(3200, now);
+        filter.frequency.exponentialRampToValueAtTime(160, now + 0.22);
+
+        var noiseGain = ctx.createGain();
+        noiseGain.gain.setValueAtTime(1.0, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+
+        noise.connect(filter);
+        filter.connect(noiseGain);
+        noiseGain.connect(ctx.destination);
+        noise.start(now);
+
+        // Sub-bass heavy gunshot punch
+        var punch = ctx.createOscillator();
+        var punchGain = ctx.createGain();
+        punch.type = 'sine';
+        punch.frequency.setValueAtTime(190, now);
+        punch.frequency.exponentialRampToValueAtTime(32, now + 0.25);
+        punchGain.gain.setValueAtTime(0.9, now);
+        punchGain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+        punch.connect(punchGain);
+        punchGain.connect(ctx.destination);
+        punch.start(now);
+        punch.stop(now + 0.28);
+      } catch (e) { }
+    }
+
+    // High-energy Metallic Ricochet Ping (ரிப்ளெக்ட் சத்தம்)
+    function playRicochetPing() {
+      if (!soundActive) return;
+      try {
+        var ctx = getAudioCtx();
+        var now = ctx.currentTime;
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = 'triangle';
+        var startF = 2600 + Math.random() * 700;
+        osc.frequency.setValueAtTime(startF, now);
+        osc.frequency.exponentialRampToValueAtTime(startF * 0.35, now + 0.22);
+        gain.gain.setValueAtTime(0.4, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.24);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.25);
+      } catch (e) { }
+    }
+
+    // Explosive Antique Brass Lock Shatter Sound (பித்தளை பூட்டு வெடித்து உடையும் சத்தம்)
+    function playLockShatterSound() {
+      if (!soundActive) return;
+      try {
+        var ctx = getAudioCtx();
+        var now = ctx.currentTime;
+
+        // 1. Heavy kinetic sub-bass blast (impact explosion)
+        var sub = ctx.createOscillator();
+        var subGain = ctx.createGain();
+        sub.type = 'triangle';
+        sub.frequency.setValueAtTime(170, now);
+        sub.frequency.exponentialRampToValueAtTime(26, now + 0.45);
+        subGain.gain.setValueAtTime(1.0, now);
+        subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+        sub.connect(subGain);
+        subGain.connect(ctx.destination);
+        sub.start(now);
+        sub.stop(now + 0.52);
+
+        // 2. High-frequency brass crunch / fracture (burst of metallic dissonance)
+        var crackBufSize = Math.floor(ctx.sampleRate * 0.35);
+        var crackBuf = ctx.createBuffer(1, crackBufSize, ctx.sampleRate);
+        var crackData = crackBuf.getChannelData(0);
+        for (var i = 0; i < crackBufSize; i++) {
+          crackData[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.055));
+        }
+        var crackSrc = ctx.createBufferSource();
+        crackSrc.buffer = crackBuf;
+        var crackFilter = ctx.createBiquadFilter();
+        crackFilter.type = 'bandpass';
+        crackFilter.frequency.setValueAtTime(2600, now);
+        crackFilter.Q.setValueAtTime(3.2, now);
+        var crackGain = ctx.createGain();
+        crackGain.gain.setValueAtTime(0.95, now);
+        crackGain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+        crackSrc.connect(crackFilter);
+        crackFilter.connect(crackGain);
+        crackGain.connect(ctx.destination);
+        crackSrc.start(now);
+
+        // 3. Staggered resonant brass fracture rings (metal pieces splitting and ringing)
+        var ringFreqs = [1840, 1280, 840, 2240, 560];
+        ringFreqs.forEach(function (freq, idx) {
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          var delay = idx * 0.022;
+          osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
+          osc.frequency.setValueAtTime(freq, now + delay);
+          osc.frequency.exponentialRampToValueAtTime(freq * 0.42, now + delay + 0.55);
+          gain.gain.setValueAtTime(0.001, now + delay);
+          gain.gain.linearRampToValueAtTime(0.35 / (idx + 1), now + delay + 0.006);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + delay + 0.6);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + delay);
+          osc.stop(now + delay + 0.65);
+        });
+      } catch (e) { }
+    }
+
+    // Heavy Antique Lock Solid Snap Lock Sound (பூட்டு மாட்டும் சத்தம்)
+    function playLockSnapSound() {
+      if (!soundActive) return;
+      try {
+        var ctx = getAudioCtx();
+        var now = ctx.currentTime;
+
+        // Sharp metallic latch click
+        var click = ctx.createOscillator();
+        var clickGain = ctx.createGain();
+        click.type = 'triangle';
+        click.frequency.setValueAtTime(1400, now);
+        click.frequency.exponentialRampToValueAtTime(240, now + 0.08);
+        clickGain.gain.setValueAtTime(0.85, now);
+        clickGain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+        click.connect(clickGain);
+        clickGain.connect(ctx.destination);
+        click.start(now);
+        click.stop(now + 0.1);
+
+        // Heavy iron shackle clank
+        var shackle = ctx.createOscillator();
+        var shackleGain = ctx.createGain();
+        shackle.type = 'sine';
+        shackle.frequency.setValueAtTime(440, now + 0.02);
+        shackle.frequency.exponentialRampToValueAtTime(95, now + 0.26);
+        shackleGain.gain.setValueAtTime(0.55, now + 0.02);
+        shackleGain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+        shackle.connect(shackleGain);
+        shackleGain.connect(ctx.destination);
+        shackle.start(now + 0.02);
+        shackle.stop(now + 0.3);
+      } catch (e) { }
+    }
+
+    // Target Locked Confirmation Tone
+    var lastLockBeep = 0;
+    function playTargetLockBeep() {
+      if (!soundActive || Date.now() - lastLockBeep < 600) return;
+      lastLockBeep = Date.now();
+      try {
+        var ctx = getAudioCtx();
+        var now = ctx.currentTime;
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, now);
+        osc.frequency.setValueAtTime(1760, now + 0.06);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.16);
+      } catch (e) { }
+    }
+
+    // Cyber Signal Ramp
+    function playSignalCharge() {
+      if (!soundActive) return;
+      try {
+        var ctx = getAudioCtx();
+        var now = ctx.currentTime;
+        var osc = ctx.createOscillator();
+        var filter = ctx.createBiquadFilter();
+        var gain = ctx.createGain();
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.exponentialRampToValueAtTime(920, now + 1.2);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(220, now);
+        filter.frequency.exponentialRampToValueAtTime(4000, now + 1.2);
+
+        gain.gain.setValueAtTime(0.01, now);
+        gain.gain.linearRampToValueAtTime(0.25, now + 0.2);
+        gain.gain.linearRampToValueAtTime(0.28, now + 1.0);
+        gain.gain.linearRampToValueAtTime(0.001, now + 1.3);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + 1.3);
+      } catch (e) { }
+    }
+
+    // Auspicious Royal Fanfare Chime (மங்கள வாத்திய இசை)
+    function playFanfare() {
+      if (!soundActive) return;
+      try {
+        var ctx = getAudioCtx();
+        var now = ctx.currentTime;
+        var scale = [587.33, 659.25, 739.99, 880.00, 987.77, 1174.66];
+        scale.forEach(function (freq, idx) {
+          var t = now + (idx * 0.15);
+          var o = ctx.createOscillator();
+          var g = ctx.createGain();
+          o.type = 'sine';
+          o.frequency.setValueAtTime(freq, t);
+          g.gain.setValueAtTime(0.001, t);
+          g.gain.linearRampToValueAtTime(0.25, t + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + 2.0);
+          o.connect(g);
+          g.connect(ctx.destination);
+          o.start(t);
+          o.stop(t + 2.1);
+        });
+      } catch (e) { }
+    }
+
+    soundBtn.onclick = function () {
+      getAudioCtx();
+      soundActive = !soundActive;
+      soundBtn.textContent = soundActive ? '🔊 Audio' : '🔇 Muted';
+      soundBtn.style.opacity = soundActive ? '1' : '0.6';
+    };
+
+    // =============================================================
+    // 💥 REALISTIC ANTIQUE TEMPLE BRASS LOCK SHATTER ENGINE
+    // =============================================================
+    var lockImageSrc = 'assets/antique_temple_padlock_real.png';
+    var isLockShattered = false;
+
+    // 16 Detailed Polygon Slices covering the entire antique brass lock
+    var LOCK_SHARD_DEFS = [
+      // 1. Left iron shackle (snaps and spins up-left)
+      { clip: 'polygon(24% 0%, 50% 0%, 50% 31%, 36% 31%, 25% 18%)', vx: -16, vy: -20, rotZ: -32, vrotX: 18, vrotY: -12, grav: 0.65 },
+      // 2. Right iron shackle (snaps and spins up-right)
+      { clip: 'polygon(50% 0%, 76% 0%, 75% 18%, 64% 31%, 50% 31%)', vx: 16, vy: -20, rotZ: 32, vrotX: -15, vrotY: 14, grav: 0.65 },
+      // 3. Top shackle crown arch
+      { clip: 'polygon(36% 0%, 64% 0%, 60% 18%, 40% 18%)', vx: 0, vy: -26, rotZ: 8, vrotX: 25, vrotY: 0, grav: 0.7 },
+      // 4. Left upper brass shoulder bracket
+      { clip: 'polygon(18% 28%, 38% 28%, 38% 44%, 18% 44%)', vx: -20, vy: -12, rotZ: -25, vrotX: -14, vrotY: -22, grav: 0.6 },
+      // 5. Right upper brass shoulder bracket
+      { clip: 'polygon(62% 28%, 82% 28%, 82% 44%, 62% 44%)', vx: 20, vy: -12, rotZ: 25, vrotX: -14, vrotY: 22, grav: 0.6 },
+      // 6. Lion Crown & Royal Diadem
+      { clip: 'polygon(36% 28%, 64% 28%, 62% 44%, 38% 44%)', vx: 0, vy: -18, rotZ: -10, vrotX: 30, vrotY: 5, grav: 0.65 },
+      // 7. Lion Forehead & Fierce Eyes (explodes straight out towards camera)
+      { clip: 'polygon(36% 42%, 64% 42%, 63% 58%, 37% 58%)', vx: 0, vy: -6, rotZ: 14, vrotX: -20, vrotY: -18, grav: 0.55 },
+      // 8. Lion Fangs & Snout
+      { clip: 'polygon(38% 56%, 62% 56%, 60% 70%, 40% 70%)', vx: 2, vy: 8, rotZ: -18, vrotX: 22, vrotY: 12, grav: 0.65 },
+      // 9. Left Lion Mane & Bodhigai Foliage
+      { clip: 'polygon(14% 42%, 38% 42%, 36% 68%, 12% 66%)', vx: -24, vy: -2, rotZ: -36, vrotX: 12, vrotY: -28, grav: 0.6 },
+      // 10. Right Lion Mane & Bodhigai Foliage
+      { clip: 'polygon(62% 42%, 86% 42%, 88% 66%, 64% 68%)', vx: 24, vy: -2, rotZ: 36, vrotX: 12, vrotY: 28, grav: 0.6 },
+      // 11. Antique Keyhole Escutcheon Plate (heavy iron plate drops fast)
+      { clip: 'polygon(41% 68%, 59% 68%, 58% 94%, 42% 94%)', vx: 0, vy: 16, rotZ: 12, vrotX: -16, vrotY: 8, grav: 0.75 },
+      // 12. Lower-left Floral Filigree
+      { clip: 'polygon(15% 66%, 42% 69%, 43% 92%, 24% 92%)', vx: -18, vy: 14, rotZ: -28, vrotX: -18, vrotY: -14, grav: 0.65 },
+      // 13. Lower-right Floral Filigree
+      { clip: 'polygon(58% 69%, 85% 66%, 76% 92%, 57% 92%)', vx: 18, vy: 14, rotZ: 28, vrotX: -18, vrotY: 14, grav: 0.65 },
+      // 14. Bottom Base Flange Rim
+      { clip: 'polygon(25% 88%, 75% 88%, 70% 100%, 30% 100%)', vx: 0, vy: 22, rotZ: -8, vrotX: 20, vrotY: 0, grav: 0.7 },
+      // 15. Splinter Shard A (Left jagged shard)
+      { clip: 'polygon(28% 38%, 46% 40%, 38% 54%)', vx: -26, vy: -14, rotZ: -45, vrotX: 35, vrotY: -35, grav: 0.6 },
+      // 16. Splinter Shard B (Right jagged shard)
+      { clip: 'polygon(54% 40%, 72% 38%, 62% 54%)', vx: 26, vy: -14, rotZ: 45, vrotX: 35, vrotY: 35, grav: 0.6 }
+    ];
+
+    function shatterAntiqueLock(hitX, hitY, onComplete) {
+      if (isLockShattered) return;
+      isLockShattered = true;
+
+      var lockBodyWrapper = $('lockBodyWrapper');
+      var lockShardsStage = $('lockShardsStage');
+      var lockHitFlash = $('lockHitFlash');
+      var lockRect = royalLock.getBoundingClientRect();
+
+      var centerX = lockRect.left + lockRect.width / 2;
+      var centerY = lockRect.top + lockRect.height / 2;
+
+      var blastX = hitX || centerX;
+      var blastY = hitY || centerY;
+
+      // 1. Play realistic metallic shatter sound & heavy kinetic shockwave
+      playLockShatterSound();
+
+      // 2. Palace gate shakes violently from bullet impact
+      palaceGate.classList.add('shake');
+      setTimeout(function () { palaceGate.classList.remove('shake'); }, 600);
+
+      // 3. Impact Flash at point of bullet strike
+      if (lockHitFlash) {
+        lockHitFlash.classList.remove('active');
+        void lockHitFlash.offsetWidth; // Force reflow
+        lockHitFlash.classList.add('active');
+      }
+
+      // 4. Spawn 140+ fiery metal sparks & debris from hit point on canvas
+      spawnImpactSparks(blastX, blastY, 120, '#ffd700');
+      spawnImpactSparks(blastX, blastY, 60, '#ff4d4f');
+      spawnImpactSparks(blastX, blastY, 30, '#ffffff');
+
+      // 5. Instantly hide the intact padlock body and smoothly slide out the Ayudha Pooja banner
+      if (lockBodyWrapper) {
+        lockBodyWrapper.style.opacity = '0';
+        lockBodyWrapper.style.pointerEvents = 'none';
+      }
+      var ayudhaBanner = $('ayudhaPoojaBanner');
+      if (ayudhaBanner) ayudhaBanner.classList.add('hide-on-shatter');
+
+      // 6. Spawn the 16 realistic 3D polygon shards
+      if (!lockShardsStage) return;
+      lockShardsStage.innerHTML = '';
+
+      var shardElements = [];
+      LOCK_SHARD_DEFS.forEach(function (def) {
+        var el = document.createElement('div');
+        el.className = 'lock-shard';
+        el.style.backgroundImage = 'url("' + lockImageSrc + '")';
+        el.style.clipPath = def.clip;
+        el.style.webkitClipPath = def.clip;
+
+        var shardCenterPctX = (parseFloat(def.clip.split(' ')[0].replace(/[^0-9.]/g, '')) || 50) / 100;
+        var shardCenterPctY = (parseFloat(def.clip.split(' ')[1].replace(/[^0-9.]/g, '')) || 50) / 100;
+        var shardWorldX = lockRect.left + lockRect.width * shardCenterPctX;
+        var shardWorldY = lockRect.top + lockRect.height * shardCenterPctY;
+
+        var ang = Math.atan2(shardWorldY - blastY, shardWorldX - blastX);
+        var blastForce = 14 + Math.random() * 18;
+
+        var shardData = {
+          el: el,
+          x: 0,
+          y: 0,
+          z: 0,
+          vx: def.vx * 0.85 + Math.cos(ang) * blastForce,
+          vy: def.vy * 0.85 + Math.sin(ang) * blastForce - (7 + Math.random() * 9),
+          vz: (Math.random() - 0.4) * 450,
+          rotX: 0,
+          rotY: 0,
+          rotZ: 0,
+          vrotX: def.vrotX * (0.8 + Math.random() * 0.6),
+          vrotY: def.vrotY * (0.8 + Math.random() * 0.6),
+          vrotZ: def.rotZ * (0.8 + Math.random() * 0.6),
+          grav: def.grav || 0.65,
+          opacity: 1
+        };
+
+        lockShardsStage.appendChild(el);
+        shardElements.push(shardData);
+      });
+
+      // Shard Physics Animation Loop
+      var animStart = performance.now();
+      function updateShards(now) {
+        var elapsed = now - animStart;
+        var allDead = true;
+
+        shardElements.forEach(function (s) {
+          s.x += s.vx;
+          s.y += s.vy;
+          s.z += s.vz * 0.05;
+          s.vy += s.grav; // Gravity pulls shards down
+          s.vx *= 0.985;  // Air friction
+          s.vz *= 0.98;
+
+          s.rotX += s.vrotX;
+          s.rotY += s.vrotY;
+          s.rotZ += s.vrotZ;
+
+          if (elapsed > 450) {
+            s.opacity -= 0.025;
+          }
+
+          if (s.opacity > 0) {
+            allDead = false;
+            s.el.style.opacity = Math.max(0, s.opacity);
+            s.el.style.transform = 'translate3d(' + s.x.toFixed(1) + 'px, ' + s.y.toFixed(1) + 'px, ' + s.z.toFixed(1) + 'px) ' +
+              'rotateX(' + s.rotX.toFixed(1) + 'deg) rotateY(' + s.rotY.toFixed(1) + 'deg) rotateZ(' + s.rotZ.toFixed(1) + 'deg)';
+          } else {
+            s.el.style.display = 'none';
+          }
+        });
+
+        if (!allDead && elapsed < 3000) {
+          requestAnimationFrame(updateShards);
+        } else {
+          lockShardsStage.innerHTML = '';
+        }
+      }
+      requestAnimationFrame(updateShards);
+
+      // Trigger door unlatch and swing open smoothly after dramatic impact delay (350ms)
+      setTimeout(function () {
+        if (typeof onComplete === 'function') onComplete();
+      }, 350);
+    }
+
+    /* -------------------------------------------------------------
+       2. ROYAL DOOR CONTROLLER (UNLOCK & VIDEO PLAYBACK)
+    ------------------------------------------------------------- */
+    function unlockDoor(fromBullet, hitX, hitY) {
+      if (isBusy || isGateOpen) return;
+      isBusy = true;
+      testUnlockBtn.disabled = true;
+      getAudioCtx();
+
+      // Shatter the antique brass padlock realistically
+      shatterAntiqueLock(hitX, hitY, function () {
+        palaceGate.classList.remove('shake');
+        playDoorClank();
+        playBell();
+        playFanfare();
+
+        triggerSparks();
+        palaceGate.classList.add('open');
+
+        triggerPetals(90);
+        setTimeout(function () { triggerPetals(60); }, 1500);
+
+        // Directly play video when doors open
+        if (currentYouTubeId) {
+          if (!palaceYouTube) palaceYouTube = $('palaceYouTube');
+          if (palaceYouTube) {
+            palaceYouTube.style.display = 'block';
+            palaceYouTube.src = 'https://www.youtube.com/embed/' + currentYouTubeId + '?autoplay=1&enablejsapi=1';
+          }
+          if (noVideoPrompt) noVideoPrompt.classList.add('hidden');
+        } else if (palaceVideo.src) {
+          if (noVideoPrompt) noVideoPrompt.classList.add('hidden');
+          palaceVideo.currentTime = 0;
+          var playPromise = palaceVideo.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(function (err) {
+              console.warn('Autoplay with audio blocked, attempting muted play:', err);
+              palaceVideo.muted = true;
+              palaceVideo.play().then(function () {
+                var unmuteOnce = function () {
+                  palaceVideo.muted = false;
+                  document.removeEventListener('click', unmuteOnce);
+                };
+                document.addEventListener('click', unmuteOnce, { once: true });
+              }).catch(function (e) { });
+            });
+          }
+        }
+
+        sendSerialCmd('DOOR_UNLOCKED\n');
+
+        setTimeout(function () {
+          isBusy = false;
+          isGateOpen = true;
+          testLockBtn.disabled = false;
+        }, 1200);
+      });
+    }
+
+    function lockDoor() {
+      if (isBusy || !isGateOpen) return;
+      isBusy = true;
+      getAudioCtx();
+      playDoorClank();
+
+      palaceGate.classList.remove('open', 'charging');
+      var ayudhaBanner = $('ayudhaPoojaBanner');
+      if (ayudhaBanner) ayudhaBanner.classList.remove('hide-on-shatter');
+      if (lockGlyph) lockGlyph.textContent = '🔒';
+      if (lockBadge) lockBadge.textContent = 'LOCKED';
+
+      if (currentYouTubeId && palaceYouTube) {
+        palaceYouTube.src = '';
+      } else if (!palaceVideo.paused) {
+        palaceVideo.pause();
+      }
+
+      sendSerialCmd('DOOR_LOCKED\n');
+
+      setTimeout(function () {
+        isLockShattered = false;
+        var lockShardsStage = $('lockShardsStage');
+        if (lockShardsStage) lockShardsStage.innerHTML = '';
+        var lockBodyWrapper = $('lockBodyWrapper');
+        if (lockBodyWrapper) {
+          lockBodyWrapper.style.opacity = '1';
+          lockBodyWrapper.style.pointerEvents = 'auto';
+          lockBodyWrapper.classList.remove('snap-in');
+          void lockBodyWrapper.offsetWidth; // Reflow
+          lockBodyWrapper.classList.add('snap-in');
+        }
+        playLockSnapSound();
+
+        isGateOpen = false;
+        isBusy = false;
+        testUnlockBtn.disabled = false;
+        testLockBtn.disabled = true;
+      }, 1000);
+    }
+
+    // Connect Actions
+    testUnlockBtn.onclick = function () { unlockDoor(); };
+    testLockBtn.onclick = lockDoor;
+    royalLock.onclick = function (e) {
+      if (isGateOpen) {
+        lockDoor();
+      } else {
+        var rect = royalLock.getBoundingClientRect();
+        var clickX = e ? e.clientX : (rect.left + rect.width / 2);
+        var clickY = e ? e.clientY : (rect.top + rect.height / 2);
+        unlockDoor(true, clickX, clickY);
+      }
+    };
+
+    window.unlockDoor = unlockDoor;
+    window.lockDoor = lockDoor;
+
+    /* -------------------------------------------------------------
+       3. VIDEO UPLOAD & MANAGEMENT
+    ------------------------------------------------------------- */
+    customVideoUpload.onchange = function () {
+      var file = this.files[0];
+      if (!file) return;
+      if (palaceVideo.src && palaceVideo.src.startsWith('blob:')) {
+        try { URL.revokeObjectURL(palaceVideo.src); } catch (e) { }
+      }
+      var videoUrl = URL.createObjectURL(file);
+      isUserCustomVideo = true; // Active only for current session; refresh restores default!
+      currentYouTubeId = null;
+      if (palaceYouTube) {
+        palaceYouTube.style.display = 'none';
+        palaceYouTube.src = '';
+      }
+      palaceVideo.style.display = 'block';
+      palaceVideo.src = videoUrl;
+      palaceVideo.muted = false;
+      palaceVideo.load();
+      if (noVideoPrompt) noVideoPrompt.classList.add('hidden');
+      
+      // Automatically unlock palace gates so the user can immediately see and hear the video!
+      if (!isGateOpen) {
+        unlockDoor();
+      } else {
+        palaceVideo.currentTime = 0;
+        var p = palaceVideo.play();
+        if (p !== undefined) {
+          p.catch(function () { });
+        }
+      }
+    };
+
+    palaceVideo.onclick = function () {
+      if (palaceVideo.paused) {
+        palaceVideo.muted = false;
+        palaceVideo.play().catch(function () { });
+      } else {
+        palaceVideo.pause();
+      }
+    };
+
+    palaceVideo.onloadedmetadata = function () {
+      if (noVideoPrompt) noVideoPrompt.classList.add('hidden');
+    };
+
+    palaceVideo.onerror = function () {
+      console.warn('Video failed to load from:', palaceVideo.src);
+      if (noVideoPrompt) {
+        noVideoPrompt.classList.remove('hidden');
+      }
+    };
+
+    /* -------------------------------------------------------------
+       4. WEBSERIAL: ESP32 HARDWARE INTEGRATION
+    ------------------------------------------------------------- */
+    async function sendSerialCmd(msg) {
+      if (serialWriter) {
+        try { await serialWriter.write(msg); } catch (e) { }
+      }
+    }
+
+    async function connectESP32() {
+      if (!('serial' in navigator)) {
+        alert('WebSerial is supported in Google Chrome & Microsoft Edge.\nPlease open this webpage in Chrome to connect ESP32 directly via USB!');
+        return;
+      }
+      try {
+        serialPort = await navigator.serial.requestPort();
+        await serialPort.open({ baudRate: 115200 });
+
+        hwLed.classList.add('connected');
+        hwStatusText.textContent = 'ESP32: Connected (115200)';
+        connectSerialBtn.textContent = '🔌 Disconnect ESP32';
+        connectSerialBtn.style.borderColor = '#00f5d4';
+
+        var textEncoder = new TextEncoderStream();
+        textEncoder.readable.pipeTo(serialPort.writable);
+        serialWriter = textEncoder.writable.getWriter();
+
+        var textDecoder = new TextDecoderStream();
+        serialPort.readable.pipeTo(textDecoder.writable);
+        serialReader = textDecoder.readable.getReader();
+
+        readSerialLoop();
+      } catch (err) {
+        console.error('Serial connection error:', err);
+      }
+    }
+
+    async function readSerialLoop() {
+      var buffer = '';
+      try {
+        while (serialPort && serialPort.readable) {
+          var res = await serialReader.read();
+          if (res.done) break;
+          if (res.value) {
+            buffer += res.value;
+            var lines = buffer.split('\n');
+            buffer = lines.pop();
+
+            for (var i = 0; i < lines.length; i++) {
+              var cmd = lines[i].trim().toUpperCase();
+              if (cmd.includes('SHOOT') || cmd.includes('FIRE') || cmd.includes('BANG') || cmd.includes('TRIG') || cmd === '1') {
+                triggerShoot();
+              } else if (cmd.includes('UNLOCK') || cmd.includes('OPEN')) {
+                unlockDoor();
+              } else if (cmd.includes('LOCK') || cmd.includes('CLOSE') || cmd === '0') {
+                lockDoor();
+              }
+            }
+          }
+        }
+      } catch (e) {
+        disconnectSerial();
+      }
+    }
+
+    async function disconnectSerial() {
+      if (serialReader) {
+        try { await serialReader.cancel(); } catch (e) { }
+        serialReader = null;
+      }
+      if (serialWriter) {
+        try { await serialWriter.close(); } catch (e) { }
+        serialWriter = null;
+      }
+      if (serialPort) {
+        try { await serialPort.close(); } catch (e) { }
+        serialPort = null;
+      }
+      hwLed.classList.remove('connected');
+      hwStatusText.textContent = 'ESP32: Disconnected';
+      connectSerialBtn.textContent = '🔌 Connect ESP32 (USB)';
+      connectSerialBtn.style.borderColor = 'rgba(255, 215, 0, 0.4)';
+    }
+
+    connectSerialBtn.onclick = function () {
+      if (serialPort) disconnectSerial();
+      else connectESP32();
+    };
+
+    /* -------------------------------------------------------------
+       5. PRESENTATION FULLSCREEN, AUTO-DISAPPEAR & KEYBOARD SHORTCUTS
+    ------------------------------------------------------------- */
+    function enterFullscreen() {
+      var elem = document.documentElement;
+      var requestFn = elem.requestFullscreen || elem.webkitRequestFullscreen || elem.mozRequestFullScreen || elem.msRequestFullscreen;
+      if (requestFn) {
+        requestFn.call(elem).catch(function () { });
+      }
+      controlsBar.classList.add('minimized');
+      showControlsToggle.style.display = 'none';
+    }
+
+    function exitFullscreen() {
+      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+        var exitFn = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+        if (exitFn) {
+          exitFn.call(document).catch(function () { });
+        }
+      }
+      controlsBar.classList.remove('minimized');
+      showControlsToggle.style.display = 'none';
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+        enterFullscreen();
+      } else {
+        exitFullscreen();
+      }
+    }
+
+    fullscreenBtn.onclick = function () {
+      toggleFullscreen();
+    };
+
+    function onFullscreenChange() {
+      var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+      if (isFs) {
+        // Fullscreen activated: Auto-disappear the options bar
+        controlsBar.classList.add('minimized');
+        showControlsToggle.style.display = 'none';
+      } else {
+        // Fullscreen exited (via Escape key or otherwise): Restore the options bar
+        controlsBar.classList.remove('minimized');
+        showControlsToggle.style.display = 'none';
+      }
+    }
+
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+    document.addEventListener('mozfullscreenchange', onFullscreenChange);
+    document.addEventListener('MSFullscreenChange', onFullscreenChange);
+
+    // Keyboard Shortcuts: 'F' toggles Fullscreen, 'Escape' exits and brings options bar back
+    window.addEventListener('keydown', function (e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullscreen();
+      } else if (e.key === 'Escape') {
+        exitFullscreen();
+      }
+    });
+
+    hideControlsBtn.onclick = function () {
+      controlsBar.classList.add('minimized');
+      showControlsToggle.style.display = 'flex';
+    };
+
+    showControlsToggle.onclick = function () {
+      controlsBar.classList.remove('minimized');
+      showControlsToggle.style.display = 'none';
+    };
+
+    /* -------------------------------------------------------------
+       6. CELEBRATION PARTICLES (ROYAL PETALS & SPARKS)
+    ------------------------------------------------------------- */
+    var canvas = $('palaceFx');
+    var ctx = canvas.getContext('2d');
+    var W, H;
+    var particles = [];
+
+    function resizeCanvas() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function triggerSparks() {
+      var rect = palaceGate.getBoundingClientRect();
+      var cx = rect.left + rect.width / 2;
+      var cy = rect.top + rect.height / 2;
+      for (var i = 0; i < 200; i++) {
+        var ang = Math.random() * Math.PI * 2;
+        var spd = 4 + Math.random() * 14;
+        particles.push({
+          x: cx, y: cy,
+          vx: Math.cos(ang) * spd,
+          vy: Math.sin(ang) * spd,
+          life: 85,
+          color: Math.random() > 0.4 ? '#ffd700' : (Math.random() > 0.5 ? '#00f5d4' : '#ff4d4f'),
+          size: 3 + Math.random() * 4,
+          gravity: 0.16,
+          type: 'spark'
+        });
+      }
+    }
+
+    function triggerPetals(count) {
+      var colors = ['#ffd700', '#ff8500', '#ffffff', '#ff2a55', '#ffe066'];
+      for (var i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * W,
+          y: -40 - Math.random() * (H * 0.4),
+          vx: (Math.random() - 0.5) * 2.5,
+          vy: 2.0 + Math.random() * 3.5,
+          life: 480,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          size: 8 + Math.random() * 10,
+          gravity: 0.015,
+          angle: Math.random() * 6.28,
+          spin: (Math.random() - 0.5) * 0.08,
+          wobble: Math.random() * 10,
+          type: 'petal'
+        });
+      }
+    }
+
+    function particleLoop() {
+      ctx.clearRect(0, 0, W, H);
+
+      for (var i = particles.length - 1; i >= 0; i--) {
+        var p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += p.gravity;
+        p.life--;
+
+        if (p.life <= 0 || p.y > H + 50) {
+          particles.splice(i, 1);
+          continue;
+        }
+
+        ctx.globalAlpha = Math.min(1, p.life / 35);
+        ctx.fillStyle = p.color;
+
+        if (p.type === 'petal') {
+          p.angle += p.spin;
+          p.x += Math.sin(p.y / 28 + p.wobble) * 1.1;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.angle);
+          ctx.beginPath();
+          ctx.ellipse(0, 0, p.size, p.size * 0.5, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        } else {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(particleLoop);
+    }
+    particleLoop();
+
+    /* =============================================================
+       7. CARDBOARD LIGHTGUN VISION TRACKER & RICOCHET ENGINE
+    ============================================================= */
+    var bulletCanvas = $('bulletCanvas');
+    var bCtx = bulletCanvas.getContext('2d');
+    var bW, bH;
+    function resizeBulletCanvas() {
+      bW = bulletCanvas.width = window.innerWidth;
+      bH = bulletCanvas.height = window.innerHeight;
+    }
+    resizeBulletCanvas();
+    window.addEventListener('resize', resizeBulletCanvas);
+
+    var royalCrosshair = $('royalCrosshair');
+    var crosshairLabel = $('crosshairLabel');
+    var shootBtn = $('shootBtn');
+    var toggleTrackingBtn = $('toggleTrackingBtn');
+    var trackerSetupBtn = $('trackerSetupBtn');
+    var hudStopCamBtn = $('hudStopCamBtn');
+    var trackerHud = $('trackerHud');
+    var closeTrackerHudBtn = $('closeTrackerHudBtn');
+    var trackerStatusDot = $('trackerStatusDot');
+    var trackerVideo = $('trackerVideo');
+    var trackerCanvas = $('trackerCanvas');
+    var trackerCamCross = $('trackerCamCross');
+    var trackerInfoText = $('trackerInfoText');
+    var trackerSens = $('trackerSens');
+    var trackerHue = $('trackerHue');
+    var mirrorXBtn = $('mirrorXBtn');
+    var pickColorBtn = $('pickColorBtn');
+    var esp32CodeBtn = $('esp32CodeBtn');
+    var esp32Modal = $('esp32Modal');
+    var closeEsp32ModalBtn = $('closeEsp32ModalBtn');
+    var copyEsp32CodeBtn = $('copyEsp32CodeBtn');
+
+    var aimX = window.innerWidth * 0.5;
+    var aimY = window.innerHeight * 0.5;
+    var isTargetLocked = false;
+    var isShooting = false;
+    var cameraStream = null;
+    var isTrackingActive = false;
+    var mirrorX = true;
+    var isSamplingColor = false;
+
+    var activeBullets = [];
+    var impactSparks = [];
+
+    // Aim Position Tracking: Mouse Movement
+    window.addEventListener('mousemove', function (e) {
+      if (!isTrackingActive) {
+        aimX = e.clientX;
+        aimY = e.clientY;
+      }
+    });
+
+    // Check Lock Collision & Update Crosshair
+    function updateCrosshair() {
+      var lockRect = royalLock.getBoundingClientRect();
+      var lockCenterX = lockRect.left + lockRect.width / 2;
+      var lockCenterY = lockRect.top + lockRect.height / 2;
+      var lockRadius = lockRect.width / 2;
+
+      var dist = Math.hypot(aimX - lockCenterX, aimY - lockCenterY);
+      var previouslyLocked = isTargetLocked;
+      isTargetLocked = (dist <= lockRadius * 1.15) && !isGateOpen;
+
+      if (isTargetLocked) {
+        royalCrosshair.classList.add('locked');
+        royalLock.classList.add('targeted');
+        crosshairLabel.textContent = '🎯 TARGET LOCKED (சுட தயார்)';
+        if (!previouslyLocked) {
+          playTargetLockBeep();
+        }
+      } else {
+        royalCrosshair.classList.remove('locked');
+        royalLock.classList.remove('targeted');
+        crosshairLabel.textContent = isGateOpen ? 'DOORS OPEN' : '🎯 AIM RETICLE';
+      }
+
+      royalCrosshair.style.left = aimX + 'px';
+      royalCrosshair.style.top = aimY + 'px';
+
+      requestAnimationFrame(updateCrosshair);
+    }
+    updateCrosshair();
+
+    // Trigger Shoot (Lightgun Fired)
+    function triggerShoot() {
+      if (isGateOpen || isShooting) return;
+      isShooting = true;
+      getAudioCtx();
+
+      playGunshot();
+
+      var lockRect = royalLock.getBoundingClientRect();
+      var lockX = lockRect.left + lockRect.width / 2;
+      var lockY = lockRect.top + lockRect.height / 2;
+      var lockRadius = lockRect.width / 2;
+
+      var dist = Math.hypot(aimX - lockX, aimY - lockY);
+      var isDirectHit = dist <= (lockRadius * 1.15);
+
+      var gunX = bW * 0.5;
+      var gunY = bH;
+
+      createMuzzleFlash(gunX, gunY);
+
+      if (isDirectHit) {
+        // Direct Hit on Lock - Immediately Shatters into Pieces!
+        createBulletPath([
+          { x: gunX, y: gunY, speed: 42 },
+          {
+            x: lockX, y: lockY, onHit: function (x, y) {
+              unlockDoor(true, x, y);
+              isShooting = false;
+            }
+          }
+        ]);
+      } else {
+        // Cinematic Ricochet Trick Shot
+        var archElem = document.querySelector('.palace-arch');
+        var archRect = archElem.getBoundingClientRect();
+
+        // Bounce 1: Top Arch Header
+        var b1X = aimX < lockX ? (archRect.left + archRect.width * 0.78) : (archRect.left + archRect.width * 0.22);
+        var b1Y = archRect.top + 45;
+
+        // Bounce 2: Bottom Arch / Pillar Base
+        var b2X = aimX < lockX ? (archRect.left + archRect.width * 0.18) : (archRect.left + archRect.width * 0.82);
+        var b2Y = archRect.bottom - 45;
+
+        createBulletPath([
+          { x: gunX, y: gunY, speed: 36 },
+          {
+            x: aimX, y: aimY, speed: 38, onHit: function (x, y) {
+              playRicochetPing();
+              spawnImpactSparks(x, y, 65, '#ff9f1c');
+            }
+          },
+          {
+            x: b1X, y: b1Y, speed: 40, onHit: function (x, y) {
+              playRicochetPing();
+              spawnImpactSparks(x, y, 75, '#00f5d4');
+            }
+          },
+          {
+            x: b2X, y: b2Y, speed: 42, onHit: function (x, y) {
+              playRicochetPing();
+              spawnImpactSparks(x, y, 80, '#ffd700');
+            }
+          },
+          {
+            x: lockX, y: lockY, onHit: function (x, y) {
+              unlockDoor(true, x, y);
+              isShooting = false;
+            }
+          }
+        ]);
+      }
+    }
+
+    // Muzzle Flash Effect
+    function createMuzzleFlash(x, y) {
+      for (var i = 0; i < 45; i++) {
+        var angle = -Math.PI / 2 + (Math.random() - 0.5) * 1.2;
+        var spd = 6 + Math.random() * 16;
+        impactSparks.push({
+          x: x, y: y,
+          vx: Math.cos(angle) * spd,
+          vy: Math.sin(angle) * spd,
+          life: 25,
+          color: Math.random() > 0.5 ? '#ffd700' : '#ff4d4f',
+          size: 3 + Math.random() * 4
+        });
+      }
+    }
+
+    // Spawn Multi-color Sparks on Impact
+    function spawnImpactSparks(x, y, count, primaryColor) {
+      for (var i = 0; i < count; i++) {
+        var ang = Math.random() * Math.PI * 2;
+        var spd = 3 + Math.random() * 14;
+        impactSparks.push({
+          x: x, y: y,
+          vx: Math.cos(ang) * spd,
+          vy: Math.sin(ang) * spd,
+          life: 45 + Math.random() * 30,
+          color: Math.random() > 0.4 ? primaryColor : '#ffffff',
+          size: 2.5 + Math.random() * 3.5,
+          gravity: 0.18
+        });
+      }
+    }
+
+    // Bullet Animation Engine along waypoints
+    function createBulletPath(waypoints) {
+      activeBullets.push({
+        waypoints: waypoints,
+        currIdx: 0,
+        x: waypoints[0].x,
+        y: waypoints[0].y,
+        trail: [],
+        dead: false
+      });
+    }
+
+    function bulletLoop() {
+      bCtx.clearRect(0, 0, bW, bH);
+
+      // Render & Update Bullets
+      for (var b = activeBullets.length - 1; b >= 0; b--) {
+        var bullet = activeBullets[b];
+        var target = bullet.waypoints[bullet.currIdx + 1];
+
+        if (!target) {
+          activeBullets.splice(b, 1);
+          continue;
+        }
+
+        var dx = target.x - bullet.x;
+        var dy = target.y - bullet.y;
+        var dist = Math.hypot(dx, dy);
+        var speed = target.speed || 35;
+
+        // Add trail point
+        bullet.trail.push({ x: bullet.x, y: bullet.y, alpha: 1.0 });
+
+        if (dist <= speed) {
+          bullet.x = target.x;
+          bullet.y = target.y;
+          if (target.onHit) {
+            target.onHit(target.x, target.y);
+          }
+          bullet.currIdx++;
+          if (bullet.currIdx >= bullet.waypoints.length - 1) {
+            bullet.dead = true;
+          }
+        } else {
+          bullet.x += (dx / dist) * speed;
+          bullet.y += (dy / dist) * speed;
+        }
+
+        // Draw bullet trail
+        bCtx.save();
+        for (var t = 0; t < bullet.trail.length; t++) {
+          var tr = bullet.trail[t];
+          tr.alpha -= 0.05;
+          if (tr.alpha > 0) {
+            bCtx.beginPath();
+            bCtx.arc(tr.x, tr.y, 4 * tr.alpha, 0, Math.PI * 2);
+            bCtx.fillStyle = 'rgba(255, 215, 0, ' + tr.alpha + ')';
+            bCtx.shadowColor = '#ffd700';
+            bCtx.shadowBlur = 12;
+            bCtx.fill();
+          }
+        }
+        bullet.trail = bullet.trail.filter(function (tr) { return tr.alpha > 0; });
+
+        // Draw bullet glowing core
+        bCtx.beginPath();
+        bCtx.arc(bullet.x, bullet.y, 6, 0, Math.PI * 2);
+        bCtx.fillStyle = '#ffffff';
+        bCtx.shadowColor = '#00f5d4';
+        bCtx.shadowBlur = 18;
+        bCtx.fill();
+        bCtx.restore();
+
+        if (bullet.dead && bullet.trail.length === 0) {
+          activeBullets.splice(b, 1);
+        }
+      }
+
+      // Render & Update Impact Sparks
+      for (var s = impactSparks.length - 1; s >= 0; s--) {
+        var sp = impactSparks[s];
+        sp.x += sp.vx;
+        sp.y += sp.vy;
+        if (sp.gravity) sp.vy += sp.gravity;
+        sp.life--;
+
+        if (sp.life <= 0) {
+          impactSparks.splice(s, 1);
+          continue;
+        }
+
+        bCtx.beginPath();
+        bCtx.arc(sp.x, sp.y, sp.size, 0, Math.PI * 2);
+        bCtx.fillStyle = sp.color;
+        bCtx.shadowColor = sp.color;
+        bCtx.shadowBlur = 8;
+        bCtx.fill();
+      }
+
+      requestAnimationFrame(bulletLoop);
+    }
+    bulletLoop();
+
+    /* -------------------------------------------------------------
+       8. GREEN STICKER WEBCAM VISION TRACKER (கார்ட்போர்டு கன் பார்வை)
+    ------------------------------------------------------------- */
+    var tCtx = trackerCanvas.getContext('2d', { willReadFrequently: true });
+    trackerCanvas.width = 320;
+    trackerCanvas.height = 240;
+
+    var targetHueVal = 115; // Optimal green sticker hue in HSV
+    var hueTolerance = 42;  // Wide tolerance for warm/indoor lighting
+    var emaSmoothing = 0.45; // Smooth movement without jitter
+    var camStartOverlay = $('camStartOverlay');
+    var bigStartCamBtn = $('bigStartCamBtn');
+    var minTrackerHudBtn = $('minTrackerHudBtn');
+    var trackerSmooth = $('trackerSmooth');
+    var testFireHudBtn = $('testFireHudBtn');
+    var chipNeon = $('chipNeon');
+    var chipLime = $('chipLime');
+    var chipDark = $('chipDark');
+    var fileNoticeBanner = $('fileNoticeBanner');
+    var chipCommon = $('chipCommon');
+    var cameraSelect = $('cameraSelect');
+    var camErrorBox = $('camErrorBox');
+    var camErrorTitle = $('camErrorTitle');
+    var camErrorTips = $('camErrorTips');
+    var retryCamBtn = $('retryCamBtn');
+    var useMouseAimBtn = $('useMouseAimBtn');
+    var camCountBadge = $('camCountBadge');
+    var selectedCameraId = '';
+
+    // Auto-check for Localhost when opened via file:///
+    if (window.location.protocol === 'file:') {
+      if (fileNoticeBanner) fileNoticeBanner.style.display = 'flex';
+      fetch('http://localhost:8000/finialpro1.html', { method: 'HEAD', mode: 'no-cors' })
+        .then(function () {
+          window.location.href = 'http://localhost:8000/finialpro1.html';
+        }).catch(function () { });
+    }
+
+    trackerHue.oninput = function () {
+      targetHueVal = parseInt(this.value, 10);
+      clearActiveChips();
+    };
+    trackerSens.oninput = function () {
+      hueTolerance = parseInt(this.value, 10);
+    };
+    if (trackerSmooth) {
+      trackerSmooth.oninput = function () {
+        emaSmoothing = parseInt(this.value, 10) / 100;
+      };
+    }
+
+    function clearActiveChips() {
+      [chipNeon, chipLime, chipCommon, chipDark].forEach(function (c) { if (c) c.classList.remove('active'); });
+    }
+
+    if (chipNeon) {
+      chipNeon.onclick = function () {
+        clearActiveChips();
+        this.classList.add('active');
+        targetHueVal = 115;
+        hueTolerance = 45;
+        trackerHue.value = 115;
+        trackerSens.value = 45;
+        trackerInfoText.textContent = '🟢 Preset: Neon Green (115°)';
+      };
+    }
+    if (chipLime) {
+      chipLime.onclick = function () {
+        clearActiveChips();
+        this.classList.add('active');
+        targetHueVal = 90;
+        hueTolerance = 40;
+        trackerHue.value = 90;
+        trackerSens.value = 40;
+        trackerInfoText.textContent = '🌿 Preset: Lime Green (90°)';
+      };
+    }
+    if (chipCommon) {
+      chipCommon.onclick = function () {
+        clearActiveChips();
+        this.classList.add('active');
+        targetHueVal = 120;
+        hueTolerance = 52;
+        trackerHue.value = 120;
+        trackerSens.value = 52;
+        trackerInfoText.textContent = '🟩 Preset: Common Green Object (120°)';
+      };
+    }
+    if (chipDark) {
+      chipDark.onclick = function () {
+        clearActiveChips();
+        this.classList.add('active');
+        targetHueVal = 145;
+        hueTolerance = 40;
+        trackerHue.value = 145;
+        trackerSens.value = 40;
+        trackerInfoText.textContent = '🌲 Preset: Dark Green (145°)';
+      };
+    }
+
+    mirrorXBtn.onclick = function () {
+      mirrorX = !mirrorX;
+      this.textContent = '⇄ Mirror: ' + (mirrorX ? 'ON' : 'OFF');
+      this.style.color = mirrorX ? '#00f5d4' : '#fff';
+    };
+
+    if (minTrackerHudBtn) {
+      minTrackerHudBtn.onclick = function () {
+        trackerHud.classList.toggle('collapsed');
+        minTrackerHudBtn.textContent = trackerHud.classList.contains('collapsed') ? '▢' : '_';
+      };
+    }
+
+    pickColorBtn.onclick = function () {
+      isSamplingColor = true;
+      trackerInfoText.textContent = '👉 Click on green sticker in camera preview!';
+      trackerInfoText.style.color = '#ffd700';
+    };
+
+    trackerCanvas.onclick = function (e) {
+      if (!isSamplingColor) return;
+      var rect = trackerCanvas.getBoundingClientRect();
+      var cx = Math.floor((e.clientX - rect.left) * (trackerCanvas.width / rect.width));
+      var cy = Math.floor((e.clientY - rect.top) * (trackerCanvas.height / rect.height));
+
+      var p = tCtx.getImageData(cx, cy, 1, 1).data;
+      var hsv = rgbToHsv(p[0], p[1], p[2]);
+      targetHueVal = Math.round(hsv[0]);
+      trackerHue.value = targetHueVal;
+      clearActiveChips();
+      isSamplingColor = false;
+      trackerInfoText.textContent = '🎯 Calibrated Green Hue: ' + targetHueVal + '°';
+      trackerInfoText.style.color = '#00f5d4';
+    };
+
+    function rgbToHsv(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      var max = Math.max(r, g, b), min = Math.min(r, g, b);
+      var h = 0, s = 0, v = max;
+      var d = max - min;
+      s = max === 0 ? 0 : d / max;
+      if (max !== min) {
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h *= 60;
+      }
+      return [h, s, v];
+    }
+
+    // Camera Error Diagnostic Display (In-HUD, Non-blocking)
+    function showCamError(title, tips) {
+      if (camErrorBox) {
+        camErrorBox.style.display = 'flex';
+        if (camErrorTitle) camErrorTitle.textContent = title;
+        if (camErrorTips) camErrorTips.innerHTML = tips;
+      }
+    }
+    function hideCamError() {
+      if (camErrorBox) camErrorBox.style.display = 'none';
+    }
+
+    if (retryCamBtn) {
+      retryCamBtn.onclick = function () {
+        hideCamError();
+        startCameraTracking();
+      };
+    }
+    if (useMouseAimBtn) {
+      useMouseAimBtn.onclick = function () {
+        hideCamError();
+        stopCameraTracking();
+        trackerInfoText.textContent = '🖱️ Mouse Aim Active (மவுஸ் மூலம் குறிபார்க்கலாம்)';
+      };
+    }
+
+    // Enumerate Available Camera Devices
+    async function updateCameraDeviceList() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) return;
+      try {
+        var devices = await navigator.mediaDevices.enumerateDevices();
+        var videoDevs = devices.filter(function (d) { return d.kind === 'videoinput'; });
+
+        if (cameraSelect) {
+          cameraSelect.innerHTML = '';
+          if (videoDevs.length === 0) {
+            var opt = document.createElement('option');
+            opt.value = '';
+            opt.textContent = '📷 இயல்புநிலை கேமரா (Default)';
+            cameraSelect.appendChild(opt);
+            if (camCountBadge) camCountBadge.textContent = '';
+          } else {
+            if (camCountBadge) camCountBadge.textContent = '(' + videoDevs.length + ' கேமராக்கள்)';
+            videoDevs.forEach(function (dev, idx) {
+              var opt = document.createElement('option');
+              opt.value = dev.deviceId;
+              opt.textContent = dev.label ? ('📷 ' + dev.label) : ('📷 Camera ' + (idx + 1));
+              cameraSelect.appendChild(opt);
+            });
+            if (selectedCameraId) {
+              cameraSelect.value = selectedCameraId;
+            } else if (videoDevs[0]) {
+              selectedCameraId = videoDevs[0].deviceId;
+              cameraSelect.value = selectedCameraId;
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Enumerate devices warning:', e);
+      }
+    }
+
+    if (cameraSelect) {
+      cameraSelect.onchange = function () {
+        selectedCameraId = this.value;
+        if (isTrackingActive) {
+          stopCameraTracking();
+          startCameraTracking();
+        }
+      };
+    }
+
+    // Multi-tier Fallback Strategy for Windows USB & Built-in WebCams
+    async function getCameraStreamFallback() {
+      var constraintsList = [];
+
+      // 1. If user selected specific camera from dropdown
+      if (selectedCameraId) {
+        constraintsList.push({ video: { deviceId: { exact: selectedCameraId }, width: { ideal: 640 }, height: { ideal: 480 } } });
+        constraintsList.push({ video: { deviceId: { exact: selectedCameraId } } });
+      }
+
+      // 2. Ideal resolution WITHOUT facingMode (facingMode breaks on Windows USB WebCams!)
+      constraintsList.push({ video: { width: { ideal: 640 }, height: { ideal: 480 } } });
+
+      // 3. Simple universal video constraint
+      constraintsList.push({ video: true });
+
+      var lastErr = null;
+      for (var i = 0; i < constraintsList.length; i++) {
+        try {
+          var stream = await navigator.mediaDevices.getUserMedia(constraintsList[i]);
+          return stream;
+        } catch (err) {
+          lastErr = err;
+          console.warn('getUserMedia constraint attempt ' + (i + 1) + ' failed:', err.name, err.message);
+        }
+      }
+      throw lastErr;
+    }
+
+    var lastTrackedX = -1;
+    var lastTrackedY = -1;
+
+    async function startCameraTracking() {
+      hideCamError();
+
+      if (location.protocol === 'file:') {
+        try {
+          await fetch('http://localhost:5500/finialpro1.html', { method: 'HEAD', mode: 'no-cors' });
+          window.location.href = 'http://localhost:5500/finialpro1.html';
+          return;
+        } catch (e) {
+          try {
+            await fetch('http://localhost:8000/finialpro1.html', { method: 'HEAD', mode: 'no-cors' });
+            window.location.href = 'http://localhost:8000/finialpro1.html';
+            return;
+          } catch (e2) {
+            showCamError('WebCam requires Localhost', 'Please open <a href="http://127.0.0.1:5500/finialpro1.html" style="color:#00f5d4;">http://127.0.0.1:5500/finialpro1.html</a> in Google Chrome.');
+            return;
+          }
+        }
+      }
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        showCamError('WebCam API Not Available', 'Please open http://127.0.0.1:5500/finialpro1.html in Chrome or Edge!');
+        return;
+      }
+
+      // Stop any existing tracks first to release device handle
+      if (cameraStream) {
+        try {
+          cameraStream.getTracks().forEach(function (track) { track.stop(); });
+        } catch (e) {}
+        cameraStream = null;
+      }
+
+      try {
+        trackerInfoText.textContent = '⏳ Starting WebCam...';
+        trackerInfoText.style.color = '#ffd700';
+        cameraStream = await getCameraStreamFallback();
+        trackerVideo.srcObject = cameraStream;
+        await trackerVideo.play();
+
+        isTrackingActive = true;
+        if (camStartOverlay) camStartOverlay.style.display = 'none';
+
+        // Update Bottom Bar Button to ON state
+        toggleTrackingBtn.textContent = '📷 Tracking: ON';
+        toggleTrackingBtn.classList.add('active');
+        toggleTrackingBtn.style.borderColor = '#00f5d4';
+        toggleTrackingBtn.style.color = '#00f5d4';
+
+        if (hudStopCamBtn) {
+          hudStopCamBtn.textContent = '⏹ Camera OFF';
+          hudStopCamBtn.style.color = '#ff6b6b';
+          hudStopCamBtn.style.borderColor = 'rgba(255, 107, 107, 0.4)';
+        }
+
+        trackerStatusDot.className = 'tracker-status-dot active';
+        trackerHud.style.display = 'flex';
+        trackerInfoText.textContent = '🟢 Camera Active: Point Green Object';
+        trackerInfoText.style.color = '#00f5d4';
+        hideCamError();
+
+        // Populate device names now that permission is active
+        updateCameraDeviceList();
+
+        lastTrackedX = -1;
+        lastTrackedY = -1;
+
+        processTrackingFrame();
+      } catch (err) {
+        console.error('Camera Error:', err);
+        stopCameraTracking();
+
+        var msg = err.name || 'Could not start video source';
+        showCamError('கேமரா அணுகல் பிழை (' + msg + ')',
+          '• USB WebCam கேபிள் சரியாக இணைக்கப்பட்டுள்ளதா என பார்க்கவும்.<br>' +
+          '• WhatsApp / Zoom / பிற பிரவுசர் டேப்களில் கேமரா பயன்பாட்டில் இருந்தால் மூடவும்.<br>' +
+          '• அல்லது "🖱️ Use Mouse" அழுத்தி மவுஸ் மூலம் குறிபார்க்கலாம்.');
+      }
+    }
+
+    function stopCameraTracking() {
+      isTrackingActive = false;
+
+      // 1. Release hardware camera stream & turn off webcam physical LED
+      if (cameraStream) {
+        try {
+          cameraStream.getTracks().forEach(function (track) { track.stop(); });
+        } catch (e) {}
+        cameraStream = null;
+      }
+
+      // 2. Pause video element & unbind stream
+      if (trackerVideo) {
+        try {
+          trackerVideo.pause();
+          trackerVideo.srcObject = null;
+        } catch (e) {}
+      }
+
+      // 3. Clear canvas and show offline graphic
+      if (tCtx && trackerCanvas) {
+        tCtx.save();
+        tCtx.fillStyle = '#06060c';
+        tCtx.fillRect(0, 0, trackerCanvas.width, trackerCanvas.height);
+        tCtx.fillStyle = '#ff4d4f';
+        tCtx.font = 'bold 12px sans-serif';
+        tCtx.textAlign = 'center';
+        tCtx.fillText('🔴 கேமரா ஆஃப் (Camera Offline)', trackerCanvas.width / 2, trackerCanvas.height / 2 - 10);
+        tCtx.fillStyle = '#eeddbb';
+        tCtx.font = '10px sans-serif';
+        tCtx.fillText('டிராக்கிங்கை இயக்க கீழே "Tracking: ON" கிளிக் செய்யவும்', trackerCanvas.width / 2, trackerCanvas.height / 2 + 10);
+        tCtx.restore();
+      }
+
+      // 4. Update UI buttons and status
+      if (camStartOverlay) camStartOverlay.style.display = 'flex';
+      toggleTrackingBtn.textContent = '📷 Tracking: OFF';
+      toggleTrackingBtn.classList.remove('active');
+      toggleTrackingBtn.style.borderColor = 'rgba(255, 215, 0, 0.4)';
+      toggleTrackingBtn.style.color = '#fff';
+
+      if (hudStopCamBtn) {
+        hudStopCamBtn.textContent = '▶ Start Camera';
+        hudStopCamBtn.style.color = '#00f5d4';
+        hudStopCamBtn.style.borderColor = 'rgba(0, 245, 212, 0.4)';
+      }
+
+      trackerStatusDot.className = 'tracker-status-dot';
+      trackerInfoText.textContent = '🔴 கேமரா ஆஃப் (Camera Offline)';
+      trackerInfoText.style.color = '#ff6b6b';
+
+      lastTrackedX = -1;
+      lastTrackedY = -1;
+    }
+
+    // Toggle Tracking button (Bottom Bar)
+    toggleTrackingBtn.onclick = function () {
+      if (isTrackingActive) {
+        stopCameraTracking();
+      } else {
+        startCameraTracking();
+      }
+    };
+
+    // HUD Turn Off / Start Button
+    if (hudStopCamBtn) {
+      hudStopCamBtn.onclick = function () {
+        if (isTrackingActive) {
+          stopCameraTracking();
+        } else {
+          startCameraTracking();
+        }
+      };
+    }
+
+    if (bigStartCamBtn) {
+      bigStartCamBtn.onclick = function (e) {
+        e.stopPropagation();
+        startCameraTracking();
+      };
+    }
+
+    trackerSetupBtn.onclick = function () {
+      trackerHud.style.display = trackerHud.style.display === 'none' ? 'flex' : 'none';
+    };
+    closeTrackerHudBtn.onclick = function () {
+      trackerHud.style.display = 'none';
+    };
+
+    if (testFireHudBtn) {
+      testFireHudBtn.onclick = function () {
+        triggerShoot();
+      };
+    }
+
+    // Initialize Device List on Load
+    updateCameraDeviceList();
+
+    function drawSearchingHud(tw, th) {
+      tCtx.save();
+      tCtx.strokeStyle = 'rgba(255, 215, 0, 0.4)';
+      tCtx.lineWidth = 1.5;
+      tCtx.beginPath();
+      tCtx.arc(tw / 2, th / 2, 28, 0, Math.PI * 2);
+      tCtx.stroke();
+      tCtx.beginPath();
+      tCtx.moveTo(tw / 2 - 40, th / 2);
+      tCtx.lineTo(tw / 2 + 40, th / 2);
+      tCtx.moveTo(tw / 2, th / 2 - 40);
+      tCtx.lineTo(tw / 2, th / 2 + 40);
+      tCtx.stroke();
+      tCtx.restore();
+
+      trackerStatusDot.className = 'tracker-status-dot searching';
+      trackerInfoText.textContent = '🔍 SEARCHING (பச்சை ஸ்டிக்கரை காட்டவும்)';
+      trackerInfoText.style.color = '#ffd700';
+    }
+
+    // ============================================================
+    // HIGH-ACCURACY COMPUTER VISION GREEN OBJECT TRACKER
+    // - Multi-Blob Connected Component Segmentation (40x30 Grid)
+    // - 100% SHIRT & ROOM BACKGROUND REJECTION:
+    //   If a person wears a green shirt or green room objects appear,
+    //   they are strictly rejected! Only small handheld green objects
+    //   (gun tip sticker or handheld test marker) are tracked.
+    // - Velocity-Adaptive Dynamic Filter (Zero Lag on Moves, Rock-Steady on Lock)
+    // - Precise 1-to-1 Hand-to-Screen Motion Mapping
+    // ============================================================
+    var GRID_W = 40; // 320 / 8
+    var GRID_H = 30; // 240 / 8
+    var NUM_CELLS = 1200;
+    var gridCount = new Int32Array(NUM_CELLS);
+    var gridSumX = new Float32Array(NUM_CELLS);
+    var gridSumY = new Float32Array(NUM_CELLS);
+    var gridSumW = new Float32Array(NUM_CELLS);
+    var gridMinX = new Int16Array(NUM_CELLS);
+    var gridMaxX = new Int16Array(NUM_CELLS);
+    var gridMinY = new Int16Array(NUM_CELLS);
+    var gridMaxY = new Int16Array(NUM_CELLS);
+    var gridVisited = new Uint8Array(NUM_CELLS);
+    var activeCellIndices = new Int32Array(NUM_CELLS);
+    var bfsQueue = new Int32Array(NUM_CELLS);
+
+    function processTrackingFrame() {
+      if (!isTrackingActive) return;
+
+      var tw = trackerCanvas.width;
+      var th = trackerCanvas.height;
+
+      if (!trackerVideo || trackerVideo.readyState < 2) {
+        requestAnimationFrame(processTrackingFrame);
+        return;
+      }
+
+      // Draw camera frame onto processing canvas
+      tCtx.drawImage(trackerVideo, 0, 0, tw, th);
+
+      var imgData = tCtx.getImageData(0, 0, tw, th);
+      var data = imgData.data;
+
+      // Reset static grid buffers (Zero GC overhead at 60 FPS)
+      gridCount.fill(0);
+      gridSumX.fill(0);
+      gridSumY.fill(0);
+      gridSumW.fill(0);
+      gridVisited.fill(0);
+      var activeCount = 0;
+
+      // PASS 1: High-precision green color isolation & 8x8 spatial binning
+      for (var y = 0; y < th; y++) {
+        var gy = (y >> 3); // 0..29
+        var gyOffset = gy * GRID_W;
+        var rowOffset = y * tw * 4;
+        for (var x = 0; x < tw; x++) {
+          var idx = rowOffset + (x * 4);
+          var r = data[idx];
+          var g = data[idx + 1];
+          var b = data[idx + 2];
+
+          // 1. Fast green dominance check
+          if (g < 42 || g <= r || g <= b) continue;
+          var maxRB = r > b ? r : b;
+          var minRB = r < b ? r : b;
+          var greenDiff = g - maxRB;
+          if (greenDiff < 14) continue;
+
+          // 2. Excess Green Index (ExG): 2*G - R - B
+          var exg = (2 * g) - r - b;
+          if (exg < 26) continue;
+
+          // 3. Fast HSV conversion
+          var delta = g - minRB;
+          var sat = delta / g;
+          if (sat < 0.18) continue; // Reject washed out gray/white
+          var val = g / 255;
+          if (val < 0.16) continue; // Reject dark shadows
+
+          var hue = 60 * ((b - r) / delta + 2);
+          if (hue < 0) hue += 360;
+
+          var hDiff = Math.abs(hue - targetHueVal);
+          if (hDiff > 180) hDiff = 360 - hDiff;
+
+          if (hDiff <= hueTolerance) {
+            var hueWeight = 1 - (hDiff / (hueTolerance + 1));
+            // Pure fluorescent green stickers get highest weight
+            var w = greenDiff * sat * (0.35 + 0.65 * hueWeight);
+
+            var gx = (x >> 3);
+            var cIdx = gyOffset + gx;
+
+            if (gridCount[cIdx] === 0) {
+              activeCellIndices[activeCount++] = cIdx;
+              gridMinX[cIdx] = x;
+              gridMaxX[cIdx] = x;
+              gridMinY[cIdx] = y;
+              gridMaxY[cIdx] = y;
+            } else {
+              if (x < gridMinX[cIdx]) gridMinX[cIdx] = x;
+              if (x > gridMaxX[cIdx]) gridMaxX[cIdx] = x;
+              if (y < gridMinY[cIdx]) gridMinY[cIdx] = y;
+              if (y > gridMaxY[cIdx]) gridMaxY[cIdx] = y;
+            }
+
+            gridCount[cIdx]++;
+            gridSumX[cIdx] += x * w;
+            gridSumY[cIdx] += y * w;
+            gridSumW[cIdx] += w;
+          }
+        }
+      }
+
+      // PASS 2: Connected Component Grouping (Multi-Blob Segmentation)
+      // Discovers all distinct green objects across the camera view in < 0.2ms!
+      var blobs = [];
+      for (var i = 0; i < activeCount; i++) {
+        var rootCell = activeCellIndices[i];
+        if (gridVisited[rootCell]) continue;
+
+        var qHead = 0, qTail = 0;
+        bfsQueue[qTail++] = rootCell;
+        gridVisited[rootCell] = 1;
+
+        var blobPixCount = 0;
+        var blobSumX = 0, blobSumY = 0, blobSumW = 0;
+        var blobMinX = tw, blobMaxX = 0, blobMinY = th, blobMaxY = 0;
+
+        while (qHead < qTail) {
+          var curr = bfsQueue[qHead++];
+          blobPixCount += gridCount[curr];
+          blobSumX += gridSumX[curr];
+          blobSumY += gridSumY[curr];
+          blobSumW += gridSumW[curr];
+
+          if (gridMinX[curr] < blobMinX) blobMinX = gridMinX[curr];
+          if (gridMaxX[curr] > blobMaxX) blobMaxX = gridMaxX[curr];
+          if (gridMinY[curr] < blobMinY) blobMinY = gridMinY[curr];
+          if (gridMaxY[curr] > blobMaxY) blobMaxY = gridMaxY[curr];
+
+          var cgx = curr % GRID_W;
+          var cgy = Math.floor(curr / GRID_W);
+
+          // 8-way spatial neighborhood clustering
+          for (var dy = -1; dy <= 1; dy++) {
+            var ngy = cgy + dy;
+            if (ngy < 0 || ngy >= GRID_H) continue;
+            for (var dx = -1; dx <= 1; dx++) {
+              if (dx === 0 && dy === 0) continue;
+              var ngx = cgx + dx;
+              if (ngx < 0 || ngx >= GRID_W) continue;
+
+              var nIdx = ngy * GRID_W + ngx;
+              if (!gridVisited[nIdx] && gridCount[nIdx] > 0) {
+                gridVisited[nIdx] = 1;
+                bfsQueue[qTail++] = nIdx;
+              }
+            }
+          }
+        }
+
+        if (blobSumW > 0 && blobPixCount > 0) {
+          var bw = blobMaxX - blobMinX + 1;
+          var bh = blobMaxY - blobMinY + 1;
+          var bArea = bw * bh;
+          var aspect = bw / bh;
+          var bDensity = blobPixCount / bArea;
+          var bRawX = blobSumX / blobSumW;
+          var bRawY = blobSumY / blobSumW;
+          var avgW = blobSumW / blobPixCount;
+
+          blobs.push({
+            count: blobPixCount,
+            minX: blobMinX, maxX: blobMaxX,
+            minY: blobMinY, maxY: blobMaxY,
+            w: bw, h: bh, area: bArea,
+            aspect: aspect, density: bDensity,
+            rawX: bRawX, rawY: bRawY,
+            avgWeight: avgW
+          });
+        }
+      }
+
+      // PASS 3: STRICT HANDHELD SMALL TARGET SELECTION & SHIRT REJECTION
+      // - Green Shirt / Torso / Wall: typically > 250px and bounding box > 50px!
+      // - Handheld Gun Tip Sticker / Test Marker: typically 8px - 40px and 6 - 220px!
+      var rejectedLargeBlobs = [];
+      var validSmallTargets = [];
+
+      for (var b = 0; b < blobs.length; b++) {
+        var blob = blobs[b];
+
+        // 1. REJECT LARGE GREEN OBJECTS (SHIRTS, SLEEVES, CLOTHING, CURTAINS, WALLS)
+        if (blob.count > 250 || blob.w > 50 || blob.h > 50 || blob.area > 2000) {
+          rejectedLargeBlobs.push(blob);
+          continue;
+        }
+
+        // 2. REJECT TINY CAMERA NOISE SPECKLES
+        if (blob.count < 6 || blob.w < 4 || blob.h < 4) {
+          continue;
+        }
+
+        // 3. REJECT WEIRD ELONGATED STREAKS (e.g. wall shadows, wires)
+        if (blob.aspect < 0.28 || blob.aspect > 3.5) {
+          continue;
+        }
+
+        // Solid compact small handheld target / gun sticker!
+        validSmallTargets.push(blob);
+      }
+
+      // PASS 4: Disambiguate and Select Target
+      var chosenTarget = null;
+      if (validSmallTargets.length === 1) {
+        chosenTarget = validSmallTargets[0];
+      } else if (validSmallTargets.length > 1) {
+        // Continuity: If previously tracking, select closest candidate to previous position
+        if (lastTrackedX >= 0 && lastTrackedY >= 0) {
+          var bestDistSq = Infinity;
+          for (var vt = 0; vt < validSmallTargets.length; vt++) {
+            var dX = validSmallTargets[vt].rawX - lastTrackedX;
+            var dY = validSmallTargets[vt].rawY - lastTrackedY;
+            var dSq = dX * dX + dY * dY;
+            if (dSq < bestDistSq) {
+              bestDistSq = dSq;
+              chosenTarget = validSmallTargets[vt];
+            }
+          }
+        }
+        // If no previous lock or previous target jumped too far (> 110px)
+        if (!chosenTarget || bestDistSq > 110 * 110) {
+          // Select most vibrant, compact sticker
+          var bestScore = -1;
+          for (var vt = 0; vt < validSmallTargets.length; vt++) {
+            var t = validSmallTargets[vt];
+            var score = t.avgWeight * (t.density + 0.4);
+            if (score > bestScore) {
+              bestScore = score;
+              chosenTarget = t;
+            }
+          }
+        }
+      }
+
+      // PASS 5: Render Visual Feedback on Tracker Canvas
+      // 1. Outline rejected shirts/large objects with dashed amber/red to inform user
+      for (var rj = 0; rj < rejectedLargeBlobs.length; rj++) {
+        var rb = rejectedLargeBlobs[rj];
+        tCtx.save();
+        tCtx.setLineDash([4, 4]);
+        tCtx.strokeStyle = 'rgba(255, 120, 80, 0.75)';
+        tCtx.lineWidth = 1.5;
+        tCtx.strokeRect(rb.minX, rb.minY, rb.w, rb.h);
+        tCtx.fillStyle = '#ffaa00';
+        tCtx.font = 'bold 9px JetBrains Mono, monospace';
+        tCtx.fillText('⚠️ SHIRT REJECTED (' + rb.count + 'px)', rb.minX + 3, Math.max(12, rb.minY - 4));
+        tCtx.restore();
+      }
+
+      // 2. Lock onto chosen handheld green sticker
+      if (chosenTarget) {
+        var rawX = chosenTarget.rawX;
+        var rawY = chosenTarget.rawY;
+        lastTrackedX = rawX;
+        lastTrackedY = rawY;
+
+          // Render High-Tech HUD Reticle on Canvas
+          tCtx.save();
+          tCtx.strokeStyle = '#00f5d4';
+          tCtx.lineWidth = 2;
+          tCtx.shadowColor = '#00f5d4';
+          tCtx.shadowBlur = 8;
+
+          // Target Circle
+          tCtx.beginPath();
+          tCtx.arc(rawX, rawY, 15, 0, Math.PI * 2);
+          tCtx.stroke();
+
+          // Crosshair Blades
+          tCtx.beginPath();
+          tCtx.moveTo(rawX - 24, rawY);
+          tCtx.lineTo(rawX - 6, rawY);
+          tCtx.moveTo(rawX + 6, rawY);
+          tCtx.lineTo(rawX + 24, rawY);
+          tCtx.moveTo(rawX, rawY - 24);
+          tCtx.lineTo(rawX, rawY - 6);
+          tCtx.moveTo(rawX, rawY + 6);
+          tCtx.lineTo(rawX, rawY + 24);
+          tCtx.stroke();
+
+        // Bounding Box around sticker
+        var bw = Math.max(12, chosenTarget.w + 4);
+        var bh = Math.max(12, chosenTarget.h + 4);
+        tCtx.strokeStyle = '#ffd700';
+        tCtx.lineWidth = 1.2;
+        tCtx.shadowBlur = 0;
+        tCtx.strokeRect(chosenTarget.minX - 2, chosenTarget.minY - 2, bw, bh);
+
+        // Target Badge
+        tCtx.fillStyle = '#ffd700';
+        tCtx.font = 'bold 10px JetBrains Mono, monospace';
+        tCtx.fillText('🎯 STICKER (' + chosenTarget.count + 'px)', rawX + 16, rawY - 6);
+        tCtx.restore();
+
+        // Map Camera Coordinates to Screen Coordinates
+        var normX = rawX / tw;
+        var normY = rawY / th;
+        if (mirrorX) normX = 1 - normX;
+
+        // Effortless reach margins: 10% on each edge maps to full screen
+        var reachMargin = 0.10;
+        var reachSpan = 1.0 - (2 * reachMargin);
+        normX = (normX - reachMargin) / reachSpan;
+        normY = (normY - reachMargin) / reachSpan;
+        normX = Math.max(0, Math.min(1, normX));
+        normY = Math.max(0, Math.min(1, normY));
+
+        var targetAimX = normX * window.innerWidth;
+        var targetAimY = normY * window.innerHeight;
+
+        // VELOCITY-ADAPTIVE DYNAMIC FILTER (One-Euro Filter Principle):
+        // Hand moves 1 cm -> instantly accelerates alpha to 0.95 with ZERO LAG!
+        // Gun held still -> sub-pixel deadband suppresses hand tremor for rock-solid lock!
+        var disp = Math.hypot(targetAimX - aimX, targetAimY - aimY);
+        if (disp < 1.8) {
+          aimX += (targetAimX - aimX) * 0.10;
+          aimY += (targetAimY - aimY) * 0.10;
+        } else {
+          var speedFactor = Math.min(1.0, (disp - 1.8) / 32.0);
+          var adaptiveAlpha = emaSmoothing + (1.0 - emaSmoothing) * Math.pow(speedFactor, 1.25);
+          adaptiveAlpha = Math.max(0.25, Math.min(0.96, adaptiveAlpha));
+
+          aimX += (targetAimX - aimX) * adaptiveAlpha;
+          aimY += (targetAimY - aimY) * adaptiveAlpha;
+        }
+
+        trackerStatusDot.className = 'tracker-status-dot active';
+        trackerInfoText.textContent = '🟢 GREEN STICKER LOCKED (' + chosenTarget.count + 'px - துல்லிய டிராக்கிங்)';
+        trackerInfoText.style.color = '#00f5d4';
+      } else {
+        if (rejectedLargeBlobs.length > 0) {
+          trackerStatusDot.className = 'tracker-status-dot searching';
+          trackerInfoText.textContent = '⚠️ SHIRT / ROOM IGNORED (ஸ்டிக்கரை மட்டும் காட்டவும்)';
+          trackerInfoText.style.color = '#ffaa00';
+        } else {
+          lastTrackedX = -1;
+          lastTrackedY = -1;
+          drawSearchingHud(tw, th);
+        }
+      }
+
+      requestAnimationFrame(processTrackingFrame);
+    }
+
+    // Connect Shoot button
+    shootBtn.onclick = function () {
+      triggerShoot();
+    };
+
+    // Stage Click Fires Lightgun
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('#controlsBar') || e.target.closest('#trackerHud') || e.target.closest('#esp32Modal') || e.target.closest('#showControlsToggle') || e.target.closest('#fileNoticeBanner')) {
+        return;
+      }
+      if (!isGateOpen && !isShooting) {
+        triggerShoot();
+      }
+    });
+
+    // Spacebar Shoot Trigger & Keyboard shortcuts
+    window.addEventListener('keydown', function (e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      if (e.code === 'Space' || e.key === ' ') {
+        e.preventDefault();
+        triggerShoot();
+      } else if (e.key === 'Escape') {
+        trackerHud.style.display = 'none';
+        esp32Modal.style.display = 'none';
+      }
+    });
+
+    // ESP32 Modal controls
+    esp32CodeBtn.onclick = function () {
+      esp32Modal.style.display = 'flex';
+    };
+    closeEsp32ModalBtn.onclick = function () {
+      esp32Modal.style.display = 'none';
+    };
+    copyEsp32CodeBtn.onclick = function () {
+      var codeText = $('esp32CodeSnippet').textContent;
+      navigator.clipboard.writeText(codeText).then(function () {
+        copyEsp32CodeBtn.textContent = '✅ Copied!';
+        setTimeout(function () { copyEsp32CodeBtn.textContent = '📋 Copy Arduino Code'; }, 2000);
+      });
+    };
+
+    // Initialize default video & instant live watcher on page startup
+    function startUpApp() {
+      initDefaultVideo();
+      startMediaConfigWatcher();
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startUpApp);
+    } else {
+      startUpApp();
+    }
+  </script>
+
+</body>
+
+</html>

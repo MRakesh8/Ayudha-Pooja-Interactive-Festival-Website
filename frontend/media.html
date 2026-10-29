@@ -1,0 +1,1467 @@
+<!-- 
+====================================================================================================
+🎬 TECHNITIX MEDIA PATH CONFIGURATION GUIDE / வீடியோ & ஆடியோ அமைவு வழிகாட்டி 🎬
+====================================================================================================
+📌 உங்கள் Video / Audio / YouTube Link-ஐ எங்கு மாற்ற வேண்டும்? (WHERE TO PASTE):
+   👉 கீழே Line Number ~900-ல் உள்ள "const media = {" பகுதிக்குச் செல்லவும்!
+   (அல்லது media-config.js ஃபைலிலும் மாற்றலாம் - இரண்டுமே தானாகவே வேலை செய்யும்!)
+
+   1️⃣ 🎥 VIDEO COPY PATH அல்லது YOUTUBE URL:
+      👉 Line ~905:  video: "இங்கே உங்கள் Path அல்லது YouTube URL-ஐ Paste செய்யவும்",
+      
+      ✅ Local Windows Video Path (கணினியில் உள்ள வீடியோ):
+         - உங்கள் வீடியோ கோப்பின் மீது Shift + Right Click செய்து "Copy as path" அழுத்தவும்.
+         - எ.கா: video: "D:/Videos/my_video.mp4"
+         - அல்லது: video: "D:\\Videos\\my_video.mp4"
+      
+      ✅ YouTube Video Link (யூடியூப் வீடியோ):
+         - YouTube-ல் வீடியோவின் URL-ஐ காப்பி செய்து அப்படியே Paste செய்யவும்!
+         - எ.கா: video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+         - அல்லது: video: "https://youtu.be/dQw4w9WgXcQ"
+         - (YouTube Link கொடுத்தால் அது தானாகவே YouTube Player மூலம் அழகாக இயங்கும்!)
+      
+      ✅ Online Direct MP4 Video:
+         - எ.கா: video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+         - அல்லது Relative Path: video: "media/sample_video.mp4"
+
+   2️⃣ 🔊 AUDIO COPY PATH (ஆடியோ கோப்பு):
+      👉 Line ~912:  audio: "இங்கே உங்கள் Audio Path-ஐ Paste செய்யவும்",
+      
+      ✅ Local Audio Path:
+         - எ.கா: audio: "media/sample_audio.wav"
+         - அல்லது: audio: "D:/Music/my_song.mp3"
+
+⚡ INSTANT UPDATE (உடனடி இயக்கம்):
+   நீங்கள் இங்கே Path மாற்றி Ctrl + S அழுத்தியதும், finialpro1.html அரண்மனை வெப்சைட்டில் 
+   பக்கத்தை ரீலோட் செய்யாமலேயே 1 வினாடியில் புதிய வீடியோ தானாகவே தயாராகி இயங்கும்!
+====================================================================================================
+-->
+<!DOCTYPE html>
+<html lang="ta">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TECHNITIX - Media Player (வீடியோ & ஆடியோ)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --gold-primary: #ffd700;
+      --gold-glow: rgba(255, 215, 0, 0.45);
+      --gold-gradient: linear-gradient(135deg, #fff2b2 0%, #ffd700 40%, #c99300 80%, #7d5700 100%);
+      --royal-cyan: #00f5d4;
+      --cyan-glow: rgba(0, 245, 212, 0.35);
+      --royal-purple: #9d4edd;
+      --bg-dark: #07020c;
+      --card-bg: rgba(18, 10, 30, 0.75);
+      --card-border: rgba(255, 215, 0, 0.22);
+      --text-main: #f5f0ff;
+      --text-muted: #a498b8;
+      --input-bg: rgba(10, 4, 18, 0.85);
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(157, 78, 221, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(0, 245, 212, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.08) 0%, transparent 60%),
+        linear-gradient(180deg, #090310 0%, #040108 100%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Navigation Bar */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px;
+      background: rgba(10, 4, 18, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      font-size: 28px;
+      filter: drop-shadow(0 0 12px var(--gold-glow));
+    }
+
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 800;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1.5px;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--royal-cyan);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .header-links {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .nav-btn {
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn-outline {
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      color: var(--gold-primary);
+      background: rgba(255, 215, 0, 0.05);
+    }
+
+    .nav-btn-outline:hover {
+      background: rgba(255, 215, 0, 0.15);
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1380px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 30px 24px 60px;
+    }
+
+    /* Instructions Banner */
+    .banner {
+      background: linear-gradient(135deg, rgba(30, 16, 52, 0.7) 0%, rgba(13, 8, 25, 0.85) 100%);
+      border: 1px solid rgba(0, 245, 212, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 22px 28px;
+      margin-bottom: 35px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), inset 0 0 25px rgba(0, 245, 212, 0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--royal-cyan), var(--gold-primary));
+    }
+
+    .banner-icon {
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .banner-content h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .banner-content p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .banner-code-tag {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(0, 245, 212, 0.12);
+      color: var(--royal-cyan);
+      padding: 2px 7px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 245, 212, 0.25);
+      font-size: 13px;
+    }
+
+    /* Media Grid */
+    #media,
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 30px;
+    }
+
+    @media (max-width: 600px) {
+
+      #media,
+      .media-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Media Card */
+    .media-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .media-card:hover {
+      border-color: rgba(255, 215, 0, 0.45);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.1);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-icon {
+      font-size: 26px;
+    }
+
+    .card-header h2 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--gold-primary);
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.5px;
+    }
+
+    .card-header .card-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .status-badge {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(0, 245, 212, 0.1);
+      color: var(--royal-cyan);
+      border: 1px solid rgba(0, 245, 212, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--royal-cyan);
+      box-shadow: 0 0 8px var(--royal-cyan);
+    }
+
+    .status-badge.playing {
+      background: rgba(255, 215, 0, 0.15);
+      color: var(--gold-primary);
+      border-color: var(--gold-primary);
+    }
+
+    .status-badge.playing::before {
+      background: var(--gold-primary);
+      box-shadow: 0 0 8px var(--gold-primary);
+    }
+
+    /* Video Player Stage */
+    .video-stage {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      background: #000;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .ambient-canvas {
+      position: absolute;
+      inset: -20px;
+      width: calc(100% + 40px);
+      height: calc(100% + 40px);
+      filter: blur(40px) brightness(1.2);
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    video {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+      outline: none;
+    }
+
+    /* Audio Player Stage & Vinyl Visualizer */
+    .audio-stage {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      background: radial-gradient(circle at center, #180d2c 0%, #0a0414 100%);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px;
+    }
+
+    .vinyl-wrapper {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: repeating-radial-gradient(circle at center, #1b1625 0, #1b1625 2px, #0e0a16 3px, #0e0a16 5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(0, 0, 0, 0.9), 0 0 15px rgba(157, 78, 221, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      transition: transform 0.5s ease;
+      z-index: 2;
+    }
+
+    .vinyl-wrapper.spinning {
+      animation: spinVinyl 5s linear infinite;
+    }
+
+    @keyframes spinVinyl {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .vinyl-center {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gold-gradient);
+      box-shadow: 0 0 12px var(--gold-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .audio-visualizer-canvas {
+      width: 100%;
+      height: 70px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 2;
+    }
+
+    .native-audio-wrapper {
+      width: 100%;
+    }
+
+    audio {
+      width: 100%;
+      height: 44px;
+      border-radius: var(--radius-md);
+      outline: none;
+      filter: invert(0.9) hue-rotate(240deg) saturate(1.8);
+    }
+
+    /* Path Input Control Box */
+    .path-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--input-bg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .path-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .path-label-row span.badge-tip {
+      font-size: 11px;
+      color: var(--royal-cyan);
+      background: rgba(0, 245, 212, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .path-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 11px 14px;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .path-input:focus {
+      border-color: var(--royal-cyan);
+      box-shadow: 0 0 12px var(--cyan-glow);
+      background: rgba(0, 245, 212, 0.03);
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .btn-gold {
+      background: var(--gold-gradient);
+      color: #1a0f00;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.25);
+    }
+
+    .btn-gold:hover {
+      box-shadow: 0 6px 22px var(--gold-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-cyan {
+      background: linear-gradient(135deg, #00f5d4 0%, #00bbf9 100%);
+      color: #011627;
+      box-shadow: 0 4px 15px rgba(0, 245, 212, 0.25);
+    }
+
+    .btn-cyan:hover {
+      box-shadow: 0 6px 22px var(--cyan-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-dark {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-dark:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--gold-primary);
+    }
+
+    .btn-file-label {
+      cursor: pointer;
+    }
+
+    .tip-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .tip-text strong {
+      color: var(--gold-primary);
+    }
+
+    /* Extra Quick Controls */
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 215, 0, 0.4);
+    }
+
+    .chip-btn.active {
+      color: var(--gold-primary);
+      background: rgba(255, 215, 0, 0.12);
+      border-color: var(--gold-primary);
+    }
+
+    /* Current Loaded Path Display */
+    .active-path-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 6px 10px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 6px;
+      color: var(--royal-cyan);
+      word-break: break-all;
+      border-left: 3px solid var(--royal-cyan);
+    }
+
+    /* Code View Section */
+    .code-guide-section {
+      margin-top: 45px;
+      background: rgba(14, 8, 24, 0.85);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .code-guide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .code-guide-title {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      color: var(--gold-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .code-box {
+      background: #06020c;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #e0d0ff;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-comment {
+      color: #82729a;
+    }
+
+    .code-keyword {
+      color: #ff79c6;
+      font-weight: 600;
+    }
+
+    .code-var {
+      color: #00f5d4;
+    }
+
+    .code-string {
+      color: #ffd700;
+    }
+
+    .code-prop {
+      color: #bd93f9;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(6, 2, 12, 0.8);
+    }
+
+    footer a {
+      color: var(--gold-primary);
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="finialpro1.html" class="brand">
+      <span class="brand-logo">👑</span>
+      <div>
+        <div class="brand-title">TECHNITIX MEDIA</div>
+        <div class="brand-subtitle">வீடியோ & ஆடியோ பிளேயர்</div>
+      </div>
+    </a>
+    <div class="header-links">
+      <a href="finialpro1.html" class="nav-btn nav-btn-outline">
+        <span>🏛️ Royal Simulator</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Welcome & Instruction Banner -->
+    <section class="banner">
+      <div class="banner-icon">🎬</div>
+      <div class="banner-content">
+        <h1>மீடியா கோப்புகள் இணைக்கும் வழிமுறை (How to use Media)</h1>
+        <p>
+          நீங்கள் உங்கள் கம்ப்யூட்டரில் உள்ள வீடியோ அல்லது ஆடியோவின் <b>Copy Path</b>-ஐ கீழே உள்ள Input box-ல் Paste
+          செய்யலாம் அல்லது நேரடியாக இந்த கோப்பின் (<span class="banner-code-tag">media.html</span>) கோடிங்கில் உள்ள
+          <span class="banner-code-tag">media</span> ஆப்ஜெக்ட்டில் கொடுத்து Play செய்து கொள்ளலாம்.
+        </p>
+      </div>
+    </section>
+
+    <!-- Media Workspace Container -->
+    <div id="media" class="media-grid">
+
+      <!-- ============================================================== -->
+      <!-- 🎥 1. VIDEO PLAYER SECTION / வீடியோ பகுதி                      -->
+      <!-- ============================================================== -->
+      <section class="media-card" id="videoSection">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-icon">🎥</span>
+            <div>
+              <h2>வீடியோ பிளேயர் (Video Player)</h2>
+              <div class="card-subtitle">MP4, WebM, MOV அல்லது Online Video URL</div>
+            </div>
+          </div>
+          <span class="status-badge" id="videoBadge">Ready</span>
+        </div>
+
+        <!-- Ambient Video Stage -->
+        <div class="video-stage" id="videoDropStage">
+          <canvas id="videoAmbientCanvas" class="ambient-canvas"></canvas>
+          <video id="videoPlayer" controls playsinline preload="metadata">
+            உங்கள் Browser HTML5 வீடியோவை ஆதரிக்கவில்லை.
+          </video>
+          <iframe id="youtubePlayer" style="display:none; width:100%; height:100%; min-height:480px; border:none; border-radius:16px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <!-- Active Path Display -->
+        <div class="active-path-badge" id="currentVideoDisplay">
+          🎥 தற்போதைய Path: <span>இன்னும் இணைக்கப்படவில்லை</span>
+        </div>
+
+        <!-- Path Input Box -->
+        <div class="path-box">
+          <div class="path-label-row">
+            <span>Video Copy Path அல்லது URL-ஐ Paste செய்யவும்:</span>
+            <span class="badge-tip">media.video</span>
+          </div>
+
+          <div class="input-group">
+            <input type="text" id="videoPathInput" class="path-input"
+              placeholder='எ.கா: media/sample_video.mp4 அல்லது D:\Downloads\...' spellcheck="false" />
+            <button class="btn btn-gold" id="btnLoadVideo">▶ Play</button>
+            <label class="btn btn-dark btn-file-label" title="உங்கள் கணினியிலிருந்து வீடியோவை தேர்ந்தெடுக்கவும்">
+              📂 Browse
+              <input type="file" id="videoFileInput" accept="video/*" hidden>
+            </label>
+          </div>
+
+          <p class="tip-text">
+            💡 <strong>வழிமுறை:</strong> VS Code-ல் உங்கள் வீடியோ file மீது Right Click ➔ <strong>Copy Relative
+              Path</strong> அல்லது <strong>Copy Path</strong> கிளிக் செய்து இங்கே Paste செய்து <strong>Play</strong>-ஐ
+            அழுத்தவும்.
+          </p>
+        </div>
+
+        <!-- Extra Controls -->
+        <div class="controls-row">
+          <button class="chip-btn" id="btnVideoPlayPause">⏯ Play / Pause</button>
+          <button class="chip-btn" id="btnVideoMute">🔊 Mute</button>
+          <button class="chip-btn" id="btnVideoLoop">🔁 Loop: Off</button>
+          <button class="chip-btn" id="btnVideoSpeed">⚡ வேகம்: 1.0x</button>
+          <button class="chip-btn" id="btnVideoDemo">🎬 Demo Video</button>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- 🔊 2. AUDIO PLAYER SECTION / ஆடியோ பகுதி                      -->
+      <!-- ============================================================== -->
+      <section class="media-card" id="audioSection">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-icon">🎵</span>
+            <div>
+              <h2>ஆடியோ பிளேயர் (Audio Player)</h2>
+              <div class="card-subtitle">MP3, WAV, OGG, AAC அல்லது Online Audio URL</div>
+            </div>
+          </div>
+          <span class="status-badge" id="audioBadge">Ready</span>
+        </div>
+
+        <!-- Audio Visualizer Stage -->
+        <div class="audio-stage">
+          <div class="vinyl-wrapper" id="vinylDisc">
+            <div class="vinyl-center">♪</div>
+          </div>
+          <canvas id="audioVisualizerCanvas" class="audio-visualizer-canvas"></canvas>
+        </div>
+
+        <!-- Native Audio Controls -->
+        <div class="native-audio-wrapper">
+          <audio id="audioPlayer" controls preload="metadata">
+            உங்கள் Browser HTML5 ஆடியோவை ஆதரிக்கவில்லை.
+          </audio>
+        </div>
+
+        <!-- Active Path Display -->
+        <div class="active-path-badge" id="currentAudioDisplay">
+          🔊 தற்போதைய Path: <span>இன்னும் இணைக்கப்படவில்லை</span>
+        </div>
+
+        <!-- Path Input Box -->
+        <div class="path-box">
+          <div class="path-label-row">
+            <span>Audio Copy Path அல்லது URL-ஐ Paste செய்யவும்:</span>
+            <span class="badge-tip">media.audio</span>
+          </div>
+
+          <div class="input-group">
+            <input type="text" id="audioPathInput" class="path-input"
+              placeholder='எ.கா: media/sample_audio.wav அல்லது D:\Downloads\...' spellcheck="false" />
+            <button class="btn btn-cyan" id="btnLoadAudio">▶ Play</button>
+            <label class="btn btn-dark btn-file-label" title="உங்கள் கணினியிலிருந்து பாடலை தேர்ந்தெடுக்கவும்">
+              📂 Browse
+              <input type="file" id="audioFileInput" accept="audio/*" hidden>
+            </label>
+          </div>
+
+          <p class="tip-text">
+            💡 <strong>வழிமுறை:</strong> VS Code-ல் உங்கள் பாடல் file மீது Right Click ➔ <strong>Copy Relative
+              Path</strong> அல்லது <strong>Copy Path</strong> கிளிக் செய்து இங்கே Paste செய்யவும்.
+          </p>
+        </div>
+
+        <!-- Extra Controls -->
+        <div class="controls-row">
+          <button class="chip-btn" id="btnAudioPlayPause">⏯ Play / Pause</button>
+          <button class="chip-btn" id="btnAudioLoop">🔁 Loop: Off</button>
+          <button class="chip-btn" id="btnAudioSpeed">⚡ வேகம்: 1.0x</button>
+          <button class="chip-btn" id="btnSampleAudio">🎶 Sample Chime</button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Code Guide Section -->
+    <section class="code-guide-section">
+      <div class="code-guide-header">
+        <div class="code-guide-title">
+          <span>💻</span>
+          <span>கோடிங்கில் நேரடியாக Path அமைப்பது எப்படி? (Coding Configuration)</span>
+        </div>
+        <button class="chip-btn" id="btnCopySnippet">📋 Copy Code</button>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+        இந்த <span class="banner-code-tag">media.html</span> கோப்பின் ஸ்கிரிப்டில் உள்ள <b>media</b> ஆப்ஜெக்ட்டில்
+        உங்கள் Video மற்றும் Audio path-ஐ கீழே உள்ளது போல் மாற்றினால் போதும்:
+      </p>
+      <pre class="code-box"><code><span class="code-comment">// ================================================================</span>
+<span class="code-comment">// 🎬 MEDIA CONFIGURATION / மீடியா அமைப்புகள்</span>
+<span class="code-comment">// ================================================================</span>
+<span class="code-keyword">const</span> <span class="code-var">media</span> = {
+  <span class="code-comment">// 🎥 1. உங்கள் Video File Path அல்லது URL-ஐ இங்கே Paste செய்யவும்:</span>
+  <span class="code-prop">video</span>: <span class="code-string">"media/sample_video.mp4"</span>,
+
+  <span class="code-comment">// 🔊 2. உங்கள் Audio File Path அல்லது URL-ஐ இங்கே Paste செய்யவும்:</span>
+  <span class="code-prop">audio</span>: <span class="code-string">"media/sample_audio.wav"</span>
+};</code></pre>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    TECHNITIX Media System &copy; 2026 &bull; HTML5 Video &amp; Audio Engine
+  </footer>
+
+  <!-- ======================================================================= -->
+  <!-- 🎬 JAVASCRIPT: MEDIA CONFIGURATION & CONTROLS                          -->
+  <script src="../database/media-config.js"></script>
+  <script src="media-config.js"></script>
+  <script>
+    // =======================================================================
+    // 🎬 1. MEDIA CONFIGURATION (இங்கே உங்கள் File Path / URL-ஐ Paste செய்யவும்)
+    // =======================================================================
+    // 📌 எங்கே Paste செய்ய வேண்டும்? (EXACT PASTE LOCATIONS):
+    //
+    // 🎥 1. VIDEO FILE PATH அல்லது YOUTUBE URL ➔ கீழே Line Number ~935:
+    //    - Local Video: "D:/Videos/my_video.mp4" அல்லது "media/sample_video.mp4"
+    //    - YouTube URL: "https://www.youtube.com/watch?v=..." அல்லது "https://youtu.be/..."
+    //
+    // 🔊 2. AUDIO FILE PATH ➔ கீழே Line Number ~940:
+    //    - Local Audio: "media/sample_audio.wav" அல்லது "D:/Music/song.mp3"
+    //
+    // ⚡ நீங்கள் இங்கே அல்லது media-config.js ஃபைலில் மாற்றி Ctrl + S அழுத்தியதும்,
+    //    finialpro1.html அரண்மனை வெப்சைட்டில் 1 வினாடியில் புதிய வீடியோ லோட் ஆகிவிடும்!
+    // =======================================================================
+
+    const media = {
+      // 🎥 1. VIDEO FILE PATH அல்லது YOUTUBE LINK (வீடியோ கோப்பு):
+      // எ.கா Local: "D:/Videos/vidssave.com KALYANI (with Shreya Ghoshal) OFFICIAL MUSIC VIDEO _ ARJN _ KDS _ FIFTY4 _ RONN _ SHREYA GHOSHAL _ 1080P.mp4"
+      // எ.கா YouTube: "https://www.youtube.com/watch?v=..."
+      video: (typeof TECHNITIX_MEDIA !== 'undefined' && TECHNITIX_MEDIA.video) ? TECHNITIX_MEDIA.video : "D:/Videos/vidssave.com KALYANI (with Shreya Ghoshal) OFFICIAL MUSIC VIDEO _ ARJN _ KDS _ FIFTY4 _ RONN _ SHREYA GHOSHAL _ 1080P.mp4",
+
+      // 🔊 2. AUDIO FILE PATH (ஆடியோ கோப்பு):
+      // எ.கா: "media/sample_audio.wav"
+      audio: (typeof TECHNITIX_MEDIA !== 'undefined' && TECHNITIX_MEDIA.audio) ? TECHNITIX_MEDIA.audio : "media/sample_audio.wav"
+    };
+
+    // Helper: Detect and extract YouTube Video ID
+    function extractYouTubeId(rawUrl) {
+      if (!rawUrl || typeof rawUrl !== 'string') return null;
+      var clean = rawUrl.trim().replace(/^["']+|["']+$/g, '');
+      var match = clean.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|watch\?.+&v=))([\w-]{11})/i);
+      return match ? match[1] : null;
+    }
+
+    // =======================================================================
+    // ⚙️ 2. SMART PATH NORMALIZER
+    // Windows Copy Path (D:\... அல்லது Quotes) போன்றவற்றை தானாக சரிசெய்கிறது:
+    // =======================================================================
+    function cleanAndResolvePath(rawPath) {
+      if (!rawPath || typeof rawPath !== 'string') return '';
+      let clean = rawPath.trim();
+
+      // Remove surrounding double/single quotes if copied like ""D:\..."" or "D:\..."
+      clean = clean.replace(/^["']+|["']+$/g, '');
+
+      // Auto-heal JS unescaped \v (vertical tab \x0B) to 'v' (e.g. \vidssave -> vidssave)
+      clean = clean.replace(/[\x0B\u000B]/g, 'v');
+
+      // Auto-heal missing slash after drive letter when \V was unescaped: "D:Videos" -> "D:/Videos"
+      clean = clean.replace(/^([a-zA-Z]:)\s*(?![\/\\])/i, '$1/');
+
+      // Fix accidental space after drive letter: "D: \..." -> "D:/..."
+      clean = clean.replace(/^([a-zA-Z]:)\s*[\/\\]+/i, '$1/');
+
+      // Normalize Windows backslashes \ to /
+      clean = clean.replace(/\\/g, '/');
+
+      // Auto-fix googleapis typo if present
+      if (clean.includes('tv-videos-bucket')) {
+        clean = clean.replace('tv-videos-bucket', 'gtv-videos-bucket');
+      }
+
+      // If it's already an absolute web URL or blob or data URL, return directly
+      if (/^(https?:|data:|blob:|\/\/)/i.test(clean)) {
+        return clean;
+      }
+
+      // If user copied full Windows path inside project01 (e.g. D:/Downloads/project01/media/...)
+      const projectMatch = clean.match(/(?:.*\/project01\/)(.+)$/i);
+      if (projectMatch && projectMatch[1]) {
+        return projectMatch[1];
+      }
+
+      // If given an absolute Windows drive path (e.g. D:/Videos/... or C:/...)
+      if (/^[a-zA-Z]:\//.test(clean)) {
+        if (window.location.protocol.startsWith('http')) {
+          return '/api/media?path=' + encodeURIComponent(clean);
+        }
+        // If file:/// protocol is used, stream via local server port 5500
+        return 'http://127.0.0.1:5500/api/media?path=' + encodeURIComponent(clean);
+      }
+
+      return clean;
+    }
+
+    // =======================================================================
+    // 🎬 3. DOM ELEMENTS
+    // =======================================================================
+    const videoPlayer = document.getElementById('videoPlayer');
+    const youtubePlayer = document.getElementById('youtubePlayer');
+    const videoPathInput = document.getElementById('videoPathInput');
+    const videoFileInput = document.getElementById('videoFileInput');
+    const btnLoadVideo = document.getElementById('btnLoadVideo');
+    const videoBadge = document.getElementById('videoBadge');
+    const currentVideoDisplay = document.getElementById('currentVideoDisplay').querySelector('span');
+    const videoDropStage = document.getElementById('videoDropStage');
+
+    const audioPlayer = document.getElementById('audioPlayer');
+    const audioPathInput = document.getElementById('audioPathInput');
+    const audioFileInput = document.getElementById('audioFileInput');
+    const btnLoadAudio = document.getElementById('btnLoadAudio');
+    const audioBadge = document.getElementById('audioBadge');
+    const currentAudioDisplay = document.getElementById('currentAudioDisplay').querySelector('span');
+    const vinylDisc = document.getElementById('vinylDisc');
+
+    // Canvas elements
+    const videoAmbientCanvas = document.getElementById('videoAmbientCanvas');
+    const ambientCtx = videoAmbientCanvas ? videoAmbientCanvas.getContext('2d') : null;
+    const visualizerCanvas = document.getElementById('audioVisualizerCanvas');
+    const visualizerCtx = visualizerCanvas ? visualizerCanvas.getContext('2d') : null;
+
+    let activeVideoBlob = null;
+    let activeAudioBlob = null;
+
+    // =======================================================================
+    // 🎥 4. VIDEO LOADER & CONTROLS (SUPPORTS LOCAL FILES & YOUTUBE URLS)
+    // =======================================================================
+    function loadVideo(pathOrUrl, autoPlay = true) {
+      if (!pathOrUrl) {
+        alert('தயவுசெய்து சரியான Video File Path அல்லது URL-ஐ உள்ளிடவும்!');
+        return;
+      }
+
+      // Check if it's a YouTube link
+      const ytId = extractYouTubeId(pathOrUrl);
+      if (ytId) {
+        if (activeVideoBlob) {
+          try { URL.revokeObjectURL(activeVideoBlob); } catch (e) {}
+          activeVideoBlob = null;
+        }
+        videoPlayer.style.display = 'none';
+        if (!videoPlayer.paused) videoPlayer.pause();
+        if (youtubePlayer) {
+          youtubePlayer.style.display = 'block';
+          youtubePlayer.src = `https://www.youtube.com/embed/${ytId}?autoplay=${autoPlay ? 1 : 0}&enablejsapi=1`;
+        }
+        videoPathInput.value = pathOrUrl;
+        currentVideoDisplay.innerHTML = `🔴 <b>YouTube:</b> ${pathOrUrl} <span style="color:#00f5d4; font-size:11px;">[யூடியூப் தயார்]</span>`;
+        videoBadge.textContent = 'YouTube';
+        videoBadge.className = 'status-badge playing';
+        return;
+      }
+
+      // Local / Direct Video URL
+      if (youtubePlayer) {
+        youtubePlayer.style.display = 'none';
+        youtubePlayer.src = '';
+      }
+      videoPlayer.style.display = 'block';
+
+      const resolved = cleanAndResolvePath(pathOrUrl);
+      if (!resolved) {
+        alert('தயவுசெய்து சரியான Video File Path அல்லது URL-ஐ உள்ளிடவும்!');
+        return;
+      }
+
+      if (activeVideoBlob && activeVideoBlob !== resolved) {
+        try { URL.revokeObjectURL(activeVideoBlob); } catch (e) {}
+        activeVideoBlob = null;
+      }
+
+      videoPathInput.value = pathOrUrl;
+      videoPlayer.src = resolved;
+      videoPlayer.load();
+
+      currentVideoDisplay.textContent = pathOrUrl;
+      videoBadge.textContent = 'Loading...';
+      videoBadge.className = 'status-badge';
+
+      if (autoPlay) {
+        const playPromise = videoPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              videoBadge.textContent = 'Playing';
+              videoBadge.className = 'status-badge playing';
+            })
+            .catch(() => {
+              videoBadge.textContent = 'Ready / Click Play';
+              videoBadge.className = 'status-badge';
+            });
+        }
+      }
+    }
+
+    function handleVideoFile(file) {
+      if (!file) return;
+      if (activeVideoBlob) {
+        try { URL.revokeObjectURL(activeVideoBlob); } catch (e) {}
+      }
+      activeVideoBlob = URL.createObjectURL(file);
+      videoPlayer.src = activeVideoBlob;
+      videoPlayer.load();
+
+      const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+      currentVideoDisplay.innerHTML = `📁 <b>${file.name}</b> (${sizeMb} MB) <span style="color:#00f5d4; font-size:10px;">[உள்ளூர் கோப்பு தயார்]</span>`;
+      videoPathInput.value = file.name;
+      videoBadge.textContent = 'Playing';
+      videoBadge.className = 'status-badge playing';
+
+      const playPromise = videoPlayer.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          videoBadge.textContent = 'Ready / Click Play';
+          videoBadge.className = 'status-badge';
+        });
+      }
+    }
+
+    // Video events
+    videoPlayer.addEventListener('play', () => {
+      videoBadge.textContent = 'Playing';
+      videoBadge.className = 'status-badge playing';
+      requestAnimationFrame(drawAmbientGlow);
+    });
+
+    videoPlayer.addEventListener('pause', () => {
+      videoBadge.textContent = 'Paused';
+      videoBadge.className = 'status-badge';
+    });
+
+    videoPlayer.addEventListener('ended', () => {
+      videoBadge.textContent = 'Completed';
+      videoBadge.className = 'status-badge';
+    });
+
+    videoPlayer.addEventListener('error', () => {
+      videoBadge.textContent = 'Load Failed';
+      videoBadge.className = 'status-badge';
+      
+      if (window.location.protocol === 'file:' && videoPlayer.src && videoPlayer.src.startsWith('file:///')) {
+        currentVideoDisplay.innerHTML = `<span style="color:#ff6b6b">⚠️ பிரவுசர் பாதுகாப்பு காரணமாக 'D:\\Videos' பாதையை நேரடியாக அணுக முடியாது.</span><br>👉 உடனடியாக இயக்க <b>"📂 Browse"</b> கிளிக் செய்து வீடியோவை தேர்ந்தெடுக்கவும் அல்லது வீடியோவை <b>project01/media</b> ஃபோல்டருக்குள் நகர்த்தவும்!`;
+      } else {
+        currentVideoDisplay.textContent = 'பிழை: வீடியோவை ஏற்ற முடியவில்லை. Path சரியானதா என்று பார்க்கவும்.';
+      }
+    });
+
+    // Ambient Video Glow
+    function drawAmbientGlow() {
+      if (!videoPlayer.paused && !videoPlayer.ended && ambientCtx && videoPlayer.videoWidth > 0) {
+        try {
+          ambientCtx.drawImage(videoPlayer, 0, 0, videoAmbientCanvas.width, videoAmbientCanvas.height);
+        } catch (e) {}
+        requestAnimationFrame(drawAmbientGlow);
+      }
+    }
+
+    // Button event listeners for video
+    btnLoadVideo.addEventListener('click', () => {
+      loadVideo(videoPathInput.value, true);
+    });
+
+    videoPathInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') loadVideo(videoPathInput.value, true);
+    });
+
+    videoFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) handleVideoFile(file);
+    });
+
+    // Drag & Drop for Video
+    if (videoDropStage) {
+      videoDropStage.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        videoDropStage.style.border = '2px dashed #00f5d4';
+      });
+      videoDropStage.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        videoDropStage.style.border = '';
+      });
+      videoDropStage.addEventListener('drop', (e) => {
+        e.preventDefault();
+        videoDropStage.style.border = '';
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+          handleVideoFile(e.dataTransfer.files[0]);
+        }
+      });
+    }
+
+    // Extra Video Quick Controls
+    document.getElementById('btnVideoPlayPause').addEventListener('click', () => {
+      if (videoPlayer.paused) videoPlayer.play();
+      else videoPlayer.pause();
+    });
+
+    const btnVideoMute = document.getElementById('btnVideoMute');
+    btnVideoMute.addEventListener('click', () => {
+      videoPlayer.muted = !videoPlayer.muted;
+      btnVideoMute.textContent = videoPlayer.muted ? '🔇 Unmute' : '🔊 Mute';
+      btnVideoMute.classList.toggle('active', videoPlayer.muted);
+    });
+
+    const btnVideoLoop = document.getElementById('btnVideoLoop');
+    btnVideoLoop.addEventListener('click', () => {
+      videoPlayer.loop = !videoPlayer.loop;
+      btnVideoLoop.textContent = videoPlayer.loop ? '🔁 Loop: On' : '🔁 Loop: Off';
+      btnVideoLoop.classList.toggle('active', videoPlayer.loop);
+    });
+
+    const videoSpeeds = [1.0, 1.25, 1.5, 2.0, 0.5];
+    let vSpeedIndex = 0;
+    const btnVideoSpeed = document.getElementById('btnVideoSpeed');
+    btnVideoSpeed.addEventListener('click', () => {
+      vSpeedIndex = (vSpeedIndex + 1) % videoSpeeds.length;
+      const speed = videoSpeeds[vSpeedIndex];
+      videoPlayer.playbackRate = speed;
+      btnVideoSpeed.textContent = `⚡ வேகம்: ${speed}x`;
+    });
+
+    document.getElementById('btnVideoDemo').addEventListener('click', () => {
+      loadVideo("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", true);
+    });
+
+    // =======================================================================
+    // 🔊 5. AUDIO LOADER & WEB AUDIO VISUALIZER
+    // =======================================================================
+    let audioCtx = null;
+    let analyser = null;
+    let audioSourceNode = null;
+    let isVisualizerConnected = false;
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+          analyser = audioCtx.createAnalyser();
+          analyser.fftSize = 64;
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      if (audioCtx && analyser && !isVisualizerConnected) {
+        try {
+          audioSourceNode = audioCtx.createMediaElementSource(audioPlayer);
+          audioSourceNode.connect(analyser);
+          analyser.connect(audioCtx.destination);
+          isVisualizerConnected = true;
+        } catch (err) {
+          console.warn('Audio visualization direct node setup:', err);
+        }
+      }
+    }
+
+    function loadAudio(pathOrUrl, autoPlay = true) {
+      const resolved = cleanAndResolvePath(pathOrUrl);
+      if (!resolved) {
+        alert('தயவுசெய்து சரியான Audio File Path அல்லது URL-ஐ உள்ளிடவும்!');
+        return;
+      }
+
+      if (activeAudioBlob && activeAudioBlob !== resolved) {
+        try { URL.revokeObjectURL(activeAudioBlob); } catch (e) {}
+        activeAudioBlob = null;
+      }
+
+      audioPathInput.value = pathOrUrl;
+      audioPlayer.src = resolved;
+      audioPlayer.load();
+
+      currentAudioDisplay.textContent = pathOrUrl;
+      audioBadge.textContent = 'Loading...';
+      audioBadge.className = 'status-badge';
+
+      if (autoPlay) {
+        initAudioContext();
+        const playPromise = audioPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              audioBadge.textContent = 'Playing';
+              audioBadge.className = 'status-badge playing';
+              vinylDisc.classList.add('spinning');
+            })
+            .catch(() => {
+              audioBadge.textContent = 'Ready / Click Play';
+              audioBadge.className = 'status-badge';
+            });
+        }
+      }
+    }
+
+    function handleAudioFile(file) {
+      if (!file) return;
+      if (activeAudioBlob) {
+        try { URL.revokeObjectURL(activeAudioBlob); } catch (e) {}
+      }
+      activeAudioBlob = URL.createObjectURL(file);
+      audioPlayer.src = activeAudioBlob;
+      audioPlayer.load();
+
+      const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+      currentAudioDisplay.innerHTML = `📁 <b>${file.name}</b> (${sizeMb} MB) <span style="color:#00f5d4; font-size:10px;">[உள்ளூர் பாடல் தயார்]</span>`;
+      audioPathInput.value = file.name;
+      audioBadge.textContent = 'Playing';
+      audioBadge.className = 'status-badge playing';
+      vinylDisc.classList.add('spinning');
+
+      initAudioContext();
+      const playPromise = audioPlayer.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          audioBadge.textContent = 'Ready / Click Play';
+          audioBadge.className = 'status-badge';
+          vinylDisc.classList.remove('spinning');
+        });
+      }
+    }
+
+    // Audio events
+    audioPlayer.addEventListener('play', () => {
+      initAudioContext();
+      audioBadge.textContent = 'Playing';
+      audioBadge.className = 'status-badge playing';
+      vinylDisc.classList.add('spinning');
+      renderAudioSpectrum();
+    });
+
+    audioPlayer.addEventListener('pause', () => {
+      audioBadge.textContent = 'Paused';
+      audioBadge.className = 'status-badge';
+      vinylDisc.classList.remove('spinning');
+    });
+
+    audioPlayer.addEventListener('ended', () => {
+      audioBadge.textContent = 'Completed';
+      audioBadge.className = 'status-badge';
+      vinylDisc.classList.remove('spinning');
+    });
+
+    audioPlayer.addEventListener('error', () => {
+      audioBadge.textContent = 'Load Failed';
+      audioBadge.className = 'status-badge';
+      vinylDisc.classList.remove('spinning');
+      currentAudioDisplay.textContent = 'பிழை: ஆடியோ கோப்பினை ஏற்ற முடியவில்லை. Path சரியானதா என்று பார்க்கவும்.';
+    });
+
+    // Real-time Canvas Spectrum Animation
+    function renderAudioSpectrum() {
+      if (!visualizerCtx || !visualizerCanvas) return;
+
+      const width = visualizerCanvas.width = visualizerCanvas.offsetWidth;
+      const height = visualizerCanvas.height = visualizerCanvas.offsetHeight;
+
+      if (!audioPlayer.paused && !audioPlayer.ended) {
+        requestAnimationFrame(renderAudioSpectrum);
+      }
+
+      visualizerCtx.clearRect(0, 0, width, height);
+
+      let bufferLength = 32;
+      let dataArray = new Uint8Array(bufferLength);
+
+      if (analyser && isVisualizerConnected) {
+        analyser.getByteFrequencyData(dataArray);
+      } else {
+        const time = Date.now() / 150;
+        for (let i = 0; i < bufferLength; i++) {
+          dataArray[i] = Math.floor(Math.abs(Math.sin(time + i * 0.35)) * 200 + 40);
+        }
+      }
+
+      const barWidth = (width / bufferLength) * 0.75;
+      const gap = (width / bufferLength) * 0.25;
+      let x = gap / 2;
+
+      for (let i = 0; i < bufferLength; i++) {
+        const barHeight = (dataArray[i] / 255) * height * 0.9;
+
+        const grad = visualizerCtx.createLinearGradient(0, height, 0, 0);
+        grad.addColorStop(0, '#ffd700');
+        grad.addColorStop(0.5, '#ff8c00');
+        grad.addColorStop(1, '#00f5d4');
+
+        visualizerCtx.fillStyle = grad;
+        visualizerCtx.fillRect(x, height - barHeight, barWidth, barHeight);
+        x += barWidth + gap;
+      }
+    }
+
+    // Button event listeners for audio
+    btnLoadAudio.addEventListener('click', () => {
+      loadAudio(audioPathInput.value, true);
+    });
+
+    audioPathInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') loadAudio(audioPathInput.value, true);
+    });
+
+    audioFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) handleAudioFile(file);
+    });
+
+    document.getElementById('btnAudioPlayPause').addEventListener('click', () => {
+      initAudioContext();
+      if (audioPlayer.paused) audioPlayer.play();
+      else audioPlayer.pause();
+    });
+
+    const btnAudioLoop = document.getElementById('btnAudioLoop');
+    btnAudioLoop.addEventListener('click', () => {
+      audioPlayer.loop = !audioPlayer.loop;
+      btnAudioLoop.textContent = audioPlayer.loop ? '🔁 Loop: On' : '🔁 Loop: Off';
+      btnAudioLoop.classList.toggle('active', audioPlayer.loop);
+    });
+
+    const audioSpeeds = [1.0, 1.25, 1.5, 2.0, 0.75];
+    let aSpeedIndex = 0;
+    const btnAudioSpeed = document.getElementById('btnAudioSpeed');
+    btnAudioSpeed.addEventListener('click', () => {
+      aSpeedIndex = (aSpeedIndex + 1) % audioSpeeds.length;
+      const speed = audioSpeeds[aSpeedIndex];
+      audioPlayer.playbackRate = speed;
+      btnAudioSpeed.textContent = `⚡ வேகம்: ${speed}x`;
+    });
+
+    document.getElementById('btnSampleAudio').addEventListener('click', () => {
+      loadAudio("media/sample_audio.wav", true);
+    });
+
+    // Copy Code Snippet Button
+    document.getElementById('btnCopySnippet').addEventListener('click', () => {
+      const snippet = `const media = {\n  video: "${videoPathInput.value || 'media/sample_video.mp4'}",\n  audio: "${audioPathInput.value || 'media/sample_audio.wav'}"\n};`;
+      navigator.clipboard.writeText(snippet).then(() => {
+        const btn = document.getElementById('btnCopySnippet');
+        btn.textContent = '✅ Copied!';
+        setTimeout(() => { btn.textContent = '📋 Copy Code'; }, 2000);
+      });
+    });
+
+    // =======================================================================
+    // 🚀 6. AUTOMATIC INITIALIZATION FROM CODING `media` OBJECT
+    // =======================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      if (media.video) {
+        loadVideo(media.video, false);
+      }
+      if (media.audio) {
+        loadAudio(media.audio, false);
+      }
+      if (videoAmbientCanvas) {
+        videoAmbientCanvas.width = 64;
+        videoAmbientCanvas.height = 36;
+      }
+
+      // ⚡ INSTANT LIVE WATCHER: Detects Ctrl+S in media-config.js in 1 second!
+      if (window.location.protocol.startsWith('http')) {
+        let lastSeenVideo = media.video;
+        setInterval(async () => {
+          try {
+            const res = await fetch('/api/media-config?_t=' + Date.now());
+            if (res.ok) {
+              const data = await res.json();
+              if (data && data.video && data.video !== lastSeenVideo) {
+                lastSeenVideo = data.video;
+                console.log('⚡ Live update from media-config.js:', data.video);
+                loadVideo(data.video, true);
+              }
+            }
+          } catch (e) {}
+        }, 1000);
+      }
+    });
+  </script>
+</body>
+
+</html>
